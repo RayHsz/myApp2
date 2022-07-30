@@ -1,0 +1,166 @@
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+
+//整体的上下背景颜色
+.BackgroundPicture{
+  width: 100%;
+  height: 300px;
+  background-color:rgb(119,86,55);
+}
+
+.BackgroundPicture2{
+  width: 100%;
+  height: 990px;
+  background-color:rgb(240,240,240);
+}
+
+//总中心内容部分
+.CentralPart{
+  width: 690px;
+  height: 600px;
+  background-color: rgb(255,255,255);
+  float: left;
+  position: relative;
+  left: 35px;
+  top: -1070px;
+  border-radius: 8%;
+}
+
+.topPart{
+  width: 100%;
+  height: 200px;
+
+}
+//头像
+.headerPortrait{
+  float: left;
+  position: relative;
+  left: 50px;
+  top:  50px;
+}
+
+//用户姓名信息
+.userName{
+  float: left;
+  position: relative;
+  color: rgb(255,255,255);
+  left: 70px;
+  top:  70px;
+}
+
+//白色箭头
+.WhiteArrow{
+  float: left;
+  position: relative;
+  left:200px;
+  top: 70px;
+}
+
+//中心部分分块
+.top{
+  position: relative;
+  top: 50px;
+  width: 100%;
+  height: 30%;
+
+}
+
+.register{
+  position: relative;
+  width: 40%;
+  height: 55%;
+  //background-color:palegoldenrod;
+  float: left;
+  left: 50px;
+  border-right: 5px solid  rgb(240,240,240);
+}
+
+.patient{
+  position: relative;
+  width: 45%;
+  height: 55%;
+  //background-color:darkcyan;
+  float: left;
+
+  left:70px;
+}
+.myService{
+  position: relative;
+  top: 50px;
+  width: 100%;
+  height: 100px;
+  background-color: rgb(240,240,240);
+}
+.service{
+  position: relative;
+  top: 45px;
+
+}
+.collection{
+  position: relative;
+  top: 50px;
+  width: 100%;
+  height: 15%;
+  //background-color:darkcyan;
+  border:4px solid rgb(240,240,240);
+}
+
+.evaluate{
+  position: relative;
+  top: 50px;
+  width: 100%;
+  height: 15%;
+  //background-color:palegoldenrod;
+  border-bottom:4px solid rgb(240,240,240);
+}
+.record{
+  position: relative;
+  top: 50px;
+  width: 100%;
+  height: 20%;
+  //background-color:navajowhite;
+}
+
+.word{
+  float: left;
+  position: relative;
+  left: 100px;
+  top:20px;
+}
+
+.star{
+  float: left;
+  position: relative;
+  left: 50px;
+  top:15px;
+}
+.edit{
+  float: left;
+  position: relative;
+  left: 50px;
+  top:15px;
+}
+
+.fileGeneric{
+  float: left;
+  position: relative;
+  left: 50px;
+  top:15px;
+}
+
+.blackArrow{
+  float: left;
+  position: relative;
+  left: 365px;
+  top: 20px;
+}
+
+.blackArrow2{
+  float: left;
+  position: relative;
+  left: 290px;
+  top: 20px;
+
+}
