@@ -7,6 +7,7 @@ import './index.scss'
 import {AtAvatar, AtIcon} from "taro-ui";
 import { Picker } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
+import TabBar from "../../tabBarPage";
 class Index extends Component {
 
     state = {
@@ -101,8 +102,7 @@ class Index extends Component {
                         </Button>
                     </View>
                 </View>
-
-
+                <TabBar tabBarCurrent={2} />
             </View>
         )
     }

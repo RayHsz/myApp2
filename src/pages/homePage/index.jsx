@@ -1,18 +1,18 @@
 import {Component} from "react";
 import {View} from "@tarojs/components";
-import {connect} from "react-redux";
-import {findHospital} from "../../actions/hospital";
 import './index.scss'
+import TabBar from "../tabBarPage";
 
 
 
 
-@connect(({hospital}) => ({hospital}), {findHospital})
+
 class Index extends Component {
     render() {
         return (
             <View className=''>
-
+                111
+                <TabBar tabBarCurrent={0} />
             </View>
         )
     }

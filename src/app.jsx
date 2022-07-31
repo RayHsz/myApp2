@@ -17,9 +17,10 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      <Provider store={store}>
-        {this.props.children}
-      </Provider>
+        <Provider store={store}>
+          {this.props.children}
+        </Provider>
+
     )
   }
 }
