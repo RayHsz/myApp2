@@ -1,0 +1,67 @@
+.body{
+  background-color: darkorange;
+}
+.index{
+  flex-direction: column;
+  background-color: rgb(119,86,55); //这个样式和搜索栏重叠，可以省略
+  height: 100px;
+}
+.AtSearchBar{
+  height: 100px;
+  background-color: rgb(119,86,55);
+}
+
+//文章分类
+.articleClassify{
+  height: 360px;
+  width: 100%;
+  background-color: rgba(245,245,245);
+  z-index: 0;
+}
+.wzfl{
+  background-color: white;
+  //background-color: cornflowerblue;
+  height: 170px;
+  width: 33%;
+  z-index: 1;
+}
+/*
+宽度33%=250px
+*/
+.a{
+  position: absolute;
+  top: 100px;
+  left: 0;
+}
+.b{
+  position: absolute;
+  top: 100px;
+  left: 252px;
+}
+.c{
+  position: absolute;
+  top: 100px;
+  left: 503px;
+}
+.d{
+  position: absolute;
+  top: 272px;
+  left: 0px;
+}
+.e{
+  position: absolute;
+  top: 272px;
+  left: 252px;
+}
+.f{
+  position: absolute;
+  top: 272px;
+  left: 503px;
+}
+/*图片*/
+.wzfl-img{
+  position: absolute;
+  top: 18px;
+  left: 74px;
+}
+
