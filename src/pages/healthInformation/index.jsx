@@ -4,6 +4,7 @@ import { ScrollView,View } from "@tarojs/components";
 import { AtSearchBar,AtGrid,AtList,AtListItem } from 'taro-ui'
 import index from "@tarojs/react";
 import TabBar from "../tabBarPage";
+import Taro from "@tarojs/taro";
 
 /*import * as url from "url";
 import Taro from "@tarojs/taro";*/
@@ -32,6 +33,12 @@ class Index extends Component {
     handleClick=(item,index)=>{
         //console.log("文章分类名称 =",item.value)
         //console.log("index =",index)
+    }
+
+    toArticle = () => {
+        Taro.navigateTo({
+            url: 'article/index'
+        })
     }
 
     render() {
@@ -114,6 +121,7 @@ class Index extends Component {
                     {/*文章列表*/}
                     <AtList>
                         <AtListItem
+                            onClick={this.toArticle}
                             title='标题文字标题文字标题文字标题文字标题文字标题文字'
                             note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
                             arrow='right'
