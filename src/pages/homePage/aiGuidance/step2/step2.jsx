@@ -5,6 +5,7 @@ import {AtButton, AtSteps} from 'taro-ui';
 import { AtCheckbox } from 'taro-ui';
 import {connect} from "react-redux";
 import {onChangeCheckedList} from "../../../../actions/aiGuidance";
+import Taro from "@tarojs/taro";
 
 @connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCheckedList}))
 class Step2 extends Component{
@@ -14,6 +15,13 @@ class Step2 extends Component{
     handleChange (value) {
         this.props.onChangeCheckedList(value)
     }
+
+    next=()=>{
+        Taro.navigateTo({
+            url: '../step3/step3'
+        })
+    }
+
     render() {
         const items = [
             {
