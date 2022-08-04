@@ -1,0 +1,88 @@
+.aaa{
+  width: 100%;
+  flex-direction: column;
+}
+.addpatient{
+  margin-top: 15px;
+  font-family: 宋体;
+  font-weight: bold;
+  width: 600px;
+  margin-left: 70px;
+}
+.addbutton{
+  background-color: red;
+}
+.index{
+  width: 700px;
+  height: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  border:solid gainsboro ;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  box-shadow:10px 10px 5px #888888;
+  border-radius:20px ;
+  float: left;
+}
+.age{
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 30px;
+  font-family: 宋体;
+  font-weight: bold;
+  color: gray;
+}
+.id_card{
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 30px;
+  font-family: 宋体;
+  font-weight: bold;
+  color: gray;
+}
+.address{
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 30px;
+  font-family: 宋体;
+  font-weight: bold;
+  color: gray;
+}
+.line{
+  color: gainsboro
+}
+.de_patient{
+  width: 30%;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-family: 宋体;
+  font-weight: bold;
+  color: gray;
+  float: left;
+}
+.edit{
+  margin-left: 200px;
+  font-size: 30px;
+  width:auto;
+  float: left;
+  font-weight: bold;
+  font-family: 宋体;
+  color: gray;
+  color: burlywood;
+
+}
+.trash{
+  margin-left:  50px;
+  font-size: 30px;
+  width: auto;
+  float: left;
+  font-weight: bold;
+  font-family: 宋体;
+  color: gray;
+  color: burlywood;
+
+}
