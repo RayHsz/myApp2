@@ -6,18 +6,30 @@ const INIT_STATE = {
     active:true
 }
 
-export default function aiGuidance(previousState = INIT_STATE, action){
+export default function aiGuidance(state = INIT_STATE, action){
 
-    let {type,active} = action;
-
-    switch (type) {
+    switch (action.type) {
         case 'turnSex':
-            console.log("reducer: ",active);
             return {
-                ...previousState,
-                active:active
+                ...state,
+                active:!state.active
             };
+        case 'changeDate':
+            return{
+                ...state,
+                dateSel: action.dateSel
+            }
+        case 'changeCurrent':
+            return {
+                ...state,
+                current: action.current
+            }
+        case 'changeCheckedList':
+            return {
+                ...state,
+                checkedList: action.checkedList
+            }
         default:
-            return previousState;
+            return state
     }
 }

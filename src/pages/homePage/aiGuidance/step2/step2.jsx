@@ -3,24 +3,16 @@ import {View} from "@tarojs/components";
 import './step2.scss';
 import {AtButton, AtSteps} from 'taro-ui';
 import { AtCheckbox } from 'taro-ui';
+import {connect} from "react-redux";
+import {onChangeCheckedList} from "../../../../actions/aiGuidance";
 
+@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCheckedList}))
 class Step2 extends Component{
-    constructor () {
-        super(...arguments)
-        this.state = {
-            current: 1,
-            checkedList: ['list1',"list2"]
-        }
-    }
-    onChange (current) {
-        this.setState({
-            current
-        })
+    constructor (props) {
+        super(props)
     }
     handleChange (value) {
-        this.setState({
-            checkedList: value
-        })
+        this.props.onChangeCheckedList(value)
     }
     render() {
         const items = [
@@ -62,8 +54,8 @@ class Step2 extends Component{
                 <View>
                     <AtSteps className='step'
                              items={items}
-                             current={this.state.current}
-                             onChange={this.onChange.bind(this)}
+                             current={this.props.aiGuidance.current}
+                             // onChange={this.onChange.bind(this)}
                              activeColor='blue'
                     />
                 </View>
@@ -73,7 +65,7 @@ class Step2 extends Component{
                 <View>
                     <AtCheckbox
                         options={this.checkboxOption}
-                        selectedList={this.state.checkedList}
+                        selectedList={this.props.aiGuidance.checkedList}
                         onChange={this.handleChange.bind(this)}
                     />
                 </View>
