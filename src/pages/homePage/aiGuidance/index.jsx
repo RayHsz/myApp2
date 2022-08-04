@@ -10,38 +10,22 @@ import { AtList, AtListItem } from 'taro-ui'
 import { AtButton } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import {connect} from "react-redux";
-import {onChangeActive} from "../../../actions/aiGuidance";
+import {onChangeActive, onChangeCurrent, onChangeDate} from "../../../actions/aiGuidance";
 
-@connect(({aiGuidance}) => ({aiGuidance}), {onChangeActive})
+@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeActive,onChangeDate,onChangeCurrent}))
 class Index extends Component {
     constructor (props) {
         super(props)
     }
 
-    onChange (current) {
-        this.setState({
-            current
-        })
-    }
-
-    onChangeActive=(active)=>{
-        console.log(this.props.aiGuidance);
-        this.props.onChangeActive(active)
-    }
-
-    onDateChange = e => {
-        this.setState({
-            dateSel: e.detail.value
-        })
-    }
-
-    next(){
+    next=()=>{
+        this.props.onChangeCurrent(1)
         Taro.navigateTo({
             url: 'step2/step2'
         })
     }
-    test=()=>{
-        console.log(this.props.aiGuidance.active);
+    onDateChange = e => {
+        this.props.onChangeDate(e.detail.value)
     }
 
     render() {
@@ -63,8 +47,8 @@ class Index extends Component {
                 </View>
                     <AtSteps className='step'
                         items={items}
-                        current={this.props.current}
-                        onChange={this.onChange.bind(this)}
+                        current={this.props.aiGuidance.current}
+                        // onChange={this.onChange.bind(this)}
                     />
                 <View className='information'>
                     <AtIcon className='icon' value='user' size='20' color='black'></AtIcon>
@@ -72,14 +56,14 @@ class Index extends Component {
                 </View>
                 <View className='sex'>
                     <text className='text'>性别</text>
-                    <View className='tag'><AtTag type='primary' circle active={this.props.aiGuidance} onClick={this.test}>男</AtTag></View>
-                    <View className='tag2'><AtTag type='primary' circle active={!this.props.aiGuidance} onClick={this.test}>女</AtTag></View>
+                    <View className='tag'><AtTag type='primary' circle active={this.props.aiGuidance.active} onClick={this.props.onChangeActive}>男</AtTag></View>
+                    <View className='tag2'><AtTag type='primary' circle active={!this.props.aiGuidance.active} onClick={this.props.onChangeActive}>女</AtTag></View>
                 </View>
                 <View className='bornDay'>
                     <View>
                         <Picker mode='date' onChange={this.onDateChange}>
                             <AtList>
-                                <AtListItem title='出生日期' extraText={this.props.dateSel} />
+                                <AtListItem title='出生日期' extraText={this.props.aiGuidance.dateSel} />
                             </AtList>
                         </Picker>
                     </View>
