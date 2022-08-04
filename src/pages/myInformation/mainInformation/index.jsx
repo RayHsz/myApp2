@@ -9,7 +9,7 @@ import { AtIcon } from 'taro-ui'
 import TabBar from "../../tabBarPage";
 
 
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~新的代码哟~~~~~~~~~~~~~~~·
 @connect(({hospital}) => ({hospital}), {findHospital})
 class Index extends Component {
   constructor(props) {
