@@ -1,0 +1,69 @@
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+.at-search-bar{
+  width: 100%;
+  height: 100px;
+  background-color:rgb(119,86,55);
+}
+.action{
+  width: 100%;
+  height: 220px;
+}
+.at-button{
+  width: 33%;
+  left: 0.5%;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+.title{
+  top:60%;
+  position: absolute;
+}
+
+.img{
+  width:100px;
+  height:100px;
+  margin-top:20px;
+  position: relative;
+}
+.center{
+  width: 100%;
+  height: 220px;
+  background-color: rgb(244,244,244);
+}
+.center-child{
+  width: 50%;
+  height: 80%;
+  top: 22px;
+  background-color: rgb(231,240,249);
+  position: relative;
+  float: left;
+}
+.center-text-view{
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+.center-text1{
+  top:25%;
+  left:20%;
+  position: relative;
+}
+.center-text2{
+  top:65%;
+  left:15%;
+  position: absolute;
+}
+.center-child-text1{
+  top:20%;
+  left:20%;
+  position: relative;
+}
+.center-child-text2{
+  top:45%;
+  left:30%;
+  position: absolute;
+}

@@ -1,12 +1,12 @@
 import {Component} from "react";
 import {View} from "@tarojs/components";
 import {connect} from "react-redux";
-import {findHospital} from "../../actions/hospital";
+import {findHospital} from "../../../actions/hospital";
 import './index.scss';
 import { AtSearchBar } from 'taro-ui';
 import { Swiper, SwiperItem } from '@tarojs/components';
 import Taro from "@tarojs/taro";
-import TabBar from "../tabBarPage";
+import TabBar from "../../tabBarPage";
 
 @connect(({hospital}) => ({hospital}), {findHospital})
 class Index extends Component {
@@ -18,9 +18,14 @@ class Index extends Component {
             //value: value
         })
     }
+    goToHospital=()=>{
+        Taro.navigateTo({
+            url: '../hospital/index'
+        })
+    }
     goToAIGuidance=()=> {
         Taro.navigateTo({
-            url: 'aiGuidance/index'
+            url: '../aiGuidance/index'
         })
     }
     render () {
@@ -63,19 +68,39 @@ class Index extends Component {
                     </Swiper>
                 </View>
                 <View className='action'>
-                    <View className='at-button'>
+                    <View className='at-button' onClick={this.goToHospital}>
+                        <image className='img' src='http://106.12.158.62:8080/img/guoyitang.jpg'></image>
                         <text className='title'>国医堂</text>
                     </View>
                     <View className='at-button'>
+                        <image className='img' src='http://106.12.158.62:8080/img/yuyuefuwu.png'></image>
                         <text className='title'>预约服务</text>
                     </View>
                     <View className='at-button' onClick={this.goToAIGuidance}>
+                        <image className='img' src='http://106.12.158.62:8080/img/zhinnengdaozhen.png'></image>
                         <text className='title'>智能导诊</text>
                     </View>
                 </View>
+                <View className='center'>
+                    <View className='center-text-view'>
+                        <text className='center-text1'>
+                            中医健康管理
+                        </text>
+                        <text className='center-text2'>
+                            知识宣教
+                        </text>
+                    </View>
+                    <View className='center-child'>
+                        <text className='center-child-text1'>
+                            【体质辨识】
+                        </text>
+                        <text className='center-child-text2'>
+                            判定量表
+                        </text>
+                    </View>
 
+                </View>
                 <TabBar tabBarCurrent={0} />
-
             </View>
         )
     }
