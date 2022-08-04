@@ -5,6 +5,7 @@ import {AtRate,AtList, AtListItem} from "taro-ui";
 import './index.scss'
 import {findHospital} from "../../../actions/hospital";
 import Taro from "@tarojs/taro";
+import TabBar from "../../tabBarPage";
 
 @connect(({hospital}) => ({hospital}), {findHospital})
 class Index extends Component {
@@ -18,8 +19,6 @@ class Index extends Component {
     next(){
         Taro.navigateTo({
             url:'info/info'
-        }).then(res=>{
-            console.log(res);
         })
     }
 
@@ -33,9 +32,11 @@ class Index extends Component {
     render() {
         let imgsrc1 = "http://116.205.177.247:8080/images/hotHospital-left.jpg";
         let imgsrc2 = "http://116.205.177.247:8080/images/hotHospital-right.jpg";
-
         let imgsrc3 = "http://116.205.177.247:8080/images/yuxishequ.jpg";
         let imgsrc4 = "http://116.205.177.247:8080/images/gaoyingshequ.jpg";
+
+        let hotHospital = ['王西章乡卫生院国医堂','西兆通镇卫生院国医堂'];
+        let hospitalList = ['裕西社区国医堂','王西章乡卫生院国医堂','高营社区国医堂'];
 
         let buttonValue = [2,2,3,1,5,4];
         return (
@@ -49,7 +50,7 @@ class Index extends Component {
                                 <image src={imgsrc1} alt="" className='leftImg'/>
                             </View>
                             <View className='leftMs'>
-                                王西章乡卫生院国医堂
+                                {hotHospital[0]}
                             </View>
                             <AtRate
                                 className='leftStar'
@@ -62,7 +63,7 @@ class Index extends Component {
                                 <image src={imgsrc2} alt="" className='rightImg'/>
                             </View>
                             <View className='rightMs'>
-                                西兆通镇卫生院国医堂
+                                {hotHospital[1]}
                             </View>
                             <AtRate
                                 className='rightStar'
@@ -85,7 +86,7 @@ class Index extends Component {
                         <View>
                             <image src={imgsrc3} alt="" className='listImg' />
                             <text className='hospitalName'>
-                                裕西社区国医堂
+                                {hospitalList[0]}
                             </text>
                             <AtRate
                                 className='score'
@@ -96,7 +97,7 @@ class Index extends Component {
                         <View>
                             <image src={imgsrc1} alt="" className='listImg' />
                             <text className='hospitalName'>
-                                王西章乡卫生院国医堂
+                                {hospitalList[1]}
                             </text>
                             <AtRate
                                 className='score'
@@ -107,7 +108,7 @@ class Index extends Component {
                         <View>
                             <image src={imgsrc4} alt="" className='listImg' />
                             <text className='hospitalName'>
-                                高营社区国医堂
+                                {hospitalList[2]}
                             </text>
                             <AtRate
                                 className='score'
@@ -117,6 +118,7 @@ class Index extends Component {
                         </View>
                     </View>
                 </View>
+                <TabBar tabBarCurrent={0} />
             </View>
         );
     }
