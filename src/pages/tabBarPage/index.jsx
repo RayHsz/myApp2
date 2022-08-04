@@ -14,11 +14,10 @@ class TabBar extends Component {
 
 
     handleClick (value) {
-        console.log("tabBar ====" +value);
         switch (value) {
             case 0:
                 Taro.reLaunch({
-                    url: '/pages/homePage/index'
+                    url: '/pages/homePage/index/index'
                 });
                 break;
             case 1:
@@ -48,11 +47,10 @@ class TabBar extends Component {
                           iconSize='26'
 
                           tabList={[
-                              { title: '首页', image: "http://47.95.223.172/img/home.png", selectedImage: "http://47.95.223.172/img/homeSD.png" },
-                              { title: '健康资讯', image:  "http://47.95.223.172/img/myConsult.png", selectedImage:  "http://47.95.223.172/img/myConsultSD.png" },
-                              { title: '我的', image: "http://47.95.223.172/img/home.png", selectedImage: "http://47.95.223.172/img/homeSD.png" }
+                              { title: '首页', image: "http://106.12.158.62:8080/img/home.png", selectedImage: "http://106.12.158.62:8080/img/homeSD.png" },
+                              { title: '健康资讯', image:  "http://106.12.158.62:8080/img/myConsult.png", selectedImage:  "http://106.12.158.62:8080/img/myConsultSD.png" },
+                              { title: '我的', image: "http://106.12.158.62:8080/img/my1.png", selectedImage: "http://106.12.158.62:8080/img/my2.png" }
                           ]}
-
                           onClick={this.handleClick.bind(this)}
                           current={this.props.tabBarCurrent}
 

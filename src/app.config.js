@@ -1,8 +1,11 @@
 export default defineAppConfig({
   pages: [
-    'pages/homePage/index',
+    'pages/homePage/index/index',
+    'pages/homePage/aiGuidance/index',
+    'pages/homePage/aiGuidance/step2/step2',
+    'pages/homePage/hospital/index',
+    'pages/homePage/hospital/info/info',
     'pages/healthInformation/index',
-    'pages/healthInformation/article/index',
     'pages/myInformation/mainInformation/index',
     'pages/myInformation/userInformation/index',
     'pages/myInformation/myCollection/index',
