@@ -8,6 +8,7 @@ import {AtAvatar, AtIcon} from "taro-ui";
 import { Picker } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import TabBar from "../../tabBarPage";
+import Taro from "@tarojs/taro";
 class Index extends Component {
 
     state = {
@@ -27,13 +28,18 @@ class Index extends Component {
         })
     }
 
+    mainInformationSkip=()=>{
+        Taro.navigateTo({
+            url: '/pages/myInformation/mainInformation/index'
+        })
+    }
     render () {
         return (
             <View className='index'>
                 <View className='backgroundPicture'>
                     <View className='format'>
                         <View className='word'>头像</View>
-                        <AtAvatar  size='100' circle image='' className='headerPortrait'></AtAvatar>
+                        <AtAvatar  size='100' circle image='http://47.95.223.172/img/xier.png' className='headerPortrait'></AtAvatar>
                     </View>
                     <View className='format'>
                         <View className='word'>姓名</View>
@@ -97,7 +103,7 @@ class Index extends Component {
                         </View>
                     </View>
                     <View>
-                        <Button className='save'>
+                        <Button className='save' onClick={this.mainInformationSkip}>
                             保存
                         </Button>
                     </View>

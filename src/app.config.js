@@ -8,6 +8,7 @@ export default defineAppConfig({
     'pages/myInformation/myRegistration/index',
     'pages/myInformation/effectEvaluation/index',
     'pages/myInformation/identificationRecords/index',
+    'pages/myInformation/hospital/hospitalList',
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -48,9 +48,9 @@ class TabBar extends Component {
                           iconSize='26'
 
                           tabList={[
-                              { title: '首页', image: "/images/home.png", selectedImage: "/images/homeSD.png" },
-                              { title: '健康资讯', image:  "/images/myConsult.png", selectedImage:  "/images/myConsultSD.png" },
-                              { title: '我的', image: "/images/home.png", selectedImage: "/images/homeSD.png" }
+                              { title: '首页', image: "http://47.95.223.172/img/home.png", selectedImage: "http://47.95.223.172/img/homeSD.png" },
+                              { title: '健康资讯', image:  "http://47.95.223.172/img/myConsult.png", selectedImage:  "http://47.95.223.172/img/myConsultSD.png" },
+                              { title: '我的', image: "http://47.95.223.172/img/home.png", selectedImage: "http://47.95.223.172/img/homeSD.png" }
                           ]}
                           onClick={this.handleClick.bind(this)}
                           current={this.props.tabBarCurrent}

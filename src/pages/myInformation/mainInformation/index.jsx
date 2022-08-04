@@ -1,6 +1,5 @@
 import {Component} from "react";
 import {View} from "@tarojs/components";
-import {AtButton} from "taro-ui";
 import {connect} from "react-redux";
 import {findHospital} from "../../../actions/hospital";
 import Taro from "@tarojs/taro";
@@ -40,6 +39,7 @@ class Index extends Component {
     }
 
     effectEvaluationSkip = () => {
+        this.props.findHospital();
         // ’效果评价‘页面跳转
         Taro.navigateTo({
             url: '/pages/myInformation/effectEvaluation/index'
@@ -48,10 +48,12 @@ class Index extends Component {
 
     identificationRecordsSkip = () => {
         // ’体质辨识记录‘页面跳转
+        this.props.findHospital();
         Taro.navigateTo({
             url: '/pages/myInformation/identificationRecords/index'
         })
     }
+
 
   render() {
     return (
@@ -59,7 +61,7 @@ class Index extends Component {
         <View className='BackgroundPicture'>
           <View className='UserHeader' >
               <View className='topPart' onClick={this.userInformationSkip}>
-                  <AtAvatar  size='100' circle image='' className='headerPortrait'></AtAvatar>
+                  <AtAvatar  size='100' circle image='http://47.95.223.172/img/xier.png' className='headerPortrait'></AtAvatar>
                   <View className='userName'>1900300539朱世贤</View>
                   <AtIcon  value='chevron-right' size='30' color='rgb(255,255,255)' className='WhiteArrow'></AtIcon></View>
               </View>
