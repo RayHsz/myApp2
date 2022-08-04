@@ -25,7 +25,7 @@ class Index extends Component {
     }
     goToAIGuidance=()=> {
         Taro.navigateTo({
-            url: '../aiGuidance/index'
+            url: '../aiGuidance/step1/index'
         })
     }
     render () {
@@ -35,6 +35,7 @@ class Index extends Component {
                     <AtSearchBar
                         //value={this.state.value}
                         onChange={this.onChange.bind(this)}
+                        placeholder={'搜索国医堂'}
                         //onActionClick={this.onActionClick.bind(this)}
                     />
                 </View>

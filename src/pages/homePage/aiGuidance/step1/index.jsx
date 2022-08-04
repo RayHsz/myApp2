@@ -10,7 +10,7 @@ import { AtList, AtListItem } from 'taro-ui'
 import { AtButton } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import {connect} from "react-redux";
-import {onChangeActive, onChangeCurrent, onChangeDate} from "../../../actions/aiGuidance";
+import {onChangeActive, onChangeCurrent, onChangeDate} from "../../../../actions/aiGuidance";
 
 @connect(({aiGuidance}) => ({aiGuidance}), ({onChangeActive,onChangeDate,onChangeCurrent}))
 class Index extends Component {
@@ -21,7 +21,7 @@ class Index extends Component {
     next=()=>{
         this.props.onChangeCurrent(1)
         Taro.navigateTo({
-            url: 'step2/step2'
+            url: '../step2/step2'
         })
     }
     onDateChange = e => {
