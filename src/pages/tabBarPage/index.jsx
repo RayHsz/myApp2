@@ -52,6 +52,7 @@ class TabBar extends Component {
                               { title: '健康资讯', image:  "http://47.95.223.172/img/myConsult.png", selectedImage:  "http://47.95.223.172/img/myConsultSD.png" },
                               { title: '我的', image: "http://47.95.223.172/img/home.png", selectedImage: "http://47.95.223.172/img/homeSD.png" }
                           ]}
+
                           onClick={this.handleClick.bind(this)}
                           current={this.props.tabBarCurrent}
 
