@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {View} from "@tarojs/components";
+import {ScrollView, View} from "@tarojs/components";
 import {AtRate,AtDivider,AtIcon} from "taro-ui";
 import './info.scss'
 import TabBar from "../../../tabBarPage";
@@ -17,6 +17,15 @@ class Info extends Component{
         })
     }
 
+    onScrollToUpper() {}
+
+    // or 使用箭头函数
+    // onScrollToUpper = () => {}
+
+    onScroll(e){
+
+    }
+
     render() {
         let imgsrc1 = "http://116.205.177.247:8080/images/hotHospital-left.jpg";
         let likeBefore = "http://116.205.177.247:8080/images/likeBefore.png";
@@ -31,6 +40,12 @@ class Info extends Component{
         let positions = ['执业医师','助理医师'];
         let skills = ['月经病类','眩晕病'];
         let inquiryNum = 0;
+
+        const scrollStyle = {
+            height: '150px'
+        }
+        const scrollTop = 0
+        const Threshold = 20
 
         return (
             <View>
@@ -85,7 +100,17 @@ class Info extends Component{
                             <text className='KZXM'>开展项目</text>
                         </View>
                     </View>
-                    <View className='member'>
+                    <ScrollView
+                        className='scrollview'
+                        scrollY
+                        scrollWithAnimation
+                        scrollTop={scrollTop}
+                        style={scrollStyle}
+                        lowerThreshold={Threshold}
+                        upperThreshold={Threshold}
+                        onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
+                        onScroll={this.onScroll}
+                    >
                         <View className='DInf'>
                             <View className='inquiryNum'>
                                 问诊量：{inquiryNum}
@@ -106,10 +131,28 @@ class Info extends Component{
                                 {hospitalName}
                             </View>
                         </View>
-                        <View className='DInf'></View>
-                    </View>
-                    <View className='launchProjects'>
+                        <View className='DInf'>
+                            <View className='inquiryNum'>
+                                问诊量：{inquiryNum}
+                            </View>
+                            <View className='headPortraits'>
 
+                            </View>
+                            <View className='doctorName'>
+                                {names[1]}
+                            </View>
+                            <View className='doctorPosition'>
+                                {positions[1]}
+                            </View>
+                            <View className='skill'>
+                                擅长治疗：{skills[1]}
+                            </View>
+                            <View className='belong'>
+                                {hospitalName}
+                            </View>
+                        </View>
+                    </ScrollView>
+                    <View className='launchProjects'>
                     </View>
                 </View>
                 <TabBar tabBarCurrent={0} />
