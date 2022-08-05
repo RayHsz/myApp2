@@ -8,6 +8,7 @@ import {AtAvatar, AtIcon} from "taro-ui";
 import { Picker } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import TabBar from "../../tabBarPage";
+import Taro from "@tarojs/taro";
 class Index extends Component {
 
     state = {
@@ -15,6 +16,8 @@ class Index extends Component {
         selectorChecked: '居民身份证',
         timeSel: '12:01',
         dateSel: '2018-04-22',
+        score1:"background-color:rgb(200,130,0);",
+        score2:"background-color:rgb(255,255,255);"
     }
     onChange = e => {
         this.setState({
@@ -27,13 +30,33 @@ class Index extends Component {
         })
     }
 
+    mainInformationSkip=()=>{
+        Taro.navigateTo({
+            url: '/pages/myInformation/mainInformation/index'
+        })
+    }
+
+    changeColor1 = e => {
+        this.setState({
+            score1: this.state.score1="background-color:rgb(200,130,0);",
+            score2: this.state.score2="background-color:rgb(255,255,255);"
+        })
+    }
+
+    changeColor2 = e => {
+        this.setState({
+            score2: this.state.score2="background-color:rgb(200,130,0);",
+            score1: this.state.score1="background-color:rgb(255,255,255);"
+        })
+    }
+
     render () {
         return (
             <View className='index'>
                 <View className='backgroundPicture'>
                     <View className='format'>
                         <View className='word'>头像</View>
-                        <AtAvatar  size='100' circle image='' className='headerPortrait'></AtAvatar>
+                        <AtAvatar  size='100' circle image='http://47.95.223.172/img/xier.png' className='headerPortrait'></AtAvatar>
                     </View>
                     <View className='format'>
                         <View className='word'>姓名</View>
@@ -43,10 +66,10 @@ class Index extends Component {
                     </View>
                     <View className='format'>
                         <View className='word'>性别</View>
-                        <Button className='man' >
+                        <Button className='man'  style={this.state.score1} onClick={this.changeColor1}>
                             <View className='manWord'>男</View>
                         </Button>
-                        <Button className='woman' >
+                        <Button className='woman' style={this.state.score2} onClick={this.changeColor2}>
                             <View className='womanWord'>女</View>
                         </Button>
                     </View>
@@ -97,7 +120,7 @@ class Index extends Component {
                         </View>
                     </View>
                     <View>
-                        <Button className='save'>
+                        <Button className='save' onClick={this.mainInformationSkip}>
                             保存
                         </Button>
                     </View>
