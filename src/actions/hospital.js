@@ -22,3 +22,9 @@ export const changeSelector = (value) => {
         dispatch({type: 'changeSelector', selectorChecked: value})
     }
 }
+
+export const getSelectIndex = (value) => {
+    return (dispatch) => {
+        dispatch({type: 'getSelectIndex', selectIndex: value})
+    }
+}

@@ -11,12 +11,9 @@ import {changeSelector} from "../../../actions/hospital";
 class Index extends Component {
     constructor () {
         super(...arguments)
-        this.state = {
-            selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
-        }
     }
 
-    next(){
+    next(value){
         Taro.navigateTo({
             url:'info/info'
         })
@@ -31,14 +28,13 @@ class Index extends Component {
     }
 
     render() {
-        let imgsrc1 = "http://116.205.177.247:8080/images/hotHospital-left.jpg";
-        let imgsrc2 = "http://116.205.177.247:8080/images/hotHospital-right.jpg";
-        let imgsrc3 = "http://116.205.177.247:8080/images/yuxishequ.jpg";
-        let imgsrc4 = "http://116.205.177.247:8080/images/gaoyingshequ.jpg";
+        let imgsrc1 = this.props.hospital.data[0].image;
+        let imgsrc2 = this.props.hospital.data[1].image;
+        let imgsrc3 = this.props.hospital.data[2].image;
+        let imgsrc4 = this.props.hospital.data[3].image;
 
         let hotHospital = ['王西章乡卫生院国医堂','西兆通镇卫生院国医堂'];
         let hospitalList = ['裕西社区国医堂','王西章乡卫生院国医堂','高营社区国医堂'];
-        let selector = ['按距离升序', '按距离降序', '按评分升序', '按评分降序'];
 
         let buttonValue = [2,2,3,1,5,4];
         return (
@@ -47,7 +43,7 @@ class Index extends Component {
                 <View>
                     <View className='headDESC'>热门国医堂</View>
                     <View className='hotHospital'>
-                        <View className='leftPart' onClick={this.next}>
+                        <View className='leftPart' onClick={this.next.bind(this)}>
                             <View className='leftH'>
                                 <image src={imgsrc1} alt="" className='leftImg'/>
                             </View>
