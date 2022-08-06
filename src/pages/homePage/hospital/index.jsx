@@ -16,6 +16,8 @@ class Index extends Component {
         }
     }
 
+
+
     next(){
         Taro.navigateTo({
             url:'info/info'
@@ -37,6 +39,7 @@ class Index extends Component {
 
         let hotHospital = ['王西章乡卫生院国医堂','西兆通镇卫生院国医堂'];
         let hospitalList = ['裕西社区国医堂','王西章乡卫生院国医堂','高营社区国医堂'];
+        let selector = ['按距离升序', '按距离降序', '按评分升序', '按评分降序'];
 
         let buttonValue = [2,2,3,1,5,4];
         return (
@@ -73,7 +76,7 @@ class Index extends Component {
                         </View>
                     </View>
                     <View className='sort'>
-                        <Picker className='picker' mode='selector' range={this.state.selector} onChange={this.onChange}>
+                        <Picker className='picker' mode='selector' range={selector} onChange={this.onChange}>
                             <AtList>
                                 <AtListItem
                                     title='排序方法'

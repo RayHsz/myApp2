@@ -21,6 +21,13 @@ class Index extends Component {
         })
     }
 
+    changePage = (value,index) =>{
+        if (index === 0){
+            this.goToHospital();
+        }else if (index === 2){
+            this.goToAIGuidance();
+        }
+    }
     goToHospital = () => {
         Taro.navigateTo({
             url: '../hospital/index'
@@ -93,7 +100,9 @@ class Index extends Component {
                     {/*    <image className='img' src='http://106.12.158.62:8080/img/zhinnengdaozhen.png'></image>*/}
                     {/*    <text className='title'>智能导诊</text>*/}
                     {/*</View>*/}
-                    <AtGrid data={
+                    <AtGrid
+                        onClick={this.changePage}
+                        data={
                         [
                             {
                                 image: 'http://106.12.158.62:8080/img/guoyitang.jpg',
