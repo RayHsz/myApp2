@@ -3,11 +3,11 @@ import {View,Picker} from "@tarojs/components";
 import {connect} from "react-redux";
 import {AtRate,AtList, AtListItem} from "taro-ui";
 import './index.scss'
-import {findHospital} from "../../../actions/hospital";
 import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
+import {changeSelector} from "../../../actions/hospital";
 
-@connect(({hospital}) => ({hospital}), {findHospital})
+@connect(({hospital}) => ({hospital}) , ({changeSelector}))
 class Index extends Component {
     constructor () {
         super(...arguments)
@@ -15,8 +15,6 @@ class Index extends Component {
             selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
         }
     }
-
-
 
     next(){
         Taro.navigateTo({
@@ -26,9 +24,10 @@ class Index extends Component {
 
     //选择器调用方法
     onChange = e => {
-        this.setState({
+        /*this.setState({
             selectorChecked: this.state.selector[e.detail.value]
-        })
+        })*/
+        this.props.changeSelector(this.props.hospital.selector[e.detail.value]);
     }
 
     render() {
@@ -76,11 +75,11 @@ class Index extends Component {
                         </View>
                     </View>
                     <View className='sort'>
-                        <Picker className='picker' mode='selector' range={selector} onChange={this.onChange}>
+                        <Picker className='picker' mode='selector' range={this.props.hospital.selector} onChange={this.onChange}>
                             <AtList>
                                 <AtListItem
                                     title='排序方法'
-                                    extraText={this.state.selectorChecked}
+                                    extraText={this.props.hospital.selectorChecked}
                                 />
                             </AtList>
                         </Picker>
