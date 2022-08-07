@@ -20,5 +20,5 @@ export function asyncAdd () {
     setTimeout(() => {
       dispatch(add())
     }, 2000)
-  }
+  } 
 }
