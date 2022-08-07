@@ -53,6 +53,13 @@ class Index extends Component {
         })
     }
 
+    addpatientSkip = () => {
+        // ’体质辨识记录‘页面跳转
+        Taro.navigateTo({
+            url: '/pages/myInformation/addpatient/index'
+        })
+    }
+
   render() {
     return (
       <View className='index'>
@@ -72,7 +79,7 @@ class Index extends Component {
                     <AtIcon value='tag' size='50' color='red'></AtIcon>
                     我的挂号
                 </View>
-                <View className='patient'>
+                <View className='patient' onClick={this.addpatientSkip}>
                     <AtIcon value='add-circle' size='50' color='red'></AtIcon>
                     就诊人管理
                 </View>
