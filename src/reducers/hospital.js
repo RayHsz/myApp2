@@ -3,7 +3,7 @@ const INIT_STATE = {
     hospitalList: [],
     selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
-    hotHospitalIndex: [1,3],
+    hotHospitalIndex: [0,2],
     data: [
         {
             name: '王西章乡卫生院国医堂',
