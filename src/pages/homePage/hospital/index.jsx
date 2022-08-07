@@ -1,21 +1,21 @@
 import {Component} from "react";
-import {View,Picker} from "@tarojs/components";
+import {View, Picker} from "@tarojs/components";
 import {connect} from "react-redux";
-import {AtRate,AtList, AtListItem} from "taro-ui";
+import {AtRate, AtList, AtListItem} from "taro-ui";
 import './index.scss'
 import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
 import {changeSelector} from "../../../actions/hospital";
 
-@connect(({hospital}) => ({hospital}) , ({changeSelector}))
+@connect(({hospital}) => ({hospital}), ({changeSelector}))
 class Index extends Component {
-    constructor () {
+    constructor() {
         super(...arguments)
     }
 
-    next(value){
+    next(value) {
         Taro.navigateTo({
-            url:'info/info'
+            url: 'info/info'
         })
     }
 
@@ -28,22 +28,60 @@ class Index extends Component {
     }
 
     render() {
-        let imgsrc1 = this.props.hospital.data[0].image;
-        let imgsrc2 = this.props.hospital.data[1].image;
-        let imgsrc3 = this.props.hospital.data[2].image;
-        let imgsrc4 = this.props.hospital.data[3].image;
-
-        let hotHospital = ['王西章乡卫生院国医堂','西兆通镇卫生院国医堂'];
-        let hospitalList = ['裕西社区国医堂','王西章乡卫生院国医堂','高营社区国医堂'];
-
-        let buttonValue = [2,2,3,1,5,4];
+        const hospitalData = this.props.hospital.data.map((info, index) => {
+            return (
+                <View>
+                    <image src={info.image} className='listImg'/>
+                    <text className='hospitalName'>
+                        {info.name}
+                    </text>
+                    <AtRate
+                        className='score'
+                        size='15'
+                        value={info.score}
+                    />
+                </View>
+            )
+        })
+        const hotHospital = this.props.hospital.hotHospitalIndex.map((num, index) => {
+            return (
+                index === 0 ?
+                    <View className='leftPart' onClick={this.next.bind(this)}>
+                        <View className='leftH'>
+                            <image src={this.props.hospital.data[num].image} alt="" className='leftImg'/>
+                        </View>
+                        <View className='leftMs'>
+                            {this.props.hospital.data[num].name}
+                        </View>
+                        <AtRate
+                            className='leftStar'
+                            size='15'
+                            value={this.props.hospital.data[num].score}
+                        />
+                    </View>
+                    :
+                    <View className='rightPart'>
+                        <View className='rightH'>
+                            <image src={this.props.hospital.data[num].image} alt="" className='rightImg'/>
+                        </View>
+                        <View className='rightMs'>
+                            {this.props.hospital.data[num].name}
+                        </View>
+                        <AtRate
+                            className='rightStar'
+                            size='15'
+                            value={this.props.hospital.data[num].score}
+                        />
+                    </View>
+            )
+        })
         return (
             <View className='index'>
                 <View className='header'>医院</View>
                 <View>
                     <View className='headDESC'>热门国医堂</View>
                     <View className='hotHospital'>
-                        <View className='leftPart' onClick={this.next.bind(this)}>
+                        {/*<View className='leftPart' onClick={this.next.bind(this)}>
                             <View className='leftH'>
                                 <image src={imgsrc1} alt="" className='leftImg'/>
                             </View>
@@ -68,10 +106,12 @@ class Index extends Component {
                                 size='15'
                                 value={buttonValue[1]}
                             />
-                        </View>
+                        </View>*/}
+                        {hotHospital}
                     </View>
                     <View className='sort'>
-                        <Picker className='picker' mode='selector' range={this.props.hospital.selector} onChange={this.onChange}>
+                        <Picker className='picker' mode='selector' range={this.props.hospital.selector}
+                                onChange={this.onChange}>
                             <AtList>
                                 <AtListItem
                                     title='排序方法'
@@ -81,7 +121,7 @@ class Index extends Component {
                         </Picker>
                     </View>
                     <View className='hospitalList'>
-                        <View>
+                        {/*<View>
                             <image src={imgsrc3} alt="" className='listImg' />
                             <text className='hospitalName'>
                                 {hospitalList[0]}
@@ -113,10 +153,11 @@ class Index extends Component {
                                 size='15'
                                 value={buttonValue[4]}
                             />
-                        </View>
+                        </View>*/}
+                        {hospitalData}
                     </View>
                 </View>
-                <TabBar tabBarCurrent={0} />
+                <TabBar tabBarCurrent={0}/>
             </View>
         );
     }
