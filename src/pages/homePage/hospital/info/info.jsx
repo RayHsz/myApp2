@@ -4,8 +4,9 @@ import {AtRate,AtDivider,AtIcon} from "taro-ui";
 import './info.scss'
 import TabBar from "../../../tabBarPage";
 import Taro from "@tarojs/taro";
+import {connect} from "react-redux";
 
-
+@connect(({hospital}) => ({hospital}))
 class Info extends Component{
     showMember(){
         console.log("点击事件");
@@ -27,19 +28,10 @@ class Info extends Component{
     }
 
     render() {
-        let imgsrc1 = "http://116.205.177.247:8080/images/hotHospital-left.jpg";
-        let likeBefore = "http://116.205.177.247:8080/images/likeBefore.png";
-        let likeAfter = "http://116.205.177.247:8080/images/likeAfer.png";
+        let data = this.props.hospital.data[this.props.hospital.selectIndex];
 
-        let buttonValue = [2,2,3,1,5,4];
-        let likeNum = 7;
-        let hospitalName = "王西章乡卫生院国医堂";
-        let place = "石家庄市赵县王西章乡王西章村北";
-        let phoneNum = "84935120";
-        let names = ['马海霞','司丽彩'];
-        let positions = ['执业医师','助理医师'];
-        let skills = ['月经病类','眩晕病'];
-        let inquiryNum = 0;
+        let likeBefore = "http://116.205.177.247:8080/images/likeBefore.png";//点赞前的图片
+        let likeAfter = "http://116.205.177.247:8080/images/likeAfer.png";//点赞后的图片
 
         const scrollStyle = {
             height: '150px'
@@ -47,39 +39,64 @@ class Info extends Component{
         const scrollTop = 0
         const Threshold = 20
 
+        const doctorInfo = data.DInf.map((info,index) => {
+            return(
+                <View className='DInf'>
+                    <View className='inquiryNum'>
+                        问诊量：{info.inquiryNum}
+                    </View>
+                    <View className='headPortraits'>
+
+                    </View>
+                    <View className='doctorName'>
+                        {info.name}
+                    </View>
+                    <View className='doctorPosition'>
+                        {info.position}
+                    </View>
+                    <View className='skill'>
+                        擅长治疗：{info.skill}
+                    </View>
+                    <View className='belong'>
+                        {data.name}
+                    </View>
+                </View>
+            )
+        })
+
         return (
             <View>
                 <View className='header'>
                     <View className='up'>
                         <View className='hospitalName'>
-                            {hospitalName}
+                            {data.name}
                         </View>
-                        <image src={imgsrc1} className='hospitalPicture'/>
+                        <image src={data.image} className='hospitalPicture'/>
                         <View className='pingFen'>
                             评分：
                         </View>
                         <AtRate
                             className='score'
                             size='15'
-                            value={buttonValue[0]}
+                            value={data.score}
                         />
                         <View className='synopsis' onClick={this.showSynopsis}>
                             医院简介>
                         </View>
                         <image src={likeBefore} className='likeBefore' />
                         <View className='likeNum'>
-                            {likeNum}
+                            {data.likeNum}
                         </View>
                     </View>
                     <AtDivider className='cuttingLine'/>
                     <View className='down'>
                         <AtIcon value='map-pin' size='20' color='red' className='mapPin' />
                         <View className='place'>
-                            {place}
+                            {data.address}
                         </View>
                         <AtIcon value='phone' size='20' color='red' className='phone' />
                         <View className='phoneNum'>
-                            {phoneNum}
+                            {data.phone}
                         </View>
                     </View>
                 </View>
@@ -111,46 +128,7 @@ class Info extends Component{
                         onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
                         onScroll={this.onScroll}
                     >
-                        <View className='DInf'>
-                            <View className='inquiryNum'>
-                                问诊量：{inquiryNum}
-                            </View>
-                            <View className='headPortraits'>
-
-                            </View>
-                            <View className='doctorName'>
-                                {names[0]}
-                            </View>
-                            <View className='doctorPosition'>
-                                {positions[0]}
-                            </View>
-                            <View className='skill'>
-                                擅长治疗：{skills[0]}
-                            </View>
-                            <View className='belong'>
-                                {hospitalName}
-                            </View>
-                        </View>
-                        <View className='DInf'>
-                            <View className='inquiryNum'>
-                                问诊量：{inquiryNum}
-                            </View>
-                            <View className='headPortraits'>
-
-                            </View>
-                            <View className='doctorName'>
-                                {names[1]}
-                            </View>
-                            <View className='doctorPosition'>
-                                {positions[1]}
-                            </View>
-                            <View className='skill'>
-                                擅长治疗：{skills[1]}
-                            </View>
-                            <View className='belong'>
-                                {hospitalName}
-                            </View>
-                        </View>
+                        {doctorInfo}
                     </ScrollView>
                     <View className='launchProjects'>
                     </View>

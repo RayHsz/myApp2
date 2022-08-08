@@ -11,20 +11,20 @@ const INIT_STATE = {
             score: 2,
             address: '石家庄市赵县王西章乡王西章村北',
             phone: 84935120,
+            likeNum: 2,
+            synopsis:'萨的痕迹爱哦是滴哦安徽省肯定会刷卡机的后方可SDK粉红色客户方开始大口喝水空间的和福克斯的',
             DInf : [
                 {
                     name: '马海霞',
                     position: '执业医师',
                     skill: '月经病类',
                     inquiryNum: 0,
-                    synopsis:'萨的痕迹爱哦是滴哦安徽省肯定会刷卡机的后方可SDK粉红色客户方开始大口喝水空间的和福克斯的'
                 },
                 {
                     name: '司丽彩',
                     position: '助理医师',
                     skill: '眩晕病',
                     inquiryNum: 1,
-                    synopsis:'爱上的喀什卡卡是否会卡号首付款黄寺大街看风寒咳嗽电话客服沙雕'
                 }
             ]
         },
@@ -34,20 +34,20 @@ const INIT_STATE = {
             score: 3,
             address: '石家庄市赵县王西章乡王西章村东南',
             phone: 85301053,
+            likeNum: 5,
+            synopsis:'的九分裤老师讲的飞廉说建档立卡福建省来看待极乐世界',
             DInf : [
                 {
                     name: '王远征',
                     position: '主治医师',
                     skill: '',
                     inquiryNum: 2,
-                    synopsis:'的九分裤老师讲的飞廉说建档立卡福建省来看待极乐世界'
                 },
                 {
                     name: '孙兴',
                     position: '主治医师',
                     skill: '',
                     inquiryNum: 3,
-                    synopsis:'撒东航飞机卡号是大富科技安徽会计师东方航空十多块'
                 }
             ]
         },
@@ -57,20 +57,20 @@ const INIT_STATE = {
             score: 4,
             address: '石家庄市赵县王西章乡王西章村东西南北',
             phone: 87898584,
+            likeNum: 4,
+            synopsis:'适得府君书的几十年的成，处女， 新城， 吗',
             DInf : [
                 {
                     name: '周某',
                     position: '主治医师',
                     skill: '胃痛、咳嗽',
                     inquiryNum: 2,
-                    synopsis:'适得府君书的几十年的成，处女， 新城， 吗'
                 },
                 {
                     name: '伊某',
                     position: '主治医师',
                     skill: '反胃',
                     inquiryNum: 3,
-                    synopsis:'在线程你们，新城， 新城，VN，你'
                 }
             ]
         },
@@ -80,20 +80,20 @@ const INIT_STATE = {
             score: 4,
             address: '石家庄市赵县王西章乡王西章村东南西北风',
             phone: 85243976,
+            likeNum: 6,
+            synopsis:'身份水电费沙雕发是多彩V型词表',
             DInf : [
                 {
                     name: '何某某',
                     position: '主治医师',
                     skill: '暂无',
                     inquiryNum: 2,
-                    synopsis:'身份水电费沙雕发是多彩V型词表'
                 },
                 {
                     name: '刘某某',
                     position: '主治医师',
                     skill: '暂无',
                     inquiryNum: 3,
-                    synopsis:'如果大法官大法官吃不吃VB'
                 }
             ]
         }
@@ -117,7 +117,7 @@ export default function hospital(previousState = INIT_STATE, action) {
                 ...previousState,
                 selectorChecked: action.selectorChecked
             }
-        case 'getSelectIndex':
+        case 'setSelectIndex':
             return{
                 ...previousState,
                 selectIndex:action.selectIndex
