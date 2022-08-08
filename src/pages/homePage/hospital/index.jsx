@@ -5,15 +5,16 @@ import {AtRate, AtList, AtListItem} from "taro-ui";
 import './index.scss'
 import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
-import {changeSelector} from "../../../actions/hospital";
+import {changeSelector, setSelectIndex} from "../../../actions/hospital";
 
-@connect(({hospital}) => ({hospital}), ({changeSelector}))
+@connect(({hospital}) => ({hospital}), ({changeSelector,setSelectIndex}))
 class Index extends Component {
     constructor() {
         super(...arguments)
     }
 
-    next(value) {
+    next(value,e) {
+        this.props.setSelectIndex(value);
         Taro.navigateTo({
             url: 'info/info'
         })
@@ -21,16 +22,13 @@ class Index extends Component {
 
     //选择器调用方法
     onChange = e => {
-        /*this.setState({
-            selectorChecked: this.state.selector[e.detail.value]
-        })*/
         this.props.changeSelector(this.props.hospital.selector[e.detail.value]);
     }
 
     render() {
         const hospitalData = this.props.hospital.data.map((info, index) => {
             return (
-                <View>
+                <View onClick={this.next.bind(this,index)}>
                     <image src={info.image} className='listImg'/>
                     <text className='hospitalName'>
                         {info.name}
@@ -46,7 +44,7 @@ class Index extends Component {
         const hotHospital = this.props.hospital.hotHospitalIndex.map((num, index) => {
             return (
                 index === 0 ?
-                    <View className='leftPart' onClick={this.next.bind(this)}>
+                    <View className='leftPart' onClick={this.next.bind(this,num)}>
                         <View className='leftH'>
                             <image src={this.props.hospital.data[num].image} alt="" className='leftImg'/>
                         </View>
@@ -60,7 +58,7 @@ class Index extends Component {
                         />
                     </View>
                     :
-                    <View className='rightPart'>
+                    <View className='rightPart' onClick={this.next.bind(this,num)} >
                         <View className='rightH'>
                             <image src={this.props.hospital.data[num].image} alt="" className='rightImg'/>
                         </View>

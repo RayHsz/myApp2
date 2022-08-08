@@ -23,8 +23,8 @@ export const changeSelector = (value) => {
     }
 }
 
-export const getSelectIndex = (value) => {
+export const setSelectIndex = (value) => {
     return (dispatch) => {
-        dispatch({type: 'getSelectIndex', selectIndex: value})
+        dispatch({type: 'setSelectIndex', selectIndex: value})
     }
 }
