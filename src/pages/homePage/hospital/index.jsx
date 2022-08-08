@@ -23,6 +23,42 @@ class Index extends Component {
     //选择器调用方法
     onChange = e => {
         this.props.changeSelector(this.props.hospital.selector[e.detail.value]);
+        this.sort(e.detail.value);
+    }
+
+    sort(select){
+        /*
+        select
+        0:按距离升序
+        1:按距离降序
+        2:按评分升序
+        3:按评分降序
+         */
+        let a = this.props.hospital.data;
+        let temp;
+        switch (select){
+            case '2':
+                a.map((num,index) => {
+                    for (let i = 1 ; i < a.length-index ; i++){
+                        if (a[i-1].score>a[i].score){
+                            temp = a[i-1];
+                            a[i-1] = a[i];
+                            a[i] = temp;
+                        }
+                    }
+                });
+                break;
+            case '3':
+                a.map((num,index) => {
+                    for (let i = 1 ; i < a.length-index ; i++){
+                        if (a[i-1].score<a[i].score){
+                            temp = a[i-1];
+                            a[i-1] = a[i];
+                            a[i] = temp;
+                        }
+                    }
+                })
+        }
     }
 
     render() {
@@ -41,34 +77,40 @@ class Index extends Component {
                 </View>
             )
         })
-        const hotHospital = this.props.hospital.hotHospitalIndex.map((num, index) => {
+        let num = [0,0];
+        const hotHospital = this.props.hospital.hotHospitalName.map((name, index) => {
+            this.props.hospital.data.map((info,index1) => {
+                if (info.name === name){
+                    num[index] = index1;
+                }
+            })
             return (
                 index === 0 ?
-                    <View className='leftPart' onClick={this.next.bind(this,num)}>
+                    <View className='leftPart' onClick={this.next.bind(this,name)}>
                         <View className='leftH'>
-                            <image src={this.props.hospital.data[num].image} alt="" className='leftImg'/>
+                            <image src={this.props.hospital.data[num[0]].image} alt="" className='leftImg'/>
                         </View>
                         <View className='leftMs'>
-                            {this.props.hospital.data[num].name}
+                            {this.props.hospital.data[num[0]].name}
                         </View>
                         <AtRate
                             className='leftStar'
                             size='15'
-                            value={this.props.hospital.data[num].score}
+                            value={this.props.hospital.data[num[0]].score}
                         />
                     </View>
                     :
-                    <View className='rightPart' onClick={this.next.bind(this,num)} >
+                    <View className='rightPart' onClick={this.next.bind(this,name)} >
                         <View className='rightH'>
-                            <image src={this.props.hospital.data[num].image} alt="" className='rightImg'/>
+                            <image src={this.props.hospital.data[num[1]].image} alt="" className='rightImg'/>
                         </View>
                         <View className='rightMs'>
-                            {this.props.hospital.data[num].name}
+                            {this.props.hospital.data[num[1]].name}
                         </View>
                         <AtRate
                             className='rightStar'
                             size='15'
-                            value={this.props.hospital.data[num].score}
+                            value={this.props.hospital.data[num[1]].score}
                         />
                     </View>
             )
@@ -79,32 +121,6 @@ class Index extends Component {
                 <View>
                     <View className='headDESC'>热门国医堂</View>
                     <View className='hotHospital'>
-                        {/*<View className='leftPart' onClick={this.next.bind(this)}>
-                            <View className='leftH'>
-                                <image src={imgsrc1} alt="" className='leftImg'/>
-                            </View>
-                            <View className='leftMs'>
-                                {hotHospital[0]}
-                            </View>
-                            <AtRate
-                                className='leftStar'
-                                size='15'
-                                value={buttonValue[0]}
-                            />
-                        </View>
-                        <View className='rightPart'>
-                            <View className='rightH'>
-                                <image src={imgsrc2} alt="" className='rightImg'/>
-                            </View>
-                            <View className='rightMs'>
-                                {hotHospital[1]}
-                            </View>
-                            <AtRate
-                                className='rightStar'
-                                size='15'
-                                value={buttonValue[1]}
-                            />
-                        </View>*/}
                         {hotHospital}
                     </View>
                     <View className='sort'>
@@ -119,39 +135,6 @@ class Index extends Component {
                         </Picker>
                     </View>
                     <View className='hospitalList'>
-                        {/*<View>
-                            <image src={imgsrc3} alt="" className='listImg' />
-                            <text className='hospitalName'>
-                                {hospitalList[0]}
-                            </text>
-                            <AtRate
-                                className='score'
-                                size='15'
-                                value={buttonValue[2]}
-                            />
-                        </View>
-                        <View>
-                            <image src={imgsrc1} alt="" className='listImg' />
-                            <text className='hospitalName'>
-                                {hospitalList[1]}
-                            </text>
-                            <AtRate
-                                className='score'
-                                size='15'
-                                value={buttonValue[0]}
-                            />
-                        </View>
-                        <View>
-                            <image src={imgsrc4} alt="" className='listImg' />
-                            <text className='hospitalName'>
-                                {hospitalList[2]}
-                            </text>
-                            <AtRate
-                                className='score'
-                                size='15'
-                                value={buttonValue[4]}
-                            />
-                        </View>*/}
                         {hospitalData}
                     </View>
                 </View>
