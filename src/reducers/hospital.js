@@ -3,7 +3,7 @@ const INIT_STATE = {
     hospitalList: [],
     selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
-    hotHospitalIndex: [0,2],
+    hotHospitalName: ['王西章乡卫生院国医堂','高营社区国医堂'],
     data: [
         {
             name: '王西章乡卫生院国医堂',
@@ -31,7 +31,7 @@ const INIT_STATE = {
         {
             name: '西兆通镇卫生院国医堂',
             image:'http://116.205.177.247:8080/images/hotHospital-right.jpg',
-            score: 3,
+            score: 5,
             address: '石家庄市赵县王西章乡王西章村东南',
             phone: 85301053,
             likeNum: 5,
@@ -77,7 +77,7 @@ const INIT_STATE = {
         {
             name: '高营社区国医堂',
             image:'http://116.205.177.247:8080/images/gaoyingshequ.jpg',
-            score: 4,
+            score: 1,
             address: '石家庄市赵县王西章乡王西章村东南西北风',
             phone: 85243976,
             likeNum: 6,
