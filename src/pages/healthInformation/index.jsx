@@ -49,11 +49,14 @@ class Index extends Component {
     handleClick= (item,index) => {
         //当点击了文章分类之后，需要根据文章类型获取对应的文章，并重新渲染
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAricle',
-            data: {},
+            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getArticleByType',
+            data: {
+                conditions : item.value
+            },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
-            console.log("'"+item.value+"'查询结果=",res.data.data);
+            console.log("查询条件 =",res.data.conditions);
+            console.log("getArticleByType 查询结果 =",res.data.data);
             this.setState({
                 articleList : res.data.data
             })
@@ -72,10 +75,8 @@ class Index extends Component {
 
     getArticleList=()=>{
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAricle',
-            //url: 'https://g8.glypro19.com/api/aricle/getAricleList',
-            data: {
-            },
+            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',
+            data: {},
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             //console.log("请求结果=",res.data.data);
