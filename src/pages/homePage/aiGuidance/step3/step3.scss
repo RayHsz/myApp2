@@ -1,0 +1,69 @@
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+.header{
+  width: 100%;
+  height: 100px;
+  background-color:rgb(119,86,55);
+}
+
+.pageName{
+  color: white;
+  top: 20%;
+  padding: 40%;
+  position: relative;
+}
+.step{
+  margin-top: 40px;
+}
+
+.msg{
+  width: 100%;
+  margin-top: 10px;
+  left: 20px;
+  height: 60px;
+  font-size: 10pt;
+  color: saddlebrown;
+  position: relative;
+}
+
+.listImg{
+  position: relative;
+  height: 150px;
+  width: 180px;
+  margin: 20px;
+}
+.hospitalName{
+  position: absolute;
+  margin: 30px 0 30px 20px;
+}
+
+.score{
+  position: absolute;
+  margin: -100px 0 0 235px;
+}
+
+.button{
+  width: 20%;
+  height: 80px;
+  float: left;
+  top: 100px;
+  border-radius: 5%;
+  background-color: rgb(211,0,0);
+  margin-left: 20%;
+  text-align:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.text{
+  font-size: 10pt;
+
+  color: white;
+
+
+  position: relative;
+}
