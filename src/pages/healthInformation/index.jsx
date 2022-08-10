@@ -93,7 +93,6 @@ class Index extends Component {
     }
 
     render() {
-
         const scrollStyle = {
             // height: '238px'  //滚动刚好贴底部
             height: '450px'
