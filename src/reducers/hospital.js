@@ -1,7 +1,7 @@
 // 全局属性：redux里面需要共享的数据
 const INIT_STATE = {
     hospitalList: [],
-    selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
+    selector: ['按名字升序', '按名字降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
     hotHospitalName: ['王西章乡卫生院国医堂','高营社区国医堂'],
     data: [
