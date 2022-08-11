@@ -36,6 +36,11 @@ class Index extends Component {
             url: '../information/index'
         })
     }
+    goToAssess=()=>{
+        Taro.navigateTo({
+            url: '../assess/start/index'
+        })
+    }
 
     render() {
         return (
@@ -119,7 +124,7 @@ class Index extends Component {
                             知识宣教
                         </text>
                     </View>
-                    <View className='center-child'>
+                    <View className='center-child' onClick={this.goToAssess}>
                         <text className='center-child-text1'>
                             【体质辨识】
                         </text>
