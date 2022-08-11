@@ -1,0 +1,155 @@
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+.header{
+  height: 300px;
+  width: 100%;
+}
+.title{
+  top:40px;
+  left:30px;
+  color: brown;
+  position: relative;
+}
+.icon{
+  top:110px;
+  left:30px;
+  position: absolute;
+}
+.text{
+  top:110px;
+  left:70px;
+  position: absolute;
+  font-size: 8pt;
+}
+
+.icon2{
+  top:110px;
+  left:260px;
+  position: absolute;
+}
+.text2{
+  top:110px;
+  left:300px;
+  position: absolute;
+  font-size: 8pt;
+}
+
+.icon3{
+  top:170px;
+  left:30px;
+  position: absolute;
+}
+.text3{
+  top:170px;
+  left:70px;
+  position: absolute;
+  font-size: 8pt;
+}
+
+.icon4{
+  top:170px;
+  left:260px;
+  position: absolute;
+}
+.text4{
+  top:170px;
+  left:300px;
+  position: absolute;
+  font-size: 8pt;
+}
+
+.icon5{
+  top:230px;
+  left:30px;
+  position: absolute;
+}
+.text5{
+  top:230px;
+  left:70px;
+  position: absolute;
+  font-size: 8pt;
+}
+
+.center{
+  height: 200px;
+  width: 100%;
+  background-color: rgb(245,245,245);
+}
+.center-child{
+  width: 95%;
+  height: 80%;
+  background-color: white;
+  top: 10%;
+  left: 2.5%;
+  border-radius: 5%;
+  box-shadow: 10px 10px 5px #888888;
+  position: relative;
+}
+
+.number{
+  top: 30px;
+  left: 70px;
+  position: relative;
+}
+.people{
+  top: 30px;
+  left: 100px;
+  font-size: 8pt;
+  position: relative;
+}
+.center-text{
+  top: 80px;
+  left: 0px;
+  font-size: 8pt;
+  position: relative;
+}
+
+.article{
+  width: 95%;
+  height: 370px;
+  left: 5%;
+  position: relative;
+}
+.article-text{
+  top: 50px;
+  font-size: 10pt;
+  opacity: 0.8;
+  position: relative;
+}
+
+.button{
+  width: 80%;
+  background-color:red;
+  color: white;
+}
+
+.foot{
+  height: 150px;
+  width: 100%;
+  top: 30px;
+  background-color: rgb(245,245,245);
+  position: relative;
+}
+.content{
+  height: 50%;
+  width: 95%;
+  left: 2.5%;
+  top: 25%;
+  background-color: white;
+  position: relative;
+}
+.foot-icon{
+  top: 20px;
+  float: left;
+  position: relative;
+}
+.text-view{
+  width: 95%;
+  height: 90%;
+  float: left;
+  font-size: 7pt;
+  top: 10px;
+  position: relative;
+}

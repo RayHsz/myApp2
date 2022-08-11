@@ -5,9 +5,9 @@ import {AtRate, AtList, AtListItem} from "taro-ui";
 import './index.scss'
 import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
-import {changeSelector, setSelectIndex} from "../../../actions/hospital";
+import {changeSelector, findHospital, setSelectIndex} from "../../../actions/hospital";
 
-@connect(({hospital}) => ({hospital}), ({changeSelector, setSelectIndex}))
+@connect(({hospital}) => ({hospital}), ({changeSelector, setSelectIndex, findHospital}))
 class Index extends Component {
     constructor() {
         super(...arguments)
@@ -24,6 +24,10 @@ class Index extends Component {
     onChange = e => {
         this.props.changeSelector(this.props.hospital.selector[e.detail.value]);
         this.sort(e.detail.value);
+    }
+
+    getHospitalList() {
+        this.props.findHospital();
     }
 
     sort(select) {
@@ -74,8 +78,8 @@ class Index extends Component {
         }
     }
 
-    render() {
-        const hospitalData = this.props.hospital.data.map((info, index) => {
+    getHospitalData() {
+        return this.props.hospital.hospitalList.map((info, index) => {
             return (
                 <View onClick={this.next.bind(this, index)}>
                     <image src={info.image} className='listImg'/>
@@ -90,70 +94,79 @@ class Index extends Component {
                 </View>
             )
         })
-        let num = [0, 0];
-        const hotHospital = this.props.hospital.hotHospitalName.map((name, index) => {
-            this.props.hospital.data.map((info, index1) => {
-                if (info.name === name) {
-                    num[index] = index1;
-                }
-            })
-            return (
-                index === 0 ?
-                    <View className='leftPart' onClick={this.next.bind(this, num[0])}>
-                        <View className='leftH'>
-                            <image src={this.props.hospital.data[num[0]].image} alt="" className='leftImg'/>
+    }
+
+    getHotHospital() {
+        return this.props.hospital.hospitalList.map((info, index) => {
+            if (info.isHot === 1) {
+                return (
+                        <View className='leftPart' onClick={this.next.bind(this, index)}>
+                            <View className='leftH'>
+                                <image src={info.image} alt="" className='leftImg'/>
+                            </View>
+                            <View className='leftMs'>
+                                {info.name}
+                            </View>
+                            <AtRate
+                                className='leftStar'
+                                size='15'
+                                value={info.score}
+                            />
                         </View>
-                        <View className='leftMs'>
-                            {this.props.hospital.data[num[0]].name}
-                        </View>
-                        <AtRate
-                            className='leftStar'
-                            size='15'
-                            value={this.props.hospital.data[num[0]].score}
-                        />
-                    </View>
-                    :
-                    <View className='rightPart' onClick={this.next.bind(this, num[1])}>
-                        <View className='rightH'>
-                            <image src={this.props.hospital.data[num[1]].image} alt="" className='rightImg'/>
-                        </View>
-                        <View className='rightMs'>
-                            {this.props.hospital.data[num[1]].name}
-                        </View>
-                        <AtRate
-                            className='rightStar'
-                            size='15'
-                            value={this.props.hospital.data[num[1]].score}
-                        />
-                    </View>
-            )
+                        /*
+                        <View className='rightPart' onClick={this.next.bind(this, index)}>
+                            <View className='rightH'>
+                                <image src={info.image} alt="" className='rightImg'/>
+                            </View>
+                            <View className='rightMs'>
+                                {info.name}
+                            </View>
+                            <AtRate
+                                className='rightStar'
+                                size='15'
+                                value={info.score}
+                            />
+                        </View>*/
+                )
+            }
         })
-        return (
-            <View className='index'>
-                <View className='header'>医院</View>
-                <View>
-                    <View className='headDESC'>热门国医堂</View>
-                    <View className='hotHospital'>
-                        {hotHospital}
+    }
+
+    render() {
+        let hospitalData;
+        let hotHospital;
+        if (this.props.hospital.hospitalList.length === 0) {
+            this.getHospitalList();
+        } else {
+            hospitalData = this.getHospitalData();
+            hotHospital = this.getHotHospital();
+            return (
+                <View className='index'>
+                    <View className='header'>医院</View>
+                    <View>
+                        <View className='headDESC'>热门国医堂</View>
+                        <View className='hotHospital'>
+                            {hotHospital}
+                        </View>
+                        <View className='sort'>
+                            <Picker className='picker' mode='selector' range={this.props.hospital.selector}
+                                    onChange={this.onChange}>
+                                <AtList>
+                                    <AtListItem
+                                        title='排序方法'
+                                        extraText={this.props.hospital.selectorChecked}
+                                    />
+                                </AtList>
+                            </Picker>
+                        </View>
+                        <View className='hospitalList'>
+                            {hospitalData}
+                        </View>
                     </View>
-                    <View className='sort'>
-                        <Picker className='picker' mode='selector' range={this.props.hospital.selector}
-                                onChange={this.onChange}>
-                            <AtList>
-                                <AtListItem
-                                    title='排序方法'
-                                    extraText={this.props.hospital.selectorChecked}
-                                />
-                            </AtList>
-                        </Picker>
-                    </View>
-                    <View className='hospitalList'>
-                        {hospitalData}
-                    </View>
+                    <TabBar tabBarCurrent={0}/>
                 </View>
-                <TabBar tabBarCurrent={0}/>
-            </View>
-        );
+            );
+        }
     }
 }
 
