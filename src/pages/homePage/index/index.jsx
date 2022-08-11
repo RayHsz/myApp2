@@ -1,9 +1,9 @@
 import {Component} from "react";
-import {View} from "@tarojs/components";
+import {ScrollView, View} from "@tarojs/components";
 import {connect} from "react-redux";
 import {findHospital} from "../../../actions/hospital";
 import './index.scss';
-import {AtSearchBar} from 'taro-ui';
+import {AtList, AtListItem, AtSearchBar} from 'taro-ui';
 import {Swiper, SwiperItem} from '@tarojs/components';
 import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
@@ -13,6 +13,9 @@ import {AtGrid} from "taro-ui"
 class Index extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            articleList:[]
+        }
     }
 
     onChange(value) {
@@ -44,7 +47,79 @@ class Index extends Component {
         })
     }
 
+    /*  文章滚动槽 */
+    onScrollToUpper() {}
+    onScroll(e){
+        //console.log(e.detail)
+    }
+    //点击文章跳转事件
+    toArticle (item) {
+        let data = JSON.stringify(item) //首先对获取到的item进行JSON格式化
+        Taro.navigateTo({
+            //跳转到文章页面，并将当前的文章id传到文章页面，方便文章页面的操作
+            url: '../../healthInformation/article/index?data='+ `${encodeURIComponent(data)}`  //对JSON对象进行编码后传递
+        })
+    }
+    getArticleList=()=>{
+        Taro.request({
+            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',
+            data: {},
+            header: { 'content-type': 'application/json'}
+        }).then(res =>{
+            //console.log("请求结果=",res.data.data);
+            console.log("生命周期，钩子函数，初次请求文章结果 =",res);
+            this.setState({
+                articleList : res.data.data
+            })
+        })
+    }
+    /*生命周期，钩子函数*/
+    componentDidMount() {
+        this.getArticleList()
+    }
+
+    /* 点击《更多》跳转到健康资讯页面 */
+    toHealthInformationPage=()=>{
+        Taro.navigateTo({
+            //跳转到文章页面
+            url: '../../healthInformation/index'
+        })
+    }
+
     render() {
+
+        const scrollStyle = {
+            // height: '238px'  //滚动刚好贴底部
+            height: '450px'
+        }
+        const scrollTop = 0
+        const Threshold = 20
+        const vStyleA = {
+            height: '150px',
+            'background-color': 'rgb(26, 173, 25)'
+        }
+        const vStyleB = {
+            height: '150px',
+            'background-color': 'rgb(39,130,215)'
+        }
+        const vStyleC = {
+            height: '150px',
+            'background-color': 'rgb(241,241,241)',
+            color: '#333'
+        }
+        const atListItem = this.state.articleList.map((item,index)=>{
+            return(
+                <AtListItem
+                    onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
+                    title= {item.title}
+                    note= {item.content.substr(0,44)+"..."}  //文章内容
+                    arrow= "top"
+                    extraText= {item.time.substr(0,10)}  //文章时间
+                    thumb= {item.img}
+                />
+            )
+        })  //遍历文章列表
+
         return (
             <View className='index'>
                 <View className='at-search-bar'>
@@ -136,8 +211,37 @@ class Index extends Component {
                             判定量表
                         </text>
                     </View>
-
                 </View>
+
+                <AtList>
+                    <AtListItem
+                        title='健康资讯'
+                        note=''
+                        extraText='更多'
+                        arrow='right'
+                        thumb='https://preview.qiantucdn.com/58pic/44/00/63/22R58PICXvJgazxwTqe6t_PIC2018.png!qt324_nowater_jpg'
+                        onClick={this.toHealthInformationPage}
+                    />
+                </AtList>
+
+                {/*文章列表的滚动槽*/}
+                <ScrollView
+                    className='scrollview'
+                    scrollY
+                    scrollWithAnimation
+                    scrollTop={scrollTop}
+                    style={scrollStyle}
+                    lowerThreshold={Threshold}
+                    upperThreshold={Threshold}
+                    onScrollToUpper={this.onScrollToUpper.bind(this)}
+                    onScroll={this.onScroll}
+                >
+                    {/*文章列表*/}
+                    <AtList>
+                        {atListItem}
+                    </AtList>
+                </ScrollView>
+
                 <TabBar tabBarCurrent={0}/>
             </View>
         )
