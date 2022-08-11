@@ -24,7 +24,7 @@ class Index extends Component {
         })
         /* 此处写用户点击文章收藏按钮后的事件 */
         Taro.request({
-            url: "https://localhost:8090/user/collections",
+            url: "https://localhost:8090/collections/solveCollection",
             data: {
                 open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
                 article_id : this.state.articleItem.id,
@@ -80,7 +80,7 @@ class Index extends Component {
             url: "http://localhost:8090/collections/ifUserCollectArticle",
             data: {
                 open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
-                article_id : data.article_id,
+                article_id : data.id,
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
