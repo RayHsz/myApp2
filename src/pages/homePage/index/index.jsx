@@ -67,14 +67,16 @@ class Index extends Component {
     }
     getArticleList=()=>{
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/getAllArticle',
             data: {},
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             //console.log("请求结果=",res.data.data);
             console.log("生命周期，钩子函数，初次请求文章结果 =",res);
             this.setState({
-                articleList : res.data.data
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
         })
     }

@@ -1,10 +1,10 @@
 import {Component} from "react";
 import './index.scss'
-import { ScrollView,View } from "@tarojs/components";
+import { ScrollView,View,RichText } from "@tarojs/components";
 import { AtSearchBar,AtGrid,AtList,AtListItem } from 'taro-ui'
 import TabBar from "../tabBarPage";
 import Taro from "@tarojs/taro";
-import config from "../../http/config";
+import '@tarojs/taro/html5.css'
 
 class Index extends Component {
     constructor () {
@@ -26,16 +26,19 @@ class Index extends Component {
     searchArticle =()=>{
         //console.log("点击了搜索按钮，当前搜索内容 = ",this.state.value)  //获取到的内容正确
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/searchArticle',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/searchArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/searchArticle',
             data: {
                 conditions : this.state.value  //将当前输入框中的文字传到后端中作为条件进行查询
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
-            console.log("搜索条件 =",res.data.conditions);
-            console.log("搜索结果 =",res.data.data);
+            //console.log("搜索条件 =",res.data.conditions);  //mock数据格式
+            //console.log("搜索结果 =",res.data.data);  //mock数据格式
+            console.log("搜索返回的文章列表 = ",res.data)
             this.setState({
-                articleList : res.data.data
+                //articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
         })
     }
@@ -49,16 +52,19 @@ class Index extends Component {
     handleClick= (item,index) => {
         //当点击了文章分类之后，需要根据文章类型获取对应的文章，并重新渲染
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getArticleByType',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getArticleByType',  //mock地址
+            url: 'http://localhost:8090/aricle/getArticleByType',
             data: {
-                conditions : item.value
+                // conditions : item.value  //mock数据格式
+                type : item.value
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
-            console.log("查询条件 =",res.data.conditions);
-            console.log("getArticleByType 查询结果 =",res.data.data);
+            //console.log("查询条件 =",res.data.conditions);  //mock数据格式
+            //console.log("getArticleByType 查询结果 =",res.data.data);  //mock数据格式
             this.setState({
-                articleList : res.data.data
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
         })
 
@@ -75,14 +81,16 @@ class Index extends Component {
 
     getArticleList=()=>{
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/getAllArticle',
             data: {},
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             //console.log("请求结果=",res.data.data);
             console.log("生命周期，钩子函数，初次请求文章结果 =",res);
             this.setState({
-                articleList : res.data.data
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
         })
     }
@@ -114,9 +122,12 @@ class Index extends Component {
         }
 
         const atListItem = this.state.articleList.map((item,index)=>{
+            const title = ""
+            console.log("title = ",title)
             return(
                 <AtListItem
                     onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
+                    // title= {item.title}
                     title= {item.title}
                     note= {item.content.substr(0,44)+"..."}  //文章内容
                     arrow= "top"
@@ -174,7 +185,6 @@ class Index extends Component {
                 {/*这是hr分割线*/}
                 <View className='articleClassify'>
                 </View>
-
 
                 {/*文章列表的滚动槽*/}
                 <ScrollView

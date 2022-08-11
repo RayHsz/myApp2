@@ -24,30 +24,32 @@ class Index extends Component {
         })
         /* 此处写用户点击文章收藏按钮后的事件 */
         Taro.request({
-            url: "https://www.fastmock.site/mock/965e6de95059191fe32e76a478990072/user/collections",
+            // url: "https://www.fastmock.site/mock/965e6de95059191fe32e76a478990072/user/collections",  //mock地址
+            url: "http://localhost:8090/collections/solveCollection",
             data: {
-                open_id : "zhangsan",  //这里的userInfo待定，需要通过接口获取用户的信息
+                open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
                 article_id : this.state.articleItem.id,
                 value : !this.state.value  //这里传星星的当前状态过去时，需要取反的原因是在该函数的作用域内setState还没起作用
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             console.log("总体结果=",res)
-            console.log("result =" + res.data.result);
+            //console.log("result =" + res.data.result);  //mock数据
             this.setState({
-                result : res.data.result,
+                //result : res.data.result,  //mock数据
+                  result : res.data,
             })
         })
 
         //第一次进入延时，把轻提示显示的权限打开
         setTimeout(()=>{
-            console.log("进入延时")
+            //console.log("进入延时")
             this.setState({
                 isShow : true
             })
             //二次延时把'实际上还在原来位置'但是‘已经隐藏起来‘的轻提示给关闭：就是撤掉轻提示在原本位置待的权限
             setTimeout(()=>{
-                console.log("延时完毕...")
+                //console.log("延时完毕...")
                 this.setState({
                     isShow : false
                 })
@@ -80,7 +82,7 @@ class Index extends Component {
             url: "http://localhost:8090/collections/ifUserCollectArticle",
             data: {
                 open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
-                article_id : data.article_id,
+                article_id : data.id,
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
@@ -127,20 +129,21 @@ class Index extends Component {
         >
             <View className='at-article'>
                 <View className='at-article__h1'>
-                    {this.state.articleItem.title}
+                    <RichText nodes={this.state.articleItem.title}/>
                     {/* 下面是星星 */}
                     <AtToast isOpened={this.state.isShow} text={this.state.result} duration={2000}></AtToast>
                     <AtRate className='isCollection' max={1} value={this.state.value} onChange={this.handleChange} />
                 </View>
                 <View className='at-article__info'>
-                    {this.state.articleItem.time}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.articleItem.type}
+                    {this.state.articleItem.time}&emsp;&emsp;{this.state.articleItem.type}
                 </View>
                 <View className='at-article__content'>
                     <View className='at-article__section'>
 
                         <View className='at-article__p'>
                             {/*这里可以将后台传来的html格式的文章内容进行渲染*/}
-                            <View dangerouslySetInnerHTML={{ __html: this.state.articleItem.content }}></View>
+                            {/*<View dangerouslySetInnerHTML={{ __html: this.state.articleItem.content }}></View>*/}
+                            <RichText nodes={this.state.articleItem.content}/>
                         </View>
 
                         <Image
