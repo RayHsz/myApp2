@@ -3,8 +3,11 @@ import Taro from "@tarojs/taro";
 export const findHospital = () => {
     return (dispatch) => {
         Taro.request({
-            url: 'https://www.juntaitec.cn/api/gyt/hospitalList', //仅为示例，并非真实的接口地址
-            data: {},
+            // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
+            url: 'http://localhost:8090/usert/findAll', //仅为示例，并非真实的接口地址
+            data: {
+                id:"oL7Uf5p-bXzCsxpUr5Efu7-KqEo0"
+            },
             header: {
                 'content-type': 'application/json' // 默认值
             },

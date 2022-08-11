@@ -9,6 +9,7 @@ export default defineAppConfig({
     'pages/homePage/hospital/info/info',
     'pages/homePage/hospital/synopsis/synopsis',
     'pages/healthInformation/index',
+    'pages/healthInformation/article/index',
     'pages/myInformation/mainInformation/index',
     'pages/myInformation/userInformation/index',
     'pages/myInformation/myCollection/index',

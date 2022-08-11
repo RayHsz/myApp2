@@ -1,12 +1,11 @@
 import {Component} from "react";
-import {Input, View} from "@tarojs/components";
-import {AtButton, AtForm, AtIcon} from "taro-ui";
+import {View} from "@tarojs/components";
+import {AtButton, AtIcon} from "taro-ui";
 import './index.scss'
 import { Picker } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import { AtInput }  from 'taro-ui'
-import { AtCalendar } from "taro-ui"
-import { AtIndexes } from 'taro-ui'
+
 import Taro from "@tarojs/taro";
 
 class Index extends Component{
