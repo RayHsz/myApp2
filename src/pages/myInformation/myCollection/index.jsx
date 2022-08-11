@@ -14,7 +14,8 @@ class Index extends Component {
         super(...arguments)
         this.state = {
             value: '',
-            articleList:[]
+            articleList:[],
+            openid:this.props.hospital.openid
         }
     }
 
@@ -44,7 +45,7 @@ class Index extends Component {
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             //console.log("请求结果=",res.data.data);
-            console.log("这里的openid为："+this.props.hospital.openid);
+            console.log("这里的openid为："+this.state.openid);
             console.log("生命周期，钩子函数，初次请求文章结果 =",res);
             this.setState({
                 articleList : res.data

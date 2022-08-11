@@ -5,9 +5,7 @@ import './index.scss';
 import TabBar from "../../../tabBarPage";
 import Taro,{useRouter,getCurrentInstance} from "@tarojs/taro";
 import '@tarojs/taro/html5.css'
-import {connect} from "react-redux";
-import {findHospital} from "../../../../actions/hospital";
-@connect(({hospital}) => ({hospital}),{findHospital})
+
 class Index extends Component {
 
     constructor() {
@@ -28,7 +26,7 @@ class Index extends Component {
         Taro.request({
             url: "https://localhost:8090/user/collections",
             data: {
-                open_id :this.props.hospital.openid,  //这里的userInfo待定，需要通过接口获取用户的信息
+                open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
                 article_id : this.state.articleItem.id,
                 value : !this.state.value  //这里传星星的当前状态过去时，需要取反的原因是在该函数的作用域内setState还没起作用
             },
@@ -69,18 +67,34 @@ class Index extends Component {
     componentDidMount () { //生命周期 钩子函数
         let data = JSON.parse(decodeURIComponent(this.$instance.router.params.data)) //对传过来的经过编码的JSON对象进行解码
         console.log("当前文章页面，传过来的articleItem =" , data);
+
+        this.setState({
+            articleItem : data  //将从前面页面获取到的文章信息进行赋值
+        })
+
         /*
            这里发送请求，判断当前用户是否已经收藏当前文章
            并对 星星初始状态进行设置
         */
-        this.setState({
-            articleItem : data  //将从前面页面获取到的文章信息进行赋值
+        Taro.request({
+            url: "http://localhost:8090/collections/ifUserCollectArticle",
+            data: {
+                open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
+                article_id : data.article_id,
+            },
+            header: { 'content-type': 'application/json'}
+        }).then(res =>{
+            console.log("res=",res)
+            this.setState({
+                value : res.data,
+            })
         })
     }
 
     //消息提示
 
     render() {
+
         const scrollStyle = {
             height: '620px'
         }
@@ -100,47 +114,47 @@ class Index extends Component {
             color: '#333'
         }
 
-    return (
-        <ScrollView
-            className='scrollview'
-            scrollY
-            scrollWithAnimation
-            scrollTop={scrollTop}
-            style={scrollStyle}
-            lowerThreshold={Threshold}
-            upperThreshold={Threshold}
-            onScrollToUpper={this.onScrollToUpper.bind(this)}
-            onScroll={this.onScroll}
-        >
-            <View className='at-article'>
-                <View className='at-article__h1'>
-                    {this.state.articleItem.title}
-                    {/* 下面是星星 */}
-                    <AtToast isOpened={this.state.isShow} text={this.state.result} duration={2000}></AtToast>
-                    <AtRate className='isCollection' max={1} value={this.state.value} onChange={this.handleChange} />
-                </View>
-                <View className='at-article__info'>
-                    {this.state.articleItem.time}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.articleItem.type}
-                </View>
-                <View className='at-article__content'>
-                    <View className='at-article__section'>
+        return (
+            <ScrollView
+                className='scrollview'
+                scrollY
+                scrollWithAnimation
+                scrollTop={scrollTop}
+                style={scrollStyle}
+                lowerThreshold={Threshold}
+                upperThreshold={Threshold}
+                onScrollToUpper={this.onScrollToUpper.bind(this)}
+                onScroll={this.onScroll}
+            >
+                <View className='at-article'>
+                    <View className='at-article__h1'>
+                        {this.state.articleItem.title}
+                        {/* 下面是星星 */}
+                        <AtToast isOpened={this.state.isShow} text={this.state.result} duration={2000}></AtToast>
+                        <AtRate className='isCollection' max={1} value={this.state.value} onChange={this.handleChange} />
+                    </View>
+                    <View className='at-article__info'>
+                        {this.state.articleItem.time}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.articleItem.type}
+                    </View>
+                    <View className='at-article__content'>
+                        <View className='at-article__section'>
 
-                        <View className='at-article__p'>
-                            {/*这里可以将后台传来的html格式的文章内容进行渲染*/}
-                            <View dangerouslySetInnerHTML={{ __html: this.state.articleItem.content }}></View>
+                            <View className='at-article__p'>
+                                {/*这里可以将后台传来的html格式的文章内容进行渲染*/}
+                                <View dangerouslySetInnerHTML={{ __html: this.state.articleItem.content }}></View>
+                            </View>
+
+                            <Image
+                                className='at-article__img'
+                                src={this.state.articleItem.img}
+                                mode='widthFix' />
                         </View>
-
-                        <Image
-                            className='at-article__img'
-                            src={this.state.articleItem.img}
-                            mode='widthFix' />
                     </View>
                 </View>
-            </View>
 
-        <TabBar tabBarCurrent={2} />
+                <TabBar tabBarCurrent={2} />
 
-    </ScrollView>
+            </ScrollView>
 
         )
     }

@@ -5,6 +5,10 @@ const INIT_STATE = {
     selector: ['按名字升序', '按名字降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
     selectIndex: '',
+    openid:"",
+    avatar:"",
+    gender:"",
+    nickname:""
 }
 
 export default function hospital(previousState = INIT_STATE, action) {
