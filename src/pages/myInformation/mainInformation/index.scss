@@ -44,17 +44,17 @@
 //用户姓名信息
 .userName{
   float: left;
-  position: relative;
+  position: absolute;
   color: rgb(255,255,255);
-  left: 70px;
+  left: 200px;
   top:  70px;
 }
 
 //白色箭头
 .WhiteArrow{
   float: left;
-  position: relative;
-  left:200px;
+  position: absolute;
+  left:600px;
   top: 70px;
 }
 
