@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 class Synopsis extends Component{
 
     render() {
-        let data = this.props.hospital.data[this.props.hospital.selectIndex];
+        let data = this.props.hospital.hospitalList[this.props.hospital.selectIndex];
         return (
             <View>
                 <View className='mainBody'>
