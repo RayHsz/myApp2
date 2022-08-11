@@ -92,7 +92,7 @@ class HospitalList extends Component {
     save=()=>{
         Taro.request({
             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-            url: 'http://localhost:8090/usert/savaAll', //仅为示例，并非真实的接口地址
+            url: 'http://localhost:8090/userwx/savaAll', //仅为示例，并非真实的接口地址
             data: {
                 id:this.state.openid2,
                 name:this.state.name,

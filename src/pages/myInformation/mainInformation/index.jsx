@@ -101,7 +101,7 @@ class Index extends Component {
                         console.log("转化获得的"+this.state.openid);
                         this.props.hospital.openid=Taro.request({
                             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-                            url: 'http://localhost:8090/usert/getopenid',//仅为示例，并非真实的接口地址
+                            url: 'http://localhost:8090/userwx/getopenid',//仅为示例，并非真实的接口地址
                             data: {
                                 code: this.state.code
                             },
@@ -114,7 +114,7 @@ class Index extends Component {
                                 console.log("传递的",openid1);
                                 Taro.request({
                                     // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-                                    url: 'http://localhost:8090/usert/create',//仅为示例，并非真实的接口地址
+                                    url: 'http://localhost:8090/userwx/create',//仅为示例，并非真实的接口地址
                                     data: {
                                         id:openid1,
                                         avatar: avatar
