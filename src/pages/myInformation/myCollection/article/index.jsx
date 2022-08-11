@@ -5,7 +5,9 @@ import './index.scss';
 import TabBar from "../../../tabBarPage";
 import Taro,{useRouter,getCurrentInstance} from "@tarojs/taro";
 import '@tarojs/taro/html5.css'
-
+import {connect} from "react-redux";
+import {findHospital} from "../../../../actions/hospital";
+@connect(({hospital}) => ({hospital}),{findHospital})
 class Index extends Component {
 
     constructor() {
@@ -26,7 +28,7 @@ class Index extends Component {
         Taro.request({
             url: "https://localhost:8090/user/collections",
             data: {
-                open_id : "zhangsan",  //这里的userInfo待定，需要通过接口获取用户的信息
+                open_id :this.props.hospital.openid,  //这里的userInfo待定，需要通过接口获取用户的信息
                 article_id : this.state.articleItem.id,
                 value : !this.state.value  //这里传星星的当前状态过去时，需要取反的原因是在该函数的作用域内setState还没起作用
             },
