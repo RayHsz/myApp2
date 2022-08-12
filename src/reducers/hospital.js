@@ -2,7 +2,7 @@
 const INIT_STATE = {
     hospitalList: [],
     doctorList: [],
-    selector: ['按名字升序', '按名字降序', '按评分升序', '按评分降序'],
+    selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
     selectIndex: '',
 }
