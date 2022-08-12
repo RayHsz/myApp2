@@ -60,12 +60,20 @@ class Index extends Component {
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
+            console.log("res.data = ",res.data)
             //console.log("查询条件 =",res.data.conditions);  //mock数据格式
             //console.log("getArticleByType 查询结果 =",res.data.data);  //mock数据格式
-            this.setState({
+            if (res.data.length == 0){     //增加一个若查询结果为空的判断
+                this.setState({
+                    articleList : [{content:"暂时没有更多的结果哦",id:"",img:"",time:"",title:"",type:""}]
+                })
+            }
+            else{
+                this.setState({
                 // articleList : res.data.data  //mock数据格式
                 articleList : res.data
             })
+            }
         })
 
     }
@@ -122,14 +130,34 @@ class Index extends Component {
         }
 
         const atListItem = this.state.articleList.map((item,index)=>{
-            const title = ""
-            console.log("title = ",title)
+            let rawTitle = item.title  //原本还带有html格式的标题 ： rawTitle
+            let rawContent = item.content  //原本还带有html格式的内容 ： rawContent
+
+            /* 去除富文本中的html标签 */
+            /* *、+限定符都是贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上一个?就可以实现非贪婪或最小匹配。*/
+            let title = rawTitle.replace(/<.+?>/g, '');
+            let content = rawContent.replace(/<.+?>/g, '');
+            //console.log("1.去除html标签 = ",title);
+            //console.log("1.去除html标签 = ",rawContent);
+
+            /* 去除&nbsp; */
+            title = title.replace(/&nbsp;/ig, '');
+            content = content.replace(/&nbsp;/ig, '');
+            //console.log("2.去除&nbsp; = ",title);
+            //console.log("2.去除&nbsp; = ",content);
+
+            /* 去除空格 */
+            title = title.replace(/\s/ig, '');
+            content = content.replace(/\s/ig, '');
+            //console.log("3.去除空格 = ",title);
+            //console.log("3.去除空格 = ",content);
+
             return(
                 <AtListItem
                     onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
                     // title= {item.title}
-                    title= {item.title}
-                    note= {item.content.substr(0,44)+"..."}  //文章内容
+                    title= {title}
+                    note= {content.substr(0,44)+"..."}  //文章内容
                     arrow= "top"
                     extraText= {item.time.substr(0,10)}  //文章时间
                     thumb= {item.img}
