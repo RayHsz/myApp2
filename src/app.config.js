@@ -16,6 +16,7 @@ export default defineAppConfig({
     'pages/myInformation/myRegistration/index',
     'pages/myInformation/effectEvaluation/index',
     'pages/myInformation/identificationRecords/index',
+    'pages/myInformation/addpatient/index',
   ],
   window: {
     backgroundTextStyle: 'light',

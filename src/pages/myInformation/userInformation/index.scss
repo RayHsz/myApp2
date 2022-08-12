@@ -47,6 +47,8 @@
   border-radius: 35%;
   border:2px solid rgb(210,226,237);
 }
+
+
 button::after {
   border: none;
 }
@@ -55,16 +57,17 @@ button::after {
   top: -10px;
   font-size: 30px;
 }
-.woman{
+.woman {
   width: 100px;
   height: 50px;
   float: left;
-  margin-top:10px;
+  margin-top: 10px;
   left: 430px;
   top: 20px;
   border-radius: 35%;
-  border:2px solid rgb(210,226,237);
+  border: 2px solid rgb(210, 226, 237);
 }
+
 .womanWord{
   position: relative;
   top: -10px;
@@ -144,3 +147,11 @@ input::-webkit-input-placeholder {
   top: 100px;
 }
 
+.choose{
+  background-color: #508BEF;
+  color: #FFFFFF;
+}
+.noChoose{
+  background-color: white;
+  color: #000000;
+}
