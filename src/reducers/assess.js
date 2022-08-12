@@ -1,6 +1,6 @@
 const INIT_STATE = {
     questionList:[],
-    active:[],
+    active:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 }
 
 export default function assess(state = INIT_STATE, action) {
@@ -13,7 +13,7 @@ export default function assess(state = INIT_STATE, action) {
                 questionList: action.questionList.data.data,
             };
         case 'chooseAnswer':
-            state.active[action.index]=action.num;
+            state.active.splice(action.index,1,action.num)
             return {
                 ...state,
             }

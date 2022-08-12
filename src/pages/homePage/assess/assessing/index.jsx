@@ -5,6 +5,7 @@ import {AtButton, AtIcon} from 'taro-ui'
 import { AtTag } from 'taro-ui'
 import {connect} from "react-redux";
 import {onChangeActive} from "../../../../actions/assess";
+import Taro from "@tarojs/taro";
 
 
 @connect(({assess}) => ({assess}),{onChangeActive})
@@ -14,8 +15,14 @@ class index extends Component{
         super(props)
     }
 
-    onChangeActive=(index,num)=>{
+    changeActive(index,num){
         this.props.onChangeActive(index,num)
+    }
+
+    goToResult=()=>{
+        Taro.navigateTo({
+            url: '../result/index'
+        })
     }
 
     render() {
@@ -51,38 +58,38 @@ class index extends Component{
                                            type='primary'
                                            circle
                                            active={this.props.assess.active[index]==1}
-                                           // onClick={this.onChangeActive(index,1)}
+                                           onClick={this.changeActive.bind(this,index,1)}
                                     >没有（根本不）</AtTag>
                                     <AtTag className='tag1'
                                            type='primary'
                                            circle
                                            active={this.props.assess.active[index]==2}
-                                           // onClick={this.onChangeActive(index,2)}
+                                           onClick={this.changeActive.bind(this,index,2)}
                                     >很少（有一点）</AtTag>
                                     <AtTag className='tag2'
                                            type='primary'
                                            circle
                                            active={this.props.assess.active[index]==3}
-                                           // onClick={this.onChangeActive(index,3)}
+                                           onClick={this.changeActive.bind(this,index,3)}
                                     >有时（有些）</AtTag>
                                     <AtTag className='tag2'
                                            type='primary'
                                            circle
                                            active={this.props.assess.active[index]==4}
-                                           // onClick={this.onChangeActive(index,4)}
+                                           onClick={this.changeActive.bind(this,index,4)}
                                     >经常（相当）</AtTag>
                                     <AtTag className='tag3'
                                            type='primary'
                                            circle
                                            active={this.props.assess.active[index]==5}
-                                           // onClick={this.onChangeActive(index,5)}
+                                           onClick={this.changeActive.bind(this,index,5)}
                                     >总是（非常）</AtTag>
                                 </View>
                             )
                         })
                     }
                     <View className='foot'>
-                        <AtButton className='button' size='normal' circle>查看结果</AtButton>
+                        <AtButton className='button' size='normal' circle onClick={this.goToResult}>查看结果</AtButton>
                     </View>
                 </ScrollView>
 
