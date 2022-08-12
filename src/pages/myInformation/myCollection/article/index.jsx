@@ -3,7 +3,7 @@ import { ScrollView,View,Image,RichText } from "@tarojs/components";
 import { AtRate,AtToast } from "taro-ui";
 import './index.scss';
 import TabBar from "../../../tabBarPage";
-import Taro,{useRouter,getCurrentInstance} from "@tarojs/taro";
+import Taro,{getCurrentInstance} from "@tarojs/taro";
 import '@tarojs/taro/html5.css'
 
 class Index extends Component {
@@ -24,7 +24,8 @@ class Index extends Component {
         })
         /* 此处写用户点击文章收藏按钮后的事件 */
         Taro.request({
-            url: "https://localhost:8090/collections/solveCollection",
+            // url: "https://www.fastmock.site/mock/965e6de95059191fe32e76a478990072/user/collections",  //mock地址
+            url: "http://localhost:8090/collections/solveCollection",
             data: {
                 open_id : "oL7Uf5p-bXzCsxpUr5Efu7-KqEo0",  //这里的userInfo待定，需要通过接口获取用户的信息
                 article_id : this.state.articleItem.id,
@@ -33,21 +34,22 @@ class Index extends Component {
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             console.log("总体结果=",res)
-            console.log("result =" + res.data.result);
+            //console.log("result =" + res.data.result);  //mock数据
             this.setState({
-                result : res.data.result,
+                //result : res.data.result,  //mock数据
+                  result : res.data,
             })
         })
 
         //第一次进入延时，把轻提示显示的权限打开
         setTimeout(()=>{
-            console.log("进入延时")
+            //console.log("进入延时")
             this.setState({
                 isShow : true
             })
             //二次延时把'实际上还在原来位置'但是‘已经隐藏起来‘的轻提示给关闭：就是撤掉轻提示在原本位置待的权限
             setTimeout(()=>{
-                console.log("延时完毕...")
+                //console.log("延时完毕...")
                 this.setState({
                     isShow : false
                 })
@@ -94,7 +96,6 @@ class Index extends Component {
     //消息提示
 
     render() {
-
         const scrollStyle = {
             height: '620px'
         }
@@ -114,47 +115,48 @@ class Index extends Component {
             color: '#333'
         }
 
-        return (
-            <ScrollView
-                className='scrollview'
-                scrollY
-                scrollWithAnimation
-                scrollTop={scrollTop}
-                style={scrollStyle}
-                lowerThreshold={Threshold}
-                upperThreshold={Threshold}
-                onScrollToUpper={this.onScrollToUpper.bind(this)}
-                onScroll={this.onScroll}
-            >
-                <View className='at-article'>
-                    <View className='at-article__h1'>
-                        {this.state.articleItem.title}
-                        {/* 下面是星星 */}
-                        <AtToast isOpened={this.state.isShow} text={this.state.result} duration={2000}></AtToast>
-                        <AtRate className='isCollection' max={1} value={this.state.value} onChange={this.handleChange} />
-                    </View>
-                    <View className='at-article__info'>
-                        {this.state.articleItem.time}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.articleItem.type}
-                    </View>
-                    <View className='at-article__content'>
-                        <View className='at-article__section'>
+    return (
+        <ScrollView
+            className='scrollview'
+            scrollY
+            scrollWithAnimation
+            scrollTop={scrollTop}
+            style={scrollStyle}
+            lowerThreshold={Threshold}
+            upperThreshold={Threshold}
+            onScrollToUpper={this.onScrollToUpper.bind(this)}
+            onScroll={this.onScroll}
+        >
+            <View className='at-article'>
+                <View className='at-article__h1'>
+                    <RichText nodes={this.state.articleItem.title}/>
+                    {/* 下面是星星 */}
+                    <AtToast isOpened={this.state.isShow} text={this.state.result} duration={2000}></AtToast>
+                    <AtRate className='isCollection' max={1} value={this.state.value} onChange={this.handleChange} />
+                </View>
+                <View className='at-article__info'>
+                    {this.state.articleItem.time}&emsp;&emsp;{this.state.articleItem.type}
+                </View>
+                <View className='at-article__content'>
+                    <View className='at-article__section'>
 
-                            <View className='at-article__p'>
-                                {/*这里可以将后台传来的html格式的文章内容进行渲染*/}
-                                <View dangerouslySetInnerHTML={{ __html: this.state.articleItem.content }}></View>
-                            </View>
-
-                            <Image
-                                className='at-article__img'
-                                src={this.state.articleItem.img}
-                                mode='widthFix' />
+                        <View className='at-article__p'>
+                            {/*这里可以将后台传来的html格式的文章内容进行渲染*/}
+                            {/*<View dangerouslySetInnerHTML={{ __html: this.state.articleItem.content }}></View>*/}
+                            <RichText nodes={this.state.articleItem.content}/>
                         </View>
+
+                        <Image
+                            className='at-article__img'
+                            src={this.state.articleItem.img}
+                            mode='widthFix' />
                     </View>
                 </View>
+            </View>
 
-                <TabBar tabBarCurrent={2} />
+        <TabBar tabBarCurrent={1} />
 
-            </ScrollView>
+    </ScrollView>
 
         )
     }
