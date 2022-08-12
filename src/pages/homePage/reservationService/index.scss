@@ -28,7 +28,11 @@
   border:0 gray solid;
   border-bottom-width:1px;
 }
+.aList{
+  z-index: 1;
+}
 .hospitalList{
+  z-index: 2;
   width: 100%;
   height: auto;
   float: left;
