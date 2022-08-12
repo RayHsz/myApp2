@@ -4,6 +4,7 @@ export default defineAppConfig({
     'pages/homePage/information/index',
     'pages/homePage/assess/start/index',
     'pages/homePage/assess/assessing/index',
+    'pages/homePage/assess/result/index',
     'pages/homePage/aiGuidance/step1/index',
     'pages/homePage/aiGuidance/step2/step2',
     'pages/homePage/aiGuidance/step3/step3',
