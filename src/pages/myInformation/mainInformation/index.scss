@@ -44,17 +44,17 @@
 //用户姓名信息
 .userName{
   float: left;
-  position: relative;
+  position: absolute;
   color: rgb(255,255,255);
-  left: 70px;
+  left: 200px;
   top:  70px;
 }
 
 //白色箭头
 .WhiteArrow{
   float: left;
-  position: relative;
-  left:200px;
+  position: absolute;
+  left:600px;
   top: 70px;
 }
 
@@ -164,3 +164,20 @@
   top: 20px;
 
 }
+
+.tishi{
+  position: relative;
+  left: 120px;
+  font-size:50px;
+  color: black;
+}
+.tishi2{
+  position: relative;
+  top: -100px;
+  left: 0px;
+  font-size:35px;
+  color: fuchsia;
+}
+
+
+

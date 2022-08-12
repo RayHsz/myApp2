@@ -1,26 +1,45 @@
 import {Component} from "react";
 import './index.scss'
-import { ScrollView,View } from "@tarojs/components";
+import { ScrollView,View,RichText } from "@tarojs/components";
 import { AtSearchBar,AtGrid,AtList,AtListItem } from 'taro-ui'
-import index from "@tarojs/react";
 import TabBar from "../tabBarPage";
 import Taro from "@tarojs/taro";
-
-/*import * as url from "url";
-import Taro from "@tarojs/taro";*/
+import '@tarojs/taro/html5.css'
 
 class Index extends Component {
     constructor () {
         super(...arguments)
         this.state = {
-            value: ''
+            value: '',
+            articleList:[]
         }
     }
 
+    /* 搜索栏，文章查询:这个函数是实时显示搜索框中的值 */
     onChange (value) {
-        console.log("点击了button")
+        //console.log("点击了button，当前搜索栏的值：",value)
         this.setState({
             value: value
+        })
+    }
+    /* 搜索栏，点击搜索按钮后:模糊搜索有特定关键词的文章 */
+    searchArticle =()=>{
+        //console.log("点击了搜索按钮，当前搜索内容 = ",this.state.value)  //获取到的内容正确
+        Taro.request({
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/searchArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/searchArticle',
+            data: {
+                conditions : this.state.value  //将当前输入框中的文字传到后端中作为条件进行查询
+            },
+            header: { 'content-type': 'application/json'}
+        }).then(res =>{
+            //console.log("搜索条件 =",res.data.conditions);  //mock数据格式
+            //console.log("搜索结果 =",res.data.data);  //mock数据格式
+            console.log("搜索返回的文章列表 = ",res.data)
+            this.setState({
+                //articleList : res.data.data  //mock数据格式
+                articleList : res.data
+            })
         })
     }
 
@@ -30,19 +49,66 @@ class Index extends Component {
         //console.log(e.detail)
     }
 
-    handleClick=(item,index)=>{
-        //console.log("文章分类名称 =",item.value)
-        //console.log("index =",index)
+    handleClick= (item,index) => {
+        //当点击了文章分类之后，需要根据文章类型获取对应的文章，并重新渲染
+        Taro.request({
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getArticleByType',  //mock地址
+            url: 'http://localhost:8090/aricle/getArticleByType',
+            data: {
+                // conditions : item.value  //mock数据格式
+                type : item.value
+            },
+            header: { 'content-type': 'application/json'}
+        }).then(res =>{
+            console.log("res.data = ",res.data)
+            //console.log("查询条件 =",res.data.conditions);  //mock数据格式
+            //console.log("getArticleByType 查询结果 =",res.data.data);  //mock数据格式
+            if (res.data.length == 0){     //增加一个若查询结果为空的判断
+                this.setState({
+                    articleList : [{content:"暂时没有更多的结果哦",id:"",img:"",time:"",title:"",type:""}]
+                })
+            }
+            else{
+                this.setState({
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
+            })
+            }
+        })
+
     }
 
-    toArticle = () => {
+    //点击文章跳转事件
+    toArticle (item) {
+        let data = JSON.stringify(item) //首先对获取到的item进行JSON格式化
         Taro.navigateTo({
-            url: 'article/index'
+            //跳转到文章页面，并将当前的文章id传到文章页面，方便文章页面的操作
+            url: 'article/index?data='+ `${encodeURIComponent(data)}`  //对JSON对象进行编码后传递
         })
     }
 
-    render() {
+    getArticleList=()=>{
+        Taro.request({
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/getAllArticle',
+            data: {},
+            header: { 'content-type': 'application/json'}
+        }).then(res =>{
+            //console.log("请求结果=",res.data.data);
+            console.log("生命周期，钩子函数，初次请求文章结果 =",res);
+            this.setState({
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
+            })
+        })
+    }
 
+    /*生命周期，钩子函数*/
+    componentDidMount() {
+        this.getArticleList()
+    }
+
+    render() {
         const scrollStyle = {
             // height: '238px'  //滚动刚好贴底部
             height: '450px'
@@ -63,11 +129,53 @@ class Index extends Component {
             color: '#333'
         }
 
+        const atListItem = this.state.articleList.map((item,index)=>{
+            let rawTitle = item.title  //原本还带有html格式的标题 ： rawTitle
+            let rawContent = item.content  //原本还带有html格式的内容 ： rawContent
+
+            /* 去除富文本中的html标签 */
+            /* *、+限定符都是贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上一个?就可以实现非贪婪或最小匹配。*/
+            let title = rawTitle.replace(/<.+?>/g, '');
+            let content = rawContent.replace(/<.+?>/g, '');
+            //console.log("1.去除html标签 = ",title);
+            //console.log("1.去除html标签 = ",rawContent);
+
+            /* 去除&nbsp; */
+            title = title.replace(/&nbsp;/ig, '');
+            content = content.replace(/&nbsp;/ig, '');
+            //console.log("2.去除&nbsp; = ",title);
+            //console.log("2.去除&nbsp; = ",content);
+
+            /* 去除空格 */
+            title = title.replace(/\s/ig, '');
+            content = content.replace(/\s/ig, '');
+            //console.log("3.去除空格 = ",title);
+            //console.log("3.去除空格 = ",content);
+
+            return(
+                <AtListItem
+                    onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
+                    // title= {item.title}
+                    title= {title}
+                    note= {content.substr(0,44)+"..."}  //文章内容
+                    arrow= "top"
+                    extraText= {item.time.substr(0,10)}  //文章时间
+                    thumb= {item.img}
+                />
+            )
+        })  //遍历文章列表
+
         return (
             <View className='body'>
                 {/*搜索框*/}
                 <View className='index'>
-                    <AtSearchBar className='AtSearchBar' placeholder={'搜索健康资讯'} value={this.state.value} onChange={this.onChange.bind(this)}/>
+                    <AtSearchBar
+                        className='AtSearchBar'
+                        placeholder={'搜索健康资讯'}
+                        value={this.state.value}
+                        onChange={this.onChange.bind(this)}
+                        onActionClick={this.searchArticle}
+                    />
                 </View>
 
                 {/*文章分类:这里是静态的*/}
@@ -106,7 +214,7 @@ class Index extends Component {
                 <View className='articleClassify'>
                 </View>
 
-
+                {/*文章列表的滚动槽*/}
                 <ScrollView
                     className='scrollview'
                     scrollY
@@ -115,61 +223,12 @@ class Index extends Component {
                     style={scrollStyle}
                     lowerThreshold={Threshold}
                     upperThreshold={Threshold}
-                    onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
+                    onScrollToUpper={this.onScrollToUpper.bind(this)}
                     onScroll={this.onScroll}
                 >
                     {/*文章列表*/}
                     <AtList>
-                        <AtListItem
-                            onClick={this.toArticle}
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='right'
-                            extraText='2022/08/01'
-                            thumb='https://cdn.pixabay.com/photo/2022/06/26/14/53/bird-7285669__340.jpg'
-                        />
-                        <AtListItem
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='right'
-                            extraText='2022/08/01'
-                            thumb='https://p4.itc.cn/q_70/images01/20220801/b37b2e829125447fb620b59c40af364a.jpeg'
-                        />
-                        <AtListItem
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='top'
-                            extraText='2022/08/01'
-                            thumb='https://cdn.pixabay.com/photo/2022/07/25/15/18/cat-7344042__340.jpg'
-                        />
-                        <AtListItem
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='top'
-                            extraText='2022/08/01'
-                            thumb='https://cdn.pixabay.com/photo/2022/07/10/19/30/house-7313645__340.jpg'
-                        />
-                        <AtListItem
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='top'
-                            extraText='2022/08/01'
-                            thumb='https://cdn.pixabay.com/photo/2022/07/16/20/05/universe-7325913__340.jpg'
-                        />
-                        <AtListItem
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='top'
-                            extraText='2022/08/01'
-                            thumb='https://cdn.pixabay.com/photo/2022/02/20/09/36/animal-7024080__340.png'
-                        />
-                        <AtListItem
-                            title='标题文字标题文字标题文字标题文字标题文字标题文字'
-                            note='描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息...'
-                            arrow='top'
-                            extraText='2022/08/01'
-                            thumb='https://cdn.pixabay.com/photo/2022/07/18/19/57/dog-7330712__340.jpg'
-                        />
+                        {atListItem}
                     </AtList>
                 </ScrollView>
 

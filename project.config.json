@@ -5,8 +5,8 @@
     "appid": "wxed368ade7f151e14",
     "setting": {
         "urlCheck": true,
-        "es6": false,
-        "enhance": false,
+        "es6": true,
+        "enhance": true,
         "postcss": false,
         "preloadBackgroundData": false,
         "minified": false,
@@ -40,7 +40,8 @@
         "showES6CompileOption": false,
         "useCompilerPlugins": false,
         "minifyWXML": true,
-        "useStaticServer": true
+        "useStaticServer": true,
+        "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
     "condition": {},

@@ -1,9 +1,9 @@
-
-
+//↓↓↓↓↓↓↓↓↓↓头部↓↓↓↓↓↓↓↓↓↓↓↓
 .header{
   position: absolute;
   left: 25px;
   width: 100%;
+  height: 30%;
 }
 
 //↓↓↓↓↓↓↓↓↓↓上半部分↓↓↓↓↓↓↓↓↓↓↓↓
@@ -38,13 +38,178 @@
   height: 40px;
   width: 40px;
   position: absolute;
-  margin: 20px 0 0 510px;
+  margin: 20px 0 0 500px;
 }
 .likeNum{
   font-size: 10pt;
   color: coral;
   position: absolute;
-  margin: -160px 0 0 705px;
+  margin: -160px 0 0 690px;
 }
 //↑↑↑↑↑↑↑↑↑↑上半部分↑↑↑↑↑↑↑↑↑↑↑
 
+//↓↓↓↓↓↓↓↓↓↓下半部分↓↓↓↓↓↓↓↓↓↓↓↓
+.mapPin{
+  position: absolute;
+  margin: 20px 0 0 -10px ;
+}
+.place{
+  font-size: 10pt;
+  position: absolute;
+  margin: 16px 0 0 40px;
+}
+.phone{
+  position: absolute;
+  margin: 75px 0 0 -10px ;
+}
+.phoneNum{
+  font-size: 10pt;
+  position: absolute;
+  margin: 75px 0 0 40px ;
+}
+//↑↑↑↑↑↑↑↑↑↑下半部分↑↑↑↑↑↑↑↑↑↑↑
+
+//↑↑↑↑↑↑↑↑↑↑头部↑↑↑↑↑↑↑↑↑↑↑
+
+
+//↓↓↓↓↓↓↓↓↓↓主要部分↓↓↓↓↓↓↓↓↓↓↓↓
+.mainPart{
+  position: absolute;
+  width: 100%;
+  background-color: rgb(245,245,245);
+  margin: 47% 0 0 0 ;
+}
+
+//↓↓↓↓↓↓↓↓↓↓预约服务↓↓↓↓↓↓↓↓↓↓↓↓
+.reservationService{
+  background-color: white;
+  border-radius: 10%;
+  position: absolute;
+  height: 170px;
+  width: 690px;
+  margin: 30px;
+}
+.serviceIcon{
+  background-color: red;
+  position: relative;
+  height: 80px;
+  width: 80px;
+  border-radius: 10%;
+  margin: 30px 300px;
+  transform: rotate(45deg);
+}
+.add{
+  transform: rotate(45deg);
+  margin: 8px;
+}
+.serviceMS{
+  font-size: 10pt;
+  position: relative;
+  margin: -12px 0 0 40%;
+}
+//↑↑↑↑↑↑↑↑↑↑预约服务↑↑↑↑↑↑↑↑↑↑↑
+
+.nav{
+  height: 50px;
+  width: 100%;
+  position: relative;
+  border: 1px solid red;
+  margin: 220px 0 0 0;
+  border-radius: 7%;
+}
+
+//↓↓↓↓↓↓↓↓↓↓服务团队↓↓↓↓↓↓↓↓↓↓↓↓
+.serviceTeam{
+  height: 50px;
+  width: 50%;
+  position: relative;
+  border-right: solid;
+  border-right-color: red;
+  border-right-width: 5px;
+  background-color: rgb(188,54,53);
+  text-align: center;//左右居中
+  //↓↓↓↓↓↓↓上下居中↓↓↓↓↓↓↓↓
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //↑↑↑↑↑↑↑上下居中↑↑↑↑↑↑↑↑
+}
+.doctorImg{
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  position: relative;
+}
+.FWTD{
+  font-size: 10pt;
+  color: white;
+}
+.project{
+  height: 50px;
+  width: 50%;
+  position: relative;
+  border-right: solid;
+  border-right-color: red;
+  border-right-width: 5px;
+  background-color: white;
+  text-align: center;//左右居中
+  margin: -50px 0 0 50%;
+  //↓↓↓↓↓↓↓上下居中↓↓↓↓↓↓↓↓
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //↑↑↑↑↑↑↑上下居中↑↑↑↑↑↑↑↑
+}
+.KZXM{
+  font-size: 10pt;
+  color: red;
+}
+.DInf{
+  height: 220px;
+  width: 100%;
+  border-radius: 10%;
+  background-color: white;
+  position: relative;
+  margin-top: 40px;
+}
+.headPortraits{
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  margin: -30px 0 0 30px;
+}
+.doctorName{
+  position: absolute;
+  margin: 80px 0 0 30px;
+  font-weight: bold;
+  font-size: 11pt;
+}
+.doctorPosition{
+  position: absolute;
+  margin: 20px 0 0 220px;
+  font-size: 11pt;
+}
+.skill{
+  position: absolute;
+  margin: 90px 0 0 220px;
+  font-size: 11pt;
+}
+.belong{
+  position: absolute;
+  margin: 160px 0 0 220px;
+  font-size: 11pt;
+}
+.inquiryNum{
+  position: absolute;
+  margin: 150px 0 0 20px;
+  font-size: 11pt;
+}
+//↑↑↑↑↑↑↑↑↑↑服务团队↑↑↑↑↑↑↑↑↑↑↑
+
+//↓↓↓↓↓↓↓↓↓↓开展项目↓↓↓↓↓↓↓↓↓↓↓↓
+
+//↑↑↑↑↑↑↑↑↑↑开展项目↑↑↑↑↑↑↑↑↑↑↑
+
+
+//↑↑↑↑↑↑↑↑↑↑主要部分↑↑↑↑↑↑↑↑↑↑↑

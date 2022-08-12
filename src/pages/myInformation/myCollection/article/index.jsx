@@ -2,8 +2,8 @@ import {Component} from "react";
 import { ScrollView,View,Image,RichText } from "@tarojs/components";
 import { AtRate,AtToast } from "taro-ui";
 import './index.scss';
-import TabBar from "../../tabBarPage";
-import Taro,{useRouter,getCurrentInstance} from "@tarojs/taro";
+import TabBar from "../../../tabBarPage";
+import Taro,{getCurrentInstance} from "@tarojs/taro";
 import '@tarojs/taro/html5.css'
 
 class Index extends Component {
@@ -154,7 +154,7 @@ class Index extends Component {
                 </View>
             </View>
 
-        <TabBar tabBarCurrent={1} />
+        <TabBar tabBarCurrent={2} />
 
     </ScrollView>
 

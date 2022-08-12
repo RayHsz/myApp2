@@ -1,0 +1,21 @@
+.body{
+  background-color: white;
+}
+.index{
+  flex-direction: column;
+  background-color: rgb(119,86,55); //这个样式和搜索栏重叠，可以省略
+  height: 100px;
+}
+.AtSearchBar{
+  height: 100px;
+  background-color: rgb(119,86,55);
+}
+
+//文章分类
+.articleClassify{
+  height: 20px;
+  width: 100%;
+  background-color: rgba(245,245,245);
+}
+
+
