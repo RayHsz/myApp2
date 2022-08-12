@@ -203,7 +203,7 @@ class Index extends Component {
                     </AtList>
                 </ScrollView>
 
-                <TabBar tabBarCurrent={1} />
+                <TabBar tabBarCurrent={2} />
 
             </View>
         )

@@ -154,7 +154,7 @@ class Index extends Component {
                 </View>
             </View>
 
-        <TabBar tabBarCurrent={1} />
+        <TabBar tabBarCurrent={2} />
 
     </ScrollView>
 
