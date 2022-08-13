@@ -5,6 +5,7 @@ const INIT_STATE = {
     selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
     selectIndex: '',
+    hospitalDistances: [],
     openid:"",
     avatar:"",
     gender:"",
@@ -35,6 +36,11 @@ export default function hospital(previousState = INIT_STATE, action) {
             return{
                 ...previousState,
                 selectIndex:action.selectIndex
+            }
+        case 'setHospitalDistance':
+            return{
+                ...previousState,
+                hospitalDistances:action.hospitalDistances
             }
         default:
             return previousState;
