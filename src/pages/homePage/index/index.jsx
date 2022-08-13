@@ -55,6 +55,11 @@ class Index extends Component {
             url: '../assess/start/index'
         })
     }
+    goToReservationService=()=>{
+        Taro.navigateTo({
+            url: '../reservationService/index'
+        })
+    }
 
     /*  文章滚动槽 */
     onScrollToUpper() {}
