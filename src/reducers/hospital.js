@@ -45,7 +45,7 @@ export default function hospital(previousState = INIT_STATE, action) {
         case 'searchHospital':
             return {
                 ...previousState,
-                hospitalList: action.hospitalList
+                hospitalList: action.hospitalList.data.data
             }
 
         case 'setHotHospitalList':

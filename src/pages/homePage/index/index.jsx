@@ -8,13 +8,15 @@ import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
 import {AtGrid} from "taro-ui"
 import {findLoopImg} from "../../../actions/loopImg";
+import {searchHospital} from "../../../actions/hospital";
 
-@connect(({loopImg}) => ({loopImg}), {findLoopImg})
+@connect(({loopImg,hospital}) => ({loopImg,hospital}), {findLoopImg,searchHospital})
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articleList:[]
+            articleList:[],
+            value:''
         }
     }
 
@@ -24,7 +26,14 @@ class Index extends Component {
 
     onChange(value) {
         this.setState({
-            //value: value
+            value: value
+        })
+    }
+
+    onActionClick(name){
+        this.props.searchHospital(name)
+        Taro.navigateTo({
+            url: '../reservationService/index'
         })
     }
 
@@ -163,10 +172,10 @@ class Index extends Component {
             <View className='index'>
                 <View className='at-search-bar'>
                     <AtSearchBar
-                        //value={this.state.value}
+                        value={this.state.value}
                         onChange={this.onChange.bind(this)}
                         placeholder={'搜索国医堂'}
-                        //onActionClick={this.onActionClick.bind(this)}
+                        onActionClick={this.onActionClick.bind(this,this.state.value)}
                     />
                 </View>
                 <View className='rotationPicture'>

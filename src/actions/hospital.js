@@ -70,12 +70,14 @@ export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
 }
 
 
-export const searchHospital =(name)=> {
+
+export const searchHospital =(name)=>{
+    console.log('mingzi'+name);
     return (dispatch) => {
         Taro.request({
-            url: 'https://localhost:8090/hospital/search', //仅为示例，并非真实的接口地址
-            data: {
-                "name": name,
+            url: 'http://www.localhost:8090/hospital/search', //仅为示例，并非真实的接口地址
+            data:{
+                name:name,
             },
             header: {
                 'content-type': 'application/json' // 默认值
@@ -86,6 +88,7 @@ export const searchHospital =(name)=> {
         })
     }
 }
+}
 
     export const setHotHospitalList = (value) => {
         return (dispatch) => {
@@ -93,3 +96,5 @@ export const searchHospital =(name)=> {
 
         }
     }
+}
+
