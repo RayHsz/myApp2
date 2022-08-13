@@ -8,10 +8,10 @@ import { AtAvatar } from 'taro-ui'
 import { AtIcon } from 'taro-ui'
 import TabBar from "../../tabBarPage";
 import { AtToast } from "taro-ui"
-import {findUser} from "../../../actions/user";
+import {findResult, findUser} from "../../../actions/user";
 
 
-@connect(({user}) => ({user}),{findUser})
+@connect(({user}) => ({user}),({findUser,findResult}))
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +64,7 @@ class Index extends Component {
 
     identificationRecordsSkip = () => {
         // ’体质辨识记录‘页面跳转
+        this.props.findResult();
         Taro.navigateTo({
             // url: '/pages/myInformation/identificationRecords/index'
             url: '/pages/myInformation/identificationRecords/index'

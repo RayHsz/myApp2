@@ -9,6 +9,7 @@ const INIT_STATE = {
     avatar:"",
     gender:"",
     nickname:"",
+    resultList:[]
 }
 
 export default function user(previousState = INIT_STATE, action) {
@@ -21,6 +22,12 @@ export default function user(previousState = INIT_STATE, action) {
             return {
                 ...previousState,
                 hospitalList: hospitalList.data.data
+            };
+        case 'searchresult':
+            console.log("reducer: ",hospitalList.data.data);
+            return {
+                ...previousState,
+                resultList: hospitalList.data.data
             };
         default:
             return previousState;
