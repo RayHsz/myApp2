@@ -1,10 +1,12 @@
 
 const INIT_STATE = {
-    current: 0,
     dateSel:'2022-8-2',
-    checkedList:['list4'],
-    active:true
+    checkedList:[],
+    active:true,
+    title:'请选择不适症状'
 }
+
+const prepareState =INIT_STATE;
 
 export default function aiGuidance(state = INIT_STATE, action){
 
@@ -19,15 +21,19 @@ export default function aiGuidance(state = INIT_STATE, action){
                 ...state,
                 dateSel: action.dateSel
             }
-        case 'changeCurrent':
-            return {
-                ...state,
-                current: action.current
-            }
         case 'changeCheckedList':
             return {
                 ...state,
-                checkedList: action.checkedList
+                checkedList: action.checkedList,
+                title: action.title
+            }
+        case 'turnPrepare':
+            return {
+                ...state,
+                dateSel: prepareState.dateSel,
+                checkedList: prepareState.checkedList,
+                active: prepareState.active,
+                title: prepareState.title
             }
         default:
             return state

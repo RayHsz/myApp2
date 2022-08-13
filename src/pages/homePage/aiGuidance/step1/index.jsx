@@ -19,7 +19,6 @@ class Index extends Component {
     }
 
     next=()=>{
-        this.props.onChangeCurrent(1)
         Taro.navigateTo({
             url: '../step2/step2'
         })
@@ -47,7 +46,7 @@ class Index extends Component {
                 </View>
                     <AtSteps className='step'
                         items={items}
-                        current={this.props.aiGuidance.current}
+                        current={0}
                         // onChange={this.onChange.bind(this)}
                     />
                 <View className='information'>
