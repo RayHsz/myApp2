@@ -11,6 +11,7 @@ export default defineAppConfig({
     'pages/homePage/hospital/index',
     'pages/homePage/hospital/info/info',
     'pages/homePage/hospital/synopsis/synopsis',
+    'pages/homePage/reservationService/index',
     'pages/healthInformation/index',
     'pages/healthInformation/article/index',
     'pages/myInformation/mainInformation/index',

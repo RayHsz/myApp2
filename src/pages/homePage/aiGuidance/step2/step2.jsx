@@ -4,16 +4,31 @@ import './step2.scss';
 import {AtButton, AtSteps} from 'taro-ui';
 import { AtCheckbox } from 'taro-ui';
 import {connect} from "react-redux";
-import {onChangeCheckedList} from "../../../../actions/aiGuidance";
+import {onChangeCheckedList, onChangeCurrent} from "../../../../actions/aiGuidance";
 import Taro from "@tarojs/taro";
 
-@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCheckedList}))
+@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCheckedList,onChangeCurrent}))
 class Step2 extends Component{
     constructor (props) {
         super(props)
     }
     handleChange (value) {
-        this.props.onChangeCheckedList(value)
+        let string=''
+        value.map((item, index)=>{
+            this.checkboxOption.map((label,i)=>{
+                if(item==label.value){
+                    if(string!=''){
+                        string+='，'+label.label
+                    }else {
+                        string+=label.label
+                    }
+                }
+            })
+        })
+        if(string==''){
+            string='请选择不适症状'
+        }
+        this.props.onChangeCheckedList(value,string)
     }
 
     next=()=>{
@@ -62,13 +77,13 @@ class Step2 extends Component{
                 <View>
                     <AtSteps className='step'
                              items={items}
-                             current={this.props.aiGuidance.current}
+                             current={1}
                              // onChange={this.onChange.bind(this)}
                              activeColor='blue'
                     />
                 </View>
                 <View className='chooseView'>
-                    <text className='text1'>请选择不适症状</text>
+                    <text className='text1'>{this.props.aiGuidance.title}</text>
                 </View>
                 <View>
                     <AtCheckbox

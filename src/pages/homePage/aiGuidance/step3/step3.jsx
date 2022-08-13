@@ -3,10 +3,33 @@ import {View} from "@tarojs/components";
 import './step3.scss';
 import {AtButton, AtRate, AtSteps} from 'taro-ui';
 import {connect} from "react-redux";
-import {onChangeCheckedList, onChangeCurrent} from "../../../../actions/aiGuidance";
+import {onChangeCurrent, turnPrepare} from "../../../../actions/aiGuidance";
+import Taro from "@tarojs/taro";
 
-@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCurrent}))
+@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCurrent,turnPrepare}))
 class step3 extends Component{
+
+    constructor(props) {
+        super(props);
+    }
+
+    turnPrepare=()=>{
+
+    }
+
+    goToIndex=()=>{
+        this.props.turnPrepare()
+        Taro.navigateBack({
+            delta: 3
+        })
+    }
+
+    goToStep1=()=>{
+        this.props.turnPrepare()
+        Taro.navigateBack({
+            delta: 2
+        })
+    }
 
     render() {
         const items = [
@@ -20,7 +43,6 @@ class step3 extends Component{
             },
             {
                 title: '进行中',
-                status: 'success'
             }
         ]
         return(
@@ -31,7 +53,7 @@ class step3 extends Component{
                 <View>
                     <AtSteps className='step'
                              items={items}
-                             current={this.props.aiGuidance.current}
+                             current={2}
                         // onChange={this.onChange.bind(this)}
                              activeColor='blue'
                     />
@@ -50,10 +72,10 @@ class step3 extends Component{
                         value='2'
                     />
                 </View>
-                <View className='button'>
+                <View className='button' onClick={this.goToStep1}>
                     <text className='text'>再来一次</text>
                 </View>
-                <View className='button'>
+                <View className='button' onClick={this.goToIndex}>
                     <text className='text'>完成</text>
                 </View>
             </View>

@@ -159,17 +159,30 @@ class Index extends Component {
             //console.log("3.去除空格 = ",title);
             //console.log("3.去除空格 = ",content);
 
-            return(
-                <AtListItem
-                    onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
-                    // title= {item.title}
-                    title= {title}
-                    note= {content.substr(0,44)+"..."}  //文章内容
-                    arrow= "top"
-                    extraText= {item.time.substr(0,10)}  //文章时间
-                    thumb= {item.img}
-                />
-            )
+            //当当前没有搜索到文章列表时，显示的AtItemList不能有onClick事件，否则点击时它会当作文章并跳转到文章详情页
+            if (content === "暂时没有更多的结果哦" && title === ""){
+                return(
+                    <AtListItem
+                        title= {title}
+                        note= {content.substr(0,44)+"..."}  //文章内容
+                        arrow= "top"
+                        extraText= {item.time.substr(0,10)}  //文章时间
+                        thumb= {item.img}
+                    />
+                )
+            }else{
+                return(
+                    <AtListItem
+                        onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
+                        // title= {item.title}
+                        title= {title}
+                        note= {content.substr(0,44)+"..."}  //文章内容
+                        arrow= "top"
+                        extraText= {item.time.substr(0,10)}  //文章时间
+                        thumb= {item.img}
+                    />
+                )
+            }
         })  //遍历文章列表
 
         return (
