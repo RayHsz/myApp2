@@ -51,6 +51,7 @@ class Index extends Component {
         /*
         0:按评分降序
         1:按评分升序
+        1
          */
         let a = this.props.hospital.hospitalList;
         let temp;
