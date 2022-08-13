@@ -36,10 +36,17 @@ class Index extends Component {
             //console.log("搜索条件 =",res.data.conditions);  //mock数据格式
             //console.log("搜索结果 =",res.data.data);  //mock数据格式
             console.log("搜索返回的文章列表 = ",res.data)
-            this.setState({
-                //articleList : res.data.data  //mock数据格式
-                articleList : res.data
-            })
+            if (res.data.length == 0){     //增加一个若查询结果为空的判断
+                this.setState({
+                    articleList : [{content:"暂时没有更多的结果哦",id:"",img:"",time:"",title:"",type:""}]
+                })
+            }
+            else{
+                this.setState({
+                    // articleList : res.data.data  //mock数据格式
+                    articleList : res.data
+                })
+            }
         })
     }
 
