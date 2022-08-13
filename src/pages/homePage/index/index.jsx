@@ -31,7 +31,11 @@ class Index extends Component {
     changePage = (value,index) =>{
         if (index === 0){
             this.goToHospital();
-        }else if (index === 2){
+        }
+        else if (index === 1){
+            this.goToReservationService();
+        }
+        else if (index === 2){
             this.goToAIGuidance();
         }
     }
