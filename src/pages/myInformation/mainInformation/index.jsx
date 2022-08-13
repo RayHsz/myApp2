@@ -2,25 +2,25 @@ import {Component} from "react";
 import {Button, View} from "@tarojs/components";
 import {AtButton, AtModal, AtModalAction, AtModalContent, AtModalHeader} from "taro-ui";
 import {connect} from "react-redux";
-import {findHospital} from "../../../actions/hospital";
 import Taro from "@tarojs/taro";
 import './index.scss'
 import { AtAvatar } from 'taro-ui'
 import { AtIcon } from 'taro-ui'
 import TabBar from "../../tabBarPage";
 import { AtToast } from "taro-ui"
+import {findUser} from "../../../actions/user";
 
 
-@connect(({hospital}) => ({hospital}),{findHospital})
+@connect(({user}) => ({user}),{findUser})
 class Index extends Component {
   constructor(props) {
     super(props);
       this.state = {
           code:"",
           openid:"",
-          avatar:this.props.hospital.avatar,
+          avatar:this.props.user.avatar,
           nickname:"",
-          openid2:this.props.hospital.openid,
+          openid2:this.props.user.openid,
           quxiao:true,
           tsquxiao:false,
           cgshouquan:false
@@ -29,7 +29,7 @@ class Index extends Component {
 
     userInformationSkip = () => {
         // '我的信息'页面跳转
-        this.props.findHospital();
+        this.props.findUser();
         setTimeout(()=>
         {
             Taro.navigateTo({
@@ -100,8 +100,8 @@ class Index extends Component {
                 // 获取code值
                 let avatar= userInfo.avatarUrl
                 let nickname=userInfo.nickName
-                this.props.hospital.avatar=avatar
-                this.props.hospital.nickname=nickname
+                this.props.user.avatar=avatar
+                this.props.user.nickname=nickname
                 wx.login({
                     //成功放回
                     success:(res)=>{
@@ -110,7 +110,7 @@ class Index extends Component {
                         console.log(this.state.code);
                         // 通过code换取openId
                         console.log("转化获得的"+this.state.openid);
-                        this.props.hospital.openid=Taro.request({
+                        this.props.user.openid=Taro.request({
                             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
                             url: 'http://localhost:8090/userwx/getopenid',//仅为示例，并非真实的接口地址
                             data: {
@@ -153,7 +153,7 @@ class Index extends Component {
             Taro.reLaunch({
                 url: "/pages/myInformation/mainInformation/index"
             });
-        }, 1000)
+        }, 1500)
     }
 
   render() {
@@ -178,7 +178,7 @@ class Index extends Component {
           <View className='UserHeader' >
               <View className='topPart' onClick={this.userInformationSkip}>
                   <AtAvatar  size='100' circle image={this.state.avatar} className='headerPortrait'></AtAvatar>
-                  <View className='userName'>{this.props.hospital.nickname}</View>
+                  <View className='userName'>{this.props.user.nickname}</View>
                   <AtIcon  value='chevron-right' size='30' color='rgb(255,255,255)' className='WhiteArrow'></AtIcon></View>
               </View>
         </View>

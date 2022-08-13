@@ -69,6 +69,7 @@ export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
     }
 }
 
+
 export const searchHospital =(name)=>{
     return (dispatch) => {
         Taro.request({
@@ -83,5 +84,11 @@ export const searchHospital =(name)=>{
                 dispatch({type: 'searchHospital', hospitalList: res})
             }
         })
+}
+
+export const setHotHospitalList = (value) => {
+    return (dispatch) => {
+        dispatch({type: 'setHotHospitalList', hotHospitalList: value})
+
     }
 }
