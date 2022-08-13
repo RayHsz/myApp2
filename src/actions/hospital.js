@@ -68,3 +68,9 @@ export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
         })
     }
 }
+
+export const setHotHospitalList = (value) => {
+    return (dispatch) => {
+        dispatch({type: 'setHotHospitalList', hotHospitalList: value})
+    }
+}
