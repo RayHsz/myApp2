@@ -8,7 +8,7 @@ import './index.scss'
 import { AtAvatar } from 'taro-ui'
 import { AtIcon } from 'taro-ui'
 import TabBar from "../../tabBarPage";
-
+import { AtToast } from "taro-ui"
 
 
 @connect(({hospital}) => ({hospital}),{findHospital})
@@ -20,7 +20,10 @@ class Index extends Component {
           openid:"",
           avatar:this.props.hospital.avatar,
           nickname:"",
-          openid2:this.props.hospital.openid
+          openid2:this.props.hospital.openid,
+          quxiao:true,
+          tsquxiao:false,
+          cgshouquan:false
       }
   }
 
@@ -74,7 +77,15 @@ class Index extends Component {
         })
     }
 
+    quxiao=()=>{
+        this.setState({
+            quxiao:false,
+            tsquxiao:true
+        })
+    }
+
     shouquan=()=>{
+
         wx.getUserInfo({
             //成功后会返回
             success:(res)=>{
@@ -101,7 +112,7 @@ class Index extends Component {
                         console.log("转化获得的"+this.state.openid);
                         this.props.hospital.openid=Taro.request({
                             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-                            url: 'http://localhost:8090/usert/getopenid',//仅为示例，并非真实的接口地址
+                            url: 'http://localhost:8090/userwx/getopenid',//仅为示例，并非真实的接口地址
                             data: {
                                 code: this.state.code
                             },
@@ -114,7 +125,7 @@ class Index extends Component {
                                 console.log("传递的",openid1);
                                 Taro.request({
                                     // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-                                    url: 'http://localhost:8090/usert/create',//仅为示例，并非真实的接口地址
+                                    url: 'http://localhost:8090/userwx/create',//仅为示例，并非真实的接口地址
                                     data: {
                                         id:openid1,
                                         avatar: avatar
@@ -131,7 +142,9 @@ class Index extends Component {
                         })
                     }
                 })
-
+                this.setState({
+                    cgshouquan:true
+                })
             }
         })
 
@@ -146,16 +159,21 @@ class Index extends Component {
   render() {
 
     return (
-
+        //利用三元判断来决定是否显示提示
       <View className='index'>
-          { this.state.openid2== "" ?<AtModal isOpened>
-              <AtModalHeader>您是否授权</AtModalHeader>
-              <AtModalContent>
-
+          { this.state.openid2== "" ?<AtModal isOpened={this.state.quxiao} >
+              <AtModalHeader></AtModalHeader>
+              <AtModalContent className="tishi" >
+                  您是否授权~
               </AtModalContent>
-              <AtModalAction> <Button>取消</Button> <Button onClick={this.shouquan}>确定</Button> </AtModalAction>
+              <AtModalContent className="tishi2">
+                  (授权的话您可以享受本小程序超便捷的服务噢,快来授权试试吧~)
+              </AtModalContent>
+              <AtModalAction> <Button onClick={this.quxiao}>取消</Button> <Button onClick={this.shouquan}>确定</Button> </AtModalAction>
           </AtModal>:""}
 
+          <AtToast isOpened text="您取消了授权~" isOpened={this.state.tsquxiao}></AtToast>
+          <AtToast isOpened text="成功授权~" isOpened={this.state.cgshouquan}></AtToast>
         <View className='BackgroundPicture'>
           <View className='UserHeader' >
               <View className='topPart' onClick={this.userInformationSkip}>

@@ -1,10 +1,10 @@
 import {Component} from "react";
 import './index.scss'
-import { ScrollView,View } from "@tarojs/components";
+import { ScrollView,View,RichText } from "@tarojs/components";
 import { AtSearchBar,AtGrid,AtList,AtListItem } from 'taro-ui'
 import TabBar from "../tabBarPage";
 import Taro from "@tarojs/taro";
-import config from "../../http/config";
+import '@tarojs/taro/html5.css'
 
 class Index extends Component {
     constructor () {
@@ -26,16 +26,19 @@ class Index extends Component {
     searchArticle =()=>{
         //console.log("点击了搜索按钮，当前搜索内容 = ",this.state.value)  //获取到的内容正确
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/searchArticle',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/searchArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/searchArticle',
             data: {
                 conditions : this.state.value  //将当前输入框中的文字传到后端中作为条件进行查询
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
-            console.log("搜索条件 =",res.data.conditions);
-            console.log("搜索结果 =",res.data.data);
+            //console.log("搜索条件 =",res.data.conditions);  //mock数据格式
+            //console.log("搜索结果 =",res.data.data);  //mock数据格式
+            console.log("搜索返回的文章列表 = ",res.data)
             this.setState({
-                articleList : res.data.data
+                //articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
         })
     }
@@ -49,17 +52,28 @@ class Index extends Component {
     handleClick= (item,index) => {
         //当点击了文章分类之后，需要根据文章类型获取对应的文章，并重新渲染
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getArticleByType',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getArticleByType',  //mock地址
+            url: 'http://localhost:8090/aricle/getArticleByType',
             data: {
-                conditions : item.value
+                // conditions : item.value  //mock数据格式
+                type : item.value
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{
-            console.log("查询条件 =",res.data.conditions);
-            console.log("getArticleByType 查询结果 =",res.data.data);
-            this.setState({
-                articleList : res.data.data
+            console.log("res.data = ",res.data)
+            //console.log("查询条件 =",res.data.conditions);  //mock数据格式
+            //console.log("getArticleByType 查询结果 =",res.data.data);  //mock数据格式
+            if (res.data.length == 0){     //增加一个若查询结果为空的判断
+                this.setState({
+                    articleList : [{content:"暂时没有更多的结果哦",id:"",img:"",time:"",title:"",type:""}]
+                })
+            }
+            else{
+                this.setState({
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
+            }
         })
 
     }
@@ -75,14 +89,16 @@ class Index extends Component {
 
     getArticleList=()=>{
         Taro.request({
-            url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',
+            // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/getAllArticle',  //mock地址
+            url: 'http://localhost:8090/aricle/getAllArticle',
             data: {},
             header: { 'content-type': 'application/json'}
         }).then(res =>{
             //console.log("请求结果=",res.data.data);
             console.log("生命周期，钩子函数，初次请求文章结果 =",res);
             this.setState({
-                articleList : res.data.data
+                // articleList : res.data.data  //mock数据格式
+                articleList : res.data
             })
         })
     }
@@ -114,11 +130,34 @@ class Index extends Component {
         }
 
         const atListItem = this.state.articleList.map((item,index)=>{
+            let rawTitle = item.title  //原本还带有html格式的标题 ： rawTitle
+            let rawContent = item.content  //原本还带有html格式的内容 ： rawContent
+
+            /* 去除富文本中的html标签 */
+            /* *、+限定符都是贪婪的，因为它们会尽可能多的匹配文字，只有在它们的后面加上一个?就可以实现非贪婪或最小匹配。*/
+            let title = rawTitle.replace(/<.+?>/g, '');
+            let content = rawContent.replace(/<.+?>/g, '');
+            //console.log("1.去除html标签 = ",title);
+            //console.log("1.去除html标签 = ",rawContent);
+
+            /* 去除&nbsp; */
+            title = title.replace(/&nbsp;/ig, '');
+            content = content.replace(/&nbsp;/ig, '');
+            //console.log("2.去除&nbsp; = ",title);
+            //console.log("2.去除&nbsp; = ",content);
+
+            /* 去除空格 */
+            title = title.replace(/\s/ig, '');
+            content = content.replace(/\s/ig, '');
+            //console.log("3.去除空格 = ",title);
+            //console.log("3.去除空格 = ",content);
+
             return(
                 <AtListItem
                     onClick= {() =>this.toArticle(item)}  //在onClick事件传参的时候，只要写成箭头函数的方式，就不会被立即执行
-                    title= {item.title}
-                    note= {item.content.substr(0,44)+"..."}  //文章内容
+                    // title= {item.title}
+                    title= {title}
+                    note= {content.substr(0,44)+"..."}  //文章内容
                     arrow= "top"
                     extraText= {item.time.substr(0,10)}  //文章时间
                     thumb= {item.img}
@@ -174,7 +213,6 @@ class Index extends Component {
                 {/*这是hr分割线*/}
                 <View className='articleClassify'>
                 </View>
-
 
                 {/*文章列表的滚动槽*/}
                 <ScrollView

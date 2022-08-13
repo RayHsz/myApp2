@@ -6,6 +6,10 @@ const INIT_STATE = {
     selectorChecked: '',
     selectIndex: '',
     hospitalDistances: [],
+    openid:"",
+    avatar:"",
+    gender:"",
+    nickname:""
 }
 
 export default function hospital(previousState = INIT_STATE, action) {

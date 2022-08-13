@@ -21,11 +21,8 @@ class Index extends Component {
     render(){
         console.log(this.state.op)
         return (
-            <View className='a'>
-                <button >
-                    111
-                </button>
-                <AtToast isOpened={this.state.op} text="{text}" icon="{icon}" onClick={this.opd}></AtToast>
+            <View >
+                <AtToast isOpened={this.state.op} text="您没有挂号记录噢~"  onClick={this.opd}></AtToast>
                 <TabBar tabBarCurrent={2} />
             </View>
 
