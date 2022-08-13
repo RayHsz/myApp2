@@ -8,13 +8,20 @@ import TabBar from "../../tabBarPage";
 import {
     changeSelector,
     findHospital,
-    setHospitalDistance,
+    setHospitalDistance, setHotHospitalList,
     setSelectIndex,
     sortHospitalDistance
 } from "../../../actions/hospital";
 import QQMapWX from "../../../libs/qqmap-wx-jssdk";
 
-@connect(({hospital}) => ({hospital}), ({changeSelector, setSelectIndex, findHospital,setHospitalDistance,sortHospitalDistance}))
+@connect(({hospital}) => ({hospital}), ({
+    changeSelector,
+    setSelectIndex,
+    findHospital,
+    setHospitalDistance,
+    sortHospitalDistance,
+    setHotHospitalList
+}))
 class Index extends Component {
     constructor() {
         super(...arguments)
@@ -67,7 +74,6 @@ class Index extends Component {
                 lat = res.result.location.lat * (Math.PI / 180);
                 lng = res.result.location.lng * (Math.PI / 180);
                 let d = Math.acos(Math.sin(lat) * Math.sin(_this.myLatitude) + Math.cos(lat) * Math.cos(_this.myLatitude) * Math.cos(lng - _this.myLongitude)) * 6371.004;
-                console.log("定位", d);
                 resolve(d);
             },
             fail: function (error) {
@@ -134,7 +140,7 @@ class Index extends Component {
         switch (select) {
             case '0':
             case '1':
-                this.props.sortHospitalDistance(hospitalList,hospitalDistances,select);
+                this.props.sortHospitalDistance(hospitalList, hospitalDistances, select);
                 break;
             case '2':
             case '3':
@@ -149,6 +155,17 @@ class Index extends Component {
                     }
                 )
         }
+    }
+
+    getHotHospitalList() {
+        let hotHospitalList = [];
+        this.props.hospital.hospitalList.map((info, index) => {
+            if (info.isHot === 1) {
+                hotHospitalList.push(info);
+            }
+        })
+        console.log(hotHospitalList);
+        this.props.setHotHospitalList(hotHospitalList);
     }
 
     getHospitalData() {
@@ -170,49 +187,41 @@ class Index extends Component {
     }
 
     getHotHospital() {
-        return this.props.hospital.hospitalList.map((info, index) => {
-            if (info.isHot === 1) {
-                return (
-                    <View className='leftPart' onClick={this.next.bind(this, index)}>
-                        <View className='leftH'>
-                            <image src={info.image} alt="" className='leftImg'/>
-                        </View>
-                        <View className='leftMs'>
-                            {info.name}
-                        </View>
-                        <AtRate
-                            className='leftStar'
-                            size='15'
-                            value={info.score}
-                        />
+        let hospitalList = this.props.hospital.hospitalList;
+        return this.props.hospital.hotHospitalList.map((info, index) => {
+            let num = 0;
+            hospitalList.map((hospital,index) => {
+                if (hospital === info){
+                    num = index;
+                }
+            })
+            return (
+                <View className='leftPart' onClick={this.next.bind(this, num)}>
+                    <View className='leftH'>
+                        <image src={info.image} alt="" className='leftImg'/>
                     </View>
-                    /*
-                    <View className='rightPart' onClick={this.next.bind(this, index)}>
-                        <View className='rightH'>
-                            <image src={info.image} alt="" className='rightImg'/>
-                        </View>
-                        <View className='rightMs'>
-                            {info.name}
-                        </View>
-                        <AtRate
-                            className='rightStar'
-                            size='15'
-                            value={info.score}
-                        />
-                    </View>*/
-                )
-            }
+                    <View className='leftMs'>
+                        {info.name}
+                    </View>
+                    <AtRate
+                        className='leftStar'
+                        size='15'
+                        value={info.score}
+                    />
+                </View>
+            )
         })
     }
 
     render() {
-        let hospitalData;
-        let hotHospital;
         if (this.props.hospital.hospitalList.length === 0) {
             this.getHospitalList();
-        } else {
-            hospitalData = this.getHospitalData();
-            hotHospital = this.getHotHospital();
+        } else if (this.props.hospital.hotHospitalList.length === 0) {
+            this.getHotHospitalList();
+        } else if (this.props.hospital.hotHospitalList.length !== 0) {
+            let hospitalData = this.getHospitalData();
+            let hotHospital = this.getHotHospital();
+            // hotHospital = this.getHotHospital();
             return (
                 <View className='index'>
                     <View className='header'>医院</View>
