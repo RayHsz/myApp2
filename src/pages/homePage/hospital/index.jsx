@@ -5,10 +5,16 @@ import {AtRate, AtList, AtListItem} from "taro-ui";
 import './index.scss'
 import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
-import {changeSelector, findHospital, setSelectIndex} from "../../../actions/hospital";
+import {
+    changeSelector,
+    findHospital,
+    setHospitalDistance,
+    setSelectIndex,
+    sortHospitalDistance
+} from "../../../actions/hospital";
 import QQMapWX from "../../../libs/qqmap-wx-jssdk";
 
-@connect(({hospital}) => ({hospital}), ({changeSelector, setSelectIndex, findHospital}))
+@connect(({hospital}) => ({hospital}), ({changeSelector, setSelectIndex, findHospital,setHospitalDistance,sortHospitalDistance}))
 class Index extends Component {
     constructor() {
         super(...arguments)
@@ -18,6 +24,17 @@ class Index extends Component {
         this.props.setSelectIndex(value);
         Taro.navigateTo({
             url: 'info/info'
+        })
+    }
+
+    componentWillMount() {
+        this.authorization()
+            .then(res => {
+                this.myLatitude = res.latitude * (Math.PI / 180);
+                this.myLongitude = res.longitude * (Math.PI / 180);
+                return new Promise(this.getLocation.bind(this));
+            }).then(res => {
+            this.props.setHospitalDistance(res);
         })
     }
 
@@ -31,7 +48,6 @@ class Index extends Component {
         this.props.findHospital();
     }
 
-    // QQMapWX = require('../../../../libs/qqmap-wx-jssdk');//加载微信小程序JavaScriptSDK
     qqmapsdk = new QQMapWX({
         key: '3LPBZ-GDPLD-ABA4V-P2ZM4-ZWABF-ATFSD' // 必填 填写刚刚在腾讯地图API平台申请的开发者密钥
     });
@@ -50,15 +66,9 @@ class Index extends Component {
             success: function (res) {//成功后的回调
                 lat = res.result.location.lat * (Math.PI / 180);
                 lng = res.result.location.lng * (Math.PI / 180);
-                // Taro.getLocation({//可通过该方法获取当前位置的经纬度
-                //     type: 'gcj02', //返回可以用于 Taro.openLocation的经纬度
-                //     success: function (res) {
-                //         myLat = res.latitude * (Math.PI / 180);
-                //         myLng = res.longitude * (Math.PI / 180);
                 let d = Math.acos(Math.sin(lat) * Math.sin(_this.myLatitude) + Math.cos(lat) * Math.cos(_this.myLatitude) * Math.cos(lng - _this.myLongitude)) * 6371.004;
+                console.log("定位", d);
                 resolve(d);
-                // }
-                // })
             },
             fail: function (error) {
                 console.error(error);
@@ -75,13 +85,8 @@ class Index extends Component {
     }
 
     getWxLocation() {
-        wx.showLoading({
-            title: '定位中...',
-            mask: true,
-        })
         return new Promise((resolve, reject) => {
             let _locationChangeFn = (res) => {
-                wx.hideLoading()
                 resolve(res);
                 wx.offLocationChange(_locationChangeFn)
             }
@@ -107,11 +112,10 @@ class Index extends Component {
             new Promise(this.getJingWeiDu)
                 .then(res => {
                     distance[index] = res;
-                }).then(res => {
-                if (index === hospitalList.length - 1) {
-                    resolve(distance);
-                }
-            })
+                    if (index === hospitalList.length - 1) {
+                        resolve(distance);
+                    }
+                })
         })
     }
 
@@ -124,61 +128,13 @@ class Index extends Component {
         3:按评分降序
          */
         let hospitalList = this.props.hospital.hospitalList;
+        let hospitalDistances = this.props.hospital.hospitalDistances;
         let temp;
 
         switch (select) {
             case '0':
             case '1':
-                /*this.address = "石家庄市桥西区工农路与礼让街交叉口华域城6号";
-                this.authorization()
-                    .then(res => {
-                        this.myLatitude = res.latitude * (Math.PI / 180);
-                        this.myLongitude = res.longitude * (Math.PI / 180);
-                        return new Promise(this.getJingWeiDu)
-                    }).then(res=>{
-                    console.log("直接调getJingWeiDu",res);
-                })*/
-                /*hospitalList.map((hospital,index) => {
-                    this.address = hospital.address;
-                    new Promise(this.getJingWeiDu)
-                        .then(res => {
-                            distance[index] = res;
-                        })
-                })//获取每个医院与当前位置的距离，单位为千米*/
-                this.authorization()
-                    .then(res => {
-                        this.myLatitude = res.latitude * (Math.PI / 180);
-                        this.myLongitude = res.longitude * (Math.PI / 180);
-                        return new Promise(this.getLocation.bind(this))
-                    }).then(res => {
-                    let distance = res;
-                    console.log("distance排序前", distance);
-                    let distanceList = [...res];
-                    // console.log("distanceList",distanceList);
-                    distance = distance.sort(function (a, b) {
-                        if (select === '0') {
-                            return a - b;
-                        } else {
-                            return b - a;
-                        }
-                    })//按距离大小排序，输入为0则小的在前面
-                    console.log("distance排序后", distance);
-                    distanceList.map((distanceNum, index2) => {
-                        distance.map((num, index3) => {
-                            if (distanceNum === num) {
-                                // console.log(num);
-                                // console.log("index2", index2);
-                                // console.log("index3", index3);
-                                temp = hospitalList[index2];
-                                hospitalList[index2] = hospitalList[index3];
-                                hospitalList[index3] = temp;
-                                // console.log("第二个",hospitalList[index2]);
-                                // console.log("第三个",hospitalList[index3]);
-                            }
-                        })
-                    })
-                    console.log("hospitalList", hospitalList);
-                })
+                this.props.sortHospitalDistance(hospitalList,hospitalDistances,select);
                 break;
             case '2':
             case '3':

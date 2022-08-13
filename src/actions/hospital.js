@@ -39,3 +39,33 @@ export const getDoctorList = () => {
         })
     }
 }
+
+export const setHospitalDistance = (value) =>{
+    return (dispatch) => {
+        dispatch({type: 'setHospitalDistance', hospitalDistances: value})
+    }
+}
+
+export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
+
+    return (dispatch) => {
+        hospitalDistances.map((distance,index) => {
+            for (let i = 1 ; i < hospitalDistances.length - index ; i++){
+                if (select === '0' && hospitalDistances[i-1]>hospitalDistances[i] || select === '1' && hospitalDistances[i-1]<hospitalDistances[i]){
+                    let exchange = hospitalDistances[i-1];
+                    hospitalDistances[i-1] = hospitalDistances[i];
+                    hospitalDistances[i] = exchange;
+
+                    let temp = hospitalList[i - 1];
+                    hospitalList[i - 1] = hospitalList[i];
+                    hospitalList[i] = temp;
+                }
+            }
+        })
+        dispatch({
+            type: 'sortHospitalDistance',
+            hospitalList: hospitalList,
+            hospitalDistances:hospitalDistances
+        })
+    }
+}
