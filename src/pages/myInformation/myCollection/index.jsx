@@ -27,9 +27,10 @@ class Index extends Component {
         //console.log("点击了搜索按钮，当前搜索内容 = ",this.state.value)  //获取到的内容正确
         Taro.request({
             // url: 'https://www.fastmock.site/mock/04d7d10ca66bca7861c545d7cf2ed1ca/aricle/searchArticle',  //mock地址
-            url: 'http://localhost:8090/aricle/searchArticle',
+            url: 'http://localhost:8090/collections/searchCollection',
             data: {
-                conditions : this.state.value  //将当前输入框中的文字传到后端中作为条件进行查询
+                conditions : this.state.value,  //将当前输入框中的文字传到后端中作为条件进行查询
+                open_id:"oL7Uf5p-bXzCsxpUr5Efu7-KqEo0"
             },
             header: { 'content-type': 'application/json'}
         }).then(res =>{

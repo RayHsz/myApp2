@@ -3,28 +3,28 @@ import {Button,Input,Picker,View} from "@tarojs/components";
 import {connect} from "react-redux";
 import {AtAvatar, AtIcon, AtList, AtListItem} from "taro-ui";
 import "./index.scss"
-import {findHospital} from "../../../actions/hospital";
 import TabBar from "../../tabBarPage";
 import Taro from "@tarojs/taro";
+import {findUser} from "../../../actions/user";
 
 
-@connect(({hospital}) => ({hospital}),{findHospital})
+@connect(({user}) => ({user}),{findUser})
 class HospitalList extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            avatar:this.props.hospital.avatar,
-            name:this.props.hospital.hospitalList[0].name,
-            gender:this.props.hospital.hospitalList[0].gender,
+            avatar:this.props.user.avatar,
+            name:this.props.user.hospitalList[0].name,
+            gender:this.props.user.hospitalList[0].gender,
             score1:"background-color:rgb(200,130,0);",
             score2:"background-color:rgb(255,255,255);",
             value: '',
             selector: ['居民身份证', '港澳台身份证'],
-            selectorChecked: this.props.hospital.hospitalList[0].idcard_type,
-            idcard_number:this.props.hospital.hospitalList[0].idcard_number,
+            selectorChecked: this.props.user.hospitalList[0].idcard_type,
+            idcard_number:this.props.user.hospitalList[0].idcard_number,
             timeSel: '12:01',
-            dateSel:this.props.hospital.hospitalList[0].birthday,
-            phone_number:this.props.hospital.hospitalList[0].phone_number,
+            dateSel:this.props.user.hospitalList[0].birthday,
+            phone_number:this.props.user.hospitalList[0].phone_number,
             openid2:"oL7Uf5p-bXzCsxpUr5Efu7-KqEo0"
         }
     }
@@ -60,7 +60,7 @@ class HospitalList extends Component {
     }
 
     changeColor1 = e => {
-        this.props.hospital.gender==1?
+        this.props.user.gender==1?
         this.setState({
             score1: "background-color:rgb(200,130,0);",
             score2: "background-color:rgb(255,255,255);",
@@ -75,7 +75,7 @@ class HospitalList extends Component {
     }
 
     changeColor2 = e => {
-        this.props.hospital.gender==0?
+        this.props.user.gender==0?
             this.setState({
                 score1: "background-color:rgb(200,130,0);",
                 score2: "background-color:rgb(255,255,255);",
@@ -107,7 +107,7 @@ class HospitalList extends Component {
             },
             success: function (res) {
                 // 调reducer修改数据
-                findHospital()
+                findUser()
                 console.log("savaAll执行")
 
     }
@@ -126,8 +126,8 @@ class HospitalList extends Component {
         return (
             <View>
                 {
-                    this.props.hospital.hospitalList.map((hospital) => {
-                        this.props.hospital.gender=hospital.gender
+                    this.props.user.hospitalList.map((user) => {
+                        this.props.user.gender=user.gender
                         return (
                             <View className='index'>
 
@@ -143,7 +143,7 @@ class HospitalList extends Component {
                                         </View>
                                     </View>
 
-                                    {hospital.gender==1 ? <View  className='format' >
+                                    {user.gender==1 ? <View  className='format' >
                                         <View className='word'>性别</View>
                                         <Button className='man'  style={this.state.score1} onClick={this.changeColor1}>
                                             <View className='manWord'>男</View>
