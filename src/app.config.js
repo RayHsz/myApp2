@@ -21,6 +21,7 @@ export default defineAppConfig({
     'pages/myInformation/identificationRecords/index',
     'pages/myInformation/myCollection/article/index',
     'pages/myInformation/addpatient/index',
+    'pages/homePage/reservationService/index',
   ],
   window: {
     backgroundTextStyle: 'light',
