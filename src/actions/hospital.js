@@ -70,6 +70,7 @@ export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
 }
 
 
+
 export const searchHospital =(name)=>{
     console.log('mingzi'+name);
     return (dispatch) => {
@@ -85,12 +86,15 @@ export const searchHospital =(name)=>{
                 dispatch({type: 'searchHospital', hospitalList: res})
             }
         })
-}
-}
-
-export const setHotHospitalList = (value) => {
-    return (dispatch) => {
-        dispatch({type: 'setHotHospitalList', hotHospitalList: value})
-
     }
 }
+}
+
+    export const setHotHospitalList = (value) => {
+        return (dispatch) => {
+            dispatch({type: 'setHotHospitalList', hotHospitalList: value})
+
+        }
+    }
+}
+

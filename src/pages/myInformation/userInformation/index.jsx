@@ -5,10 +5,9 @@ import {AtAvatar, AtIcon, AtList, AtListItem} from "taro-ui";
 import "./index.scss"
 import TabBar from "../../tabBarPage";
 import Taro from "@tarojs/taro";
-import {findUser} from "../../../actions/user";
 
 
-@connect(({user}) => ({user}),{findUser})
+@connect(({user}) => ({user}))
 class HospitalList extends Component {
     constructor (props) {
         super(props)
@@ -107,9 +106,7 @@ class HospitalList extends Component {
             },
             success: function (res) {
                 // 调reducer修改数据
-                findUser()
                 console.log("savaAll执行")
-
     }
         })
 
