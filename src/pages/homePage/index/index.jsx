@@ -8,9 +8,9 @@ import Taro from "@tarojs/taro";
 import TabBar from "../../tabBarPage";
 import {AtGrid} from "taro-ui"
 import {findLoopImg} from "../../../actions/loopImg";
-import {searchHospital} from "../../../actions/hospital";
+import {searchHospital,findHospital} from "../../../actions/hospital";
 
-@connect(({loopImg,hospital}) => ({loopImg,hospital}), {findLoopImg,searchHospital})
+@connect(({loopImg,hospital}) => ({loopImg,hospital}), {findHospital,findLoopImg,searchHospital})
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -39,9 +39,11 @@ class Index extends Component {
 
     changePage = (value,index) =>{
         if (index === 0){
+            this.props.findHospital();
             this.goToHospital();
         }
         else if (index === 1){
+            this.props.findHospital();
             this.goToReservationService();
         }
         else if (index === 2){

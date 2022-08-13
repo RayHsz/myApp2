@@ -88,13 +88,11 @@ export const searchHospital =(name)=>{
         })
     }
 }
-}
 
     export const setHotHospitalList = (value) => {
         return (dispatch) => {
             dispatch({type: 'setHotHospitalList', hotHospitalList: value})
 
         }
-    }
 }
 
