@@ -21,7 +21,7 @@ export default function hospital(previousState = INIT_STATE, action) {
                 ...previousState,
                 doctorList: action.doctorList.data.data
             }
-        case 'searchHospital':
+        case 'findHospital':
             return {
                 ...previousState,
                 hospitalList: hospitalList.data.data
@@ -41,10 +41,18 @@ export default function hospital(previousState = INIT_STATE, action) {
                 ...previousState,
                 hospitalDistances:action.hospitalDistances
             }
+
+        case 'searchHospital':
+            return {
+                ...previousState,
+                hospitalList: action.hospitalList
+            }
+
         case 'setHotHospitalList':
             return{
                 ...previousState,
                 hotHospitalList:action.hotHospitalList
+
             }
         default:
             return previousState;

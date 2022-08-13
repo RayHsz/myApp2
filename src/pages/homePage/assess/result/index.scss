@@ -6,7 +6,7 @@
 
 .header{
   width: 95%;
-  height: 450px;
+  height: 470px;
   top: 20px;
   left: 2.5%;
   position: relative;
@@ -30,9 +30,10 @@
 }
 .physique2{
   height: 50px;
-  left: 80px;
+  left: 85px;
   top: 80px;
   float: left;
+  color: rgb(100,118,212);
   position: relative;
   font-size: 10pt;
 }
@@ -40,6 +41,7 @@
   height: 50px;
   top: 150px;
   left: -10px;
+  color: rgb(100,118,212);
   position: relative;
   float: left;
   font-size: 10pt;
@@ -56,12 +58,45 @@
   left: 60px;
   position: relative;
 }
-.item{
-  height: 100px;
+.content{
+  width: 95%;
   top: 50px;
-  background-color: #FFFFFF;
+  left: 2.5%;
+  background-color: white;
+  position: relative;
+}
+.content-title{
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+  border-radius: 30px;
+  background-color: rgb(220,187,144);
+}
+.show{
+  width: 100%;
+  top:10px;
+  position: relative;
+  background-color: white;
+  display: block;
+  border-radius: 5%;
+  clear:both;
+  transition: 1s ease;
+}
+.display{
+  width: 100%;
+  background-color: white;
+  display: none;
+}
+.title-text {
+  left: 50px;
+  top: 25%;
+  color: white;
   position: relative;
 }
 .text{
+  width: 90%;
+  left: 5%;
+  opacity: 0.7;
+  font-size: 10pt;
   position: relative;
 }

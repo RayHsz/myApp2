@@ -8,7 +8,7 @@ export const findHospital = () => {
                 'content-type': 'application/json' // 默认值
             },
             success: function (res) {
-                dispatch({type: 'searchHospital', hospitalList: res})
+                dispatch({type: 'findHospital', hospitalList: res})
             }
         })
     }
@@ -69,8 +69,26 @@ export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
     }
 }
 
+
+export const searchHospital =(name)=>{
+    return (dispatch) => {
+        Taro.request({
+            url: 'https://localhost:8090/hospital/search', //仅为示例，并非真实的接口地址
+            data:{
+                "name":name,
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                dispatch({type: 'searchHospital', hospitalList: res})
+            }
+        })
+}
+
 export const setHotHospitalList = (value) => {
     return (dispatch) => {
         dispatch({type: 'setHotHospitalList', hotHospitalList: value})
+
     }
 }
