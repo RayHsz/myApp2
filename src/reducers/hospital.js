@@ -5,6 +5,8 @@ const INIT_STATE = {
     hospitalList: [],
     hotHospitalList: [],
     doctorList: [],
+    programList: [],
+    oneProgramList: {},
     selector: ['按距离升序', '按距离降序', '按评分升序', '按评分降序'],
     selectorChecked: '',
     selectIndex: '',
@@ -20,6 +22,16 @@ export default function hospital(previousState = INIT_STATE, action) {
             return{
                 ...previousState,
                 doctorList: action.doctorList.data.data
+            }
+        case 'getProgram':
+            return{
+                ...previousState,
+                programList: action.programList.data.data
+            }
+        case 'oneProgram':
+            return{
+                ...previousState,
+                oneProgramList: action.programList
             }
         case 'findHospital':
             console.log("hospitalList",hospitalList);
