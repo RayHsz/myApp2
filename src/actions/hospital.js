@@ -4,11 +4,18 @@ export const findHospital = () => {
     return (dispatch) => {
         Taro.request({
             url: 'http://www.localhost:8090/hospital/getHospitalList', //仅为示例，并非真实的接口地址
+            // url: 'https://www.fastmock.site/mock/3eba8f22893363427fb080b0c20d7b42/weapp/getHospitalList', //仅为示例，并非真实的接口地址
             header: {
                 'content-type': 'application/json' // 默认值
             },
             success: function (res) {
-                dispatch({type: 'findHospital', hospitalList: res})
+                let hotHospitalList = [];
+                res.data.data.map((info, index) => {
+                    if (info.isHot === 1) {
+                        hotHospitalList.push(info);
+                    }
+                })
+                dispatch({type: 'findHospital', hospitalList: res.data.data,hotHospitalList:hotHospitalList})
             }
         })
     }

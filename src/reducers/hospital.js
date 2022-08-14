@@ -22,9 +22,12 @@ export default function hospital(previousState = INIT_STATE, action) {
                 doctorList: action.doctorList.data.data
             }
         case 'findHospital':
+            console.log("hospitalList",hospitalList);
+            console.log("action.hotHospitalList",action.hotHospitalList);
             return {
                 ...previousState,
-                hospitalList: hospitalList.data.data
+                hospitalList: hospitalList,
+                hotHospitalList:action.hotHospitalList
             };
         case 'changeSelector':
             return {
