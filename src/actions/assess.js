@@ -21,3 +21,17 @@ export const onChangeActive=(index,num)=>{
         dispatch({type: 'chooseAnswer', index:index,num:num})
     }
 }
+
+export const getAssessNum=()=>{
+    return (dispatch) => {
+        Taro.request({
+            url: 'http://www.localhost:8090/assess/countPeople', //仅为示例，并非真实的接口地址
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                dispatch({type: 'getAssessNum', num:res.data.data})
+            }
+        })
+    }
+}

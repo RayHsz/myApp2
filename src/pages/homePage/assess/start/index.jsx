@@ -5,13 +5,17 @@ import { AtIcon } from 'taro-ui'
 import { AtButton } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import {connect} from "react-redux";
-import {findQuestion} from "../../../../actions/assess";
+import {findQuestion, getAssessNum} from "../../../../actions/assess";
 
-@connect(({assess}) => ({assess}), {findQuestion})
+@connect(({assess}) => ({assess}), {findQuestion,getAssessNum})
 class index extends Component{
 
     constructor (props) {
         super(props)
+    }
+
+    componentWillMount(){
+        this.props.getAssessNum()
     }
 
     goToAssessing=()=>{
@@ -43,7 +47,7 @@ class index extends Component{
                 </View>
                 <View className='center'>
                     <View className='center-child'>
-                        <text className='number'>18</text>
+                        <text className='number'>{this.props.assess.num}</text>
                         <text className='people'>人</text>
                         <text className='center-text'>已参与体质辨识评估</text>
                     </View>
