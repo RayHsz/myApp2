@@ -65,9 +65,6 @@ class Step2 extends Component{
         },{
             value: 'list5',
             label: '咳嗽',
-        },{
-            value: 'list6',
-            label: '其他',
         }]
         return(
             <View className='index'>
