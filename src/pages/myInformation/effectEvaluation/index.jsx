@@ -25,7 +25,11 @@ class Index extends Component {
               <View style=' 50px;background-color: #FAFBFC;' >
                 <View className='at-row'>
                   <View className='at-col at-col-3'>
-                    <View className='first'>日期</View>
+                    <View className='first'>
+                      <View className='jkwenzi'>
+                        日期
+                      </View>
+                    </View>
                     <View>22</View>
                   </View>
                   <View className='at-col at-col-3'>

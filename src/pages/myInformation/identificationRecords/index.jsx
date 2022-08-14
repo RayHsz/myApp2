@@ -12,17 +12,30 @@ class Index extends Component {
     return (
         <View>
             <View className='at-row'>
-                <View className='at-col at-col-3'>
-                    <View className='first'>日期</View>
+                    <View className='at-col at-col-3'>
+                        <View className='first'>
+                            <View className='jkwenzi'>
+                                日期
+                            </View>
 
-                </View>
-                <View className='at-col at-col-6'>
-                    <View className='first'>体质</View>
+                        </View>
 
-                </View>
-                <View className='at-col at-col-3'>
-                    <View className='first'>操作</View>
-                </View>
+                    </View>
+                    <View className='at-col at-col-6'>
+                        <View className='first'>
+                            <View className='jkwenzi'>
+                                体质
+                            </View>
+                        </View>
+
+                    </View>
+                    <View className='at-col at-col-3'>
+                        <View className='first'>
+                            <View className='jkwenzi'>
+                                操作
+                            </View>
+                        </View>
+                    </View>
 
             </View>
             {
@@ -30,16 +43,22 @@ class Index extends Component {
                 return(
                     <View className='at-row'>
                         <View className='at-col at-col-3'>
-                            <View className="reqi">{user.time}</View>
+                            <View className="second">
+                                <View className="knwenzi f">{user.time}</View>
+                            </View>
                         </View>
                         <View className='at-col at-col-6'>
-                            <View className="tizhi">倾向是:{user.constitution}</View>
+                            <View className="second">
+                                <View className="knwenzi f">倾向是：{user.constitution}</View>
+                            </View>
                         </View>
                         <View className='at-col at-col-3' >
-                            <View className="chakan">查看</View>
+                            <View className="second">
+                                <View className="knwenzi s">查看</View>
+                            </View>
                         </View>
-                    </View>
 
+                    </View>
                 )
 
             })

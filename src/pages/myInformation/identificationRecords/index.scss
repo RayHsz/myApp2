@@ -1,18 +1,26 @@
 .first {
   background-color: rgb(231,190,137);
+  position: relative;
+  padding-top:10px;
+  padding-bottom: 10px;
+  border-bottom: 5px solid rgb(242,242,242);
+}
+.second{
+  border-bottom: 5px solid rgb(242,242,242);
 }
 
-.reqi{
-  font-size: 30px;
+.jkwenzi{
+  position: relative;
+  left: 30px;
 }
 
-.tizhi{
+.knwenzi{
   font-size: 30px;
-
+  position: relative;
+  padding-top:13px;
+  padding-bottom: 13px;
+  left: 30px;
 }
-.chakan{
-  font-size: 30px;
+.s{
   color: #508BEF;
 }
-
-
