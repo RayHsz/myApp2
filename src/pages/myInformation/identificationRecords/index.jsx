@@ -5,9 +5,14 @@ import TabBar from "../../tabBarPage/index";
 import {AtIcon} from "taro-ui";
 import {connect} from "react-redux";
 import {findResult} from "../../../actions/user";
-
+import Taro from "@tarojs/taro";
 @connect(({user}) => ({user}),{findResult})
 class Index extends Component {
+    goToResult=()=>{
+        Taro.navigateTo({
+            url: '../../homePage/assess/result/index'
+        })
+    }
   render() {
     return (
         <View>
@@ -54,7 +59,7 @@ class Index extends Component {
                         </View>
                         <View className='at-col at-col-3' >
                             <View className="second">
-                                <View className="knwenzi s">查看</View>
+                                <View className="knwenzi s" onClick={this.goToResult}>查看</View>
                             </View>
                         </View>
 
