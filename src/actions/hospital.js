@@ -3,7 +3,7 @@ import Taro from "@tarojs/taro";
 export const findHospital = () => {
     return (dispatch) => {
         Taro.request({
-            url: 'https://www.fastmock.site/mock/3eba8f22893363427fb080b0c20d7b42/weapp/getHospitalList', //仅为示例，并非真实的接口地址
+            url: 'http://www.localhost:8090/hospital/getHospitalList', //仅为示例，并非真实的接口地址
             header: {
                 'content-type': 'application/json' // 默认值
             },
@@ -29,7 +29,7 @@ export const setSelectIndex = (value) => {
 export const getDoctorList = () => {
     return (dispatch) => {
         Taro.request({
-            url: 'https://www.fastmock.site/mock/3eba8f22893363427fb080b0c20d7b42/weapp/getDoctorList', //仅为示例，并非真实的接口地址
+            url: 'http://www.localhost:8090/doctor/getDoctorMsg', //仅为示例，并非真实的接口地址
             header: {
                 'content-type': 'application/json' // 默认值
             },
