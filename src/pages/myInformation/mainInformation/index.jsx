@@ -8,10 +8,10 @@ import { AtAvatar } from 'taro-ui'
 import { AtIcon } from 'taro-ui'
 import TabBar from "../../tabBarPage";
 import { AtToast } from "taro-ui"
-import {findResult, findUser} from "../../../actions/user";
+import {create, findCode, findNick, findOpenid, findResult, findUser} from "../../../actions/user";
 
 
-@connect(({user}) => ({user}),({findUser,findResult}))
+@connect(({user}) => ({user}),({findUser,findResult,findNick,findCode,findOpenid,create}))
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -86,79 +86,21 @@ class Index extends Component {
     }
 
     shouquan=()=>{
-
-        wx.getUserInfo({
-            //成功后会返回
-            success:(res)=>{
-                console.log(res);
-                // 把你的用户信息存到一个变量中方便下面使用
-                let userInfo= res.userInfo
-                this.setState({
-                    nickname:userInfo.nickName,
-                    avatar:userInfo.avatarUrl,
-                })
-                //获取openId（需要code来换取）这是用户的唯一标识符
-                // 获取code值
-                let avatar= userInfo.avatarUrl
-                let nickname=userInfo.nickName
-                this.props.user.avatar=avatar
-                this.props.user.nickname=nickname
-                wx.login({
-                    //成功放回
-                    success:(res)=>{
-                        console.log(res.code);
-                        this.state.code=res.code;
-                        console.log(this.state.code);
-                        // 通过code换取openId
-                        console.log("转化获得的"+this.state.openid);
-                        setTimeout(()=>{
-                            console.log("测试是否已经传进去数值："+this.props.user.openid)
-                        },1000)
-                            Taro.request({
-                            // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-                            url: 'http://localhost:8090/userwx/getopenid',//仅为示例，并非真实的接口地址
-                            data: {
-                                code: this.state.code
-                            },
-                            header: {
-                                'content-type': 'application/json' // 默认值
-                            }
-                        }).then(res => {
-                                console.log("请求结果=",res.data.openid);
-                                let openid1= res.data.openid
-                                this.props.user.openid=res.data.openid
-                                console.log("传递的",openid1);
-                                Taro.request({
-                                    // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
-                                    url: 'http://localhost:8090/userwx/create',//仅为示例，并非真实的接口地址
-                                    data: {
-                                        id:openid1,
-                                        avatar: avatar
-                                    },
-                                    header: {
-                                        'content-type': 'application/json' // 默认值
-                                    }
-                                }).then(res=>{
-                                        setTimeout(()=>{
-                                            console.log("测试是否已经传进去数值："+this.props.user.openid)
-                                        },1000)
-                                    }
-                                )
-                            })
-                    }
-                })
-                this.setState({
-                    cgshouquan:true
-                })
-            }
-        })
+        this.props.findNick()
+        this.props.findCode(this.props.user.code)
+        this.props.findOpenid()
+        this.props.create(this.props.user.openid,this.props.user.avatar)
 
         setTimeout(()=>
         {
             Taro.reLaunch({
                 url: "/pages/myInformation/mainInformation/index"
             });
-        }, 1500)
+        }, 1000)
+
+        this.setState({
+            cgshouquan:true
+        })
     }
 
   render() {
