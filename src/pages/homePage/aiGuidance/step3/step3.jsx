@@ -5,16 +5,24 @@ import {AtButton, AtRate, AtSteps} from 'taro-ui';
 import {connect} from "react-redux";
 import {onChangeCurrent, turnPrepare} from "../../../../actions/aiGuidance";
 import Taro from "@tarojs/taro";
+import {getRecommendedHospital, setSelectIndex} from "../../../../actions/hospital";
 
-@connect(({aiGuidance}) => ({aiGuidance}), ({onChangeCurrent,turnPrepare}))
+
+@connect(({aiGuidance,hospital}) => ({aiGuidance,hospital}), ({onChangeCurrent,turnPrepare,getRecommendedHospital,setSelectIndex}))
 class step3 extends Component{
 
     constructor(props) {
         super(props);
     }
+    componentWillMount(){
+        this.props.getRecommendedHospital(this.props.aiGuidance.title)
+    }
 
-    turnPrepare=()=>{
-
+    next(value, e) {
+        this.props.setSelectIndex(value);
+        Taro.navigateTo({
+            url: '../../hospital/info/info'
+        })
     }
 
     goToIndex=()=>{
@@ -62,15 +70,23 @@ class step3 extends Component{
                     <text className='text1'>附近医院：</text>
                 </View>
                 <View>
-                    <image src='http://116.205.177.247:8080/images/yuxishequ.jpg' alt="" className='listImg' />
-                    <text className='hospitalName'>
-                        裕西社区国医堂
-                    </text>
-                    <AtRate
-                        className='score'
-                        size='15'
-                        value='2'
-                    />
+                    {
+                        this.props.hospital.hospitalList.map((info, index) => {
+                        return (
+                            <View onClick={this.next.bind(this, index)}>
+                                <image src={info.image} className='listImg'/>
+                                <text className='hospitalName'>
+                                    {info.name}
+                                </text>
+                                <AtRate
+                                    className='score'
+                                    size='15'
+                                    value={info.score}
+                                />
+                            </View>
+                        )
+                    })
+                    }
                 </View>
                 <View className='button' onClick={this.goToStep1}>
                     <text className='text'>再来一次</text>
