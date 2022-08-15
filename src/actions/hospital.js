@@ -93,7 +93,6 @@ export const sortHospitalDistance = (hospitalList,hospitalDistances,select) => {
 
 
 export const searchHospital =(name)=>{
-    console.log('mingzi'+name);
     return (dispatch) => {
         Taro.request({
             url: 'http://www.localhost:8090/hospital/search', //仅为示例，并非真实的接口地址
@@ -112,15 +111,31 @@ export const searchHospital =(name)=>{
 
 
 
-    export const setHotHospitalList = (value) => {
-        return (dispatch) => {
-            dispatch({type: 'setHotHospitalList', hotHospitalList: value})
-
-        }
-}
-    export const theOneProgram = (value) =>{
-        return (dispatch) =>{
-            dispatch({type:'oneProgram',oneProgramList:value})
-        }
+export const setHotHospitalList = (value) => {
+    return (dispatch) => {
+        dispatch({type: 'setHotHospitalList', hotHospitalList: value})
     }
+}
+export const theOneProgram = (value) =>{
+    return (dispatch) =>{
+        dispatch({type:'oneProgram',oneProgramList:value})
+    }
+}
+
+export const getRecommendedHospital=(disease)=>{
+    return (dispatch) => {
+        Taro.request({
+            url: 'http://www.localhost:8090/hospital/ai', //仅为示例，并非真实的接口地址
+            data:{
+                disease:disease,
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                dispatch({type: 'getRecommendedHospital', hospitalList: res})
+            }
+        })
+    }
+}
 

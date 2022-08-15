@@ -69,6 +69,11 @@ export default function hospital(previousState = INIT_STATE, action) {
                 hotHospitalList:action.hotHospitalList
 
             }
+        case 'getRecommendedHospital':
+            return {
+                ...previousState,
+                hospitalList:action.hospitalList.data.data
+            }
         default:
             return previousState;
     }
