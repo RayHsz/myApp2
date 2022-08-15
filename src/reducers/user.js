@@ -1,4 +1,5 @@
 // 全局属性：redux里面需要共享的数据
+
 const INIT_STATE = {
     hospitalList: [],
     doctorList: [],
@@ -10,7 +11,8 @@ const INIT_STATE = {
     nickname:'',
     resultList:[],
     nickList:[],
-    code:""
+    code:"",
+    List:[]
 }
 
 export default function user(previousState = INIT_STATE, action) {
@@ -48,6 +50,12 @@ export default function user(previousState = INIT_STATE, action) {
             return {
                 ...previousState,
                 openid:action.openid
+            }
+        case 'searchdata':
+            console.log("reducer: ",List.data.data);
+            return {
+                ...previousState,
+                List: List.data.data
             }
         default:
             return previousState;

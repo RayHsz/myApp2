@@ -23,6 +23,8 @@ export default defineAppConfig({
     'pages/myInformation/identificationRecords/index',
     'pages/myInformation/myCollection/article/index',
     'pages/myInformation/addpatient/index',
+      'pages/myInformation/preserve/index',
+      'pages/myInformation/patientmanagement/index'
   ],
   window: {
     backgroundTextStyle: 'light',

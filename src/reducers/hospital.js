@@ -11,6 +11,7 @@ const INIT_STATE = {
     selectorChecked: '',
     selectIndex: '',
     hospitalDistances: [],
+    List: []
 }
 
 export default function hospital(previousState = INIT_STATE, action) {
@@ -73,6 +74,12 @@ export default function hospital(previousState = INIT_STATE, action) {
             return {
                 ...previousState,
                 hospitalList:action.hospitalList.data.data
+            }
+        case 'searchdata':
+            console.log("reducer: ",List.data.data);
+            return {
+                ...previousState,
+                List: List.data.data
             }
         default:
             return previousState;
