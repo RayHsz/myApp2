@@ -95,7 +95,7 @@ class Index extends Component {
                 Taro.reLaunch({
                     url: "/pages/myInformation/mainInformation/index"
                 });
-            },500)
+            },800)
 
         },500)
         this.setState({
