@@ -29,7 +29,7 @@ class Index extends Component {
 
     userInformationSkip = () => {
         // '我的信息'页面跳转
-        this.props.findUser();
+        this.props.findUser(this.props.user.openid);
         setTimeout(()=>
         {
             Taro.navigateTo({
@@ -64,7 +64,7 @@ class Index extends Component {
 
     identificationRecordsSkip = () => {
         // ’体质辨识记录‘页面跳转
-        this.props.findResult();
+        this.props.findResult(this.props.user.openid);
         Taro.navigateTo({
             // url: '/pages/myInformation/identificationRecords/index'
             url: '/pages/myInformation/identificationRecords/index'
@@ -87,17 +87,17 @@ class Index extends Component {
 
     shouquan=()=>{
         this.props.findNick()
-        this.props.findCode(this.props.user.code)
-        this.props.findOpenid()
-        this.props.create(this.props.user.openid,this.props.user.avatar)
+        this.props.findCode()
+        setTimeout(()=>{
+            this.props.findOpenid(this.props.user.code)
+            setTimeout(()=>{
+                this.props.create(this.props.user.openid,this.props.user.avatar)
+                Taro.reLaunch({
+                    url: "/pages/myInformation/mainInformation/index"
+                });
+            },500)
 
-        setTimeout(()=>
-        {
-            Taro.reLaunch({
-                url: "/pages/myInformation/mainInformation/index"
-            });
-        }, 1000)
-
+        },500)
         this.setState({
             cgshouquan:true
         })

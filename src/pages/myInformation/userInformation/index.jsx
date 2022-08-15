@@ -93,7 +93,7 @@ class HospitalList extends Component {
             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
             url: 'http://localhost:8090/userwx/savaAll', //仅为示例，并非真实的接口地址
             data: {
-                id:this.state.openid2,
+                id:this.props.user.openid,
                 name:this.state.name,
                 gender:this.state.gender,
                 idcard_type:this.state.selectorChecked,
@@ -107,6 +107,7 @@ class HospitalList extends Component {
             success: function (res) {
                 // 调reducer修改数据
                 console.log("savaAll执行")
+
     }
         })
 
@@ -116,13 +117,10 @@ class HospitalList extends Component {
     }
 
     render() {
-        const scrollStyle = {height: '450px'}
-        const scrollTop = 0
-        const Threshold = 300
-
         return (
             <View>
                 {
+
                     this.props.user.hospitalList.map((user) => {
                         this.props.user.gender=user.gender
                         return (

@@ -2,12 +2,12 @@ import Taro from "@tarojs/taro";
 import {connect} from "react-redux";
 
 
-export const findUser = () => {
+export const findUser = (openid) => {
     return (dispatch) => {
         Taro.request({
             url: 'http://www.localhost:8090/userwx/findAll', //仅为示例，并非真实的接口地址
             data:{
-                id:"oL7Uf5p-bXzCsxpUr5Efu7-KqEo0"
+                id:openid
             },
             header: {
                 'content-type': 'application/json' // 默认值
@@ -21,12 +21,12 @@ export const findUser = () => {
     }
 }
 
-export const findResult = () => {
+export const findResult = (openid) => {
     return (dispatch) => {
         Taro.request({
             url: 'http://www.localhost:8090/userwx/findresult', //仅为示例，并非真实的接口地址
             data:{
-                openid:"oL7Uf5p-bXzCsxpUr5Efu7-KqEo0"
+                openid:openid
             },
             header: {
                 'content-type': 'application/json' // 默认值
@@ -89,7 +89,7 @@ export const findOpenid=(code)=>{
             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
             url: 'http://localhost:8090/userwx/getopenid',//仅为示例，并非真实的接口地址
             data: {
-                code: code
+                code:code
             },
             header: {
                 'content-type': 'application/json' // 默认值
@@ -136,3 +136,5 @@ export const create=(id,avatar)=>{
 //         })
 //     }
 // })
+
+
