@@ -1,14 +1,25 @@
 import {Component} from "react";
-import {ScrollView, View} from "@tarojs/components";
-import {AtRate, AtDivider, AtIcon} from "taro-ui";
+import {Image, ScrollView, View} from "@tarojs/components";
+import {AtSegmentedControl,AtRate, AtDivider, AtIcon} from "taro-ui";
 import './info.scss'
 import TabBar from "../../../tabBarPage";
 import Taro from "@tarojs/taro";
 import {connect} from "react-redux";
-import {getDoctorList} from "../../../../actions/hospital";
+import {getDoctorList, getProgramList, theOneProgram} from "../../../../actions/hospital";
 
-@connect(({hospital}) => ({hospital}), ({getDoctorList}))
+@connect(({hospital}) => ({hospital}), ({theOneProgram,getDoctorList,getProgramList}))
 class Info extends Component {
+    constructor () {
+        super(...arguments)
+        this.state = {
+            current: 0
+        }
+    }
+    handleClick (value) {
+        this.setState({
+            current: value
+        })
+    }
     showMember() {
         console.log("点击事件");
     }
@@ -28,13 +39,25 @@ class Info extends Component {
     onScroll(e) {
 
     }
-
+    toProgramInfo=(temp)=>{
+        let data = JSON.stringify(temp)
+        Taro.navigateTo({
+            url: '/pages/homePage/reservationService/programinfo/pinfo?data='+`${encodeURIComponent(data)}`
+        })
+    }
     getDoctorInfo() {
         this.props.getDoctorList();
     }
+    getProgramInfo(){
+        this.props.getProgramList();
 
+    }
+    serviceDoctor=()=>{
+        this.className='bserviceTeam';
+    }
     render() {
         let doctorInfo;
+        let programInfo;
         let likeBefore = "http://116.205.177.247:8080/images/likeBefore.png";//点赞前的图片
         let likeAfter = "http://116.205.177.247:8080/images/likeAfer.png";//点赞后的图片
         let data = this.props.hospital.hospitalList[this.props.hospital.selectIndex];
@@ -46,7 +69,9 @@ class Info extends Component {
 
         if (this.props.hospital.doctorList.length === 0) {
             this.getDoctorInfo();
-        } else {
+        } else if(this.props.hospital.programList.length === 0){
+            this.getProgramInfo();
+        }else {
             doctorInfo = this.props.hospital.doctorList.map((info, index) => {
                 if (info.doctor_hospital.hospital_name === data.name) {
                     return (
@@ -73,7 +98,22 @@ class Info extends Component {
                     )
                 }
             })
+            programInfo =this.props.hospital.programList.map((temp,index)=>{
+                if(temp.hospital_id === data.id){
+                    return(
+                        <View className='DInf' onClick={this.toProgramInfo.bind(this,temp)}>
+                            <View className='doctorName'>
+                                {temp.name}
+                            </View>
+                            <View>
+                                浏览量:{temp.views}
+                            </View>
+                        </View>
+                    )
+                }
+            })
         }
+
 
         return (
             <View>
@@ -120,27 +160,49 @@ class Info extends Component {
                             预约服务
                         </View>
                     </View>
-                    <View className='nav'>
-                        <View className='serviceTeam'>
-                            <text className='FWTD'>服务团队</text>
-                        </View>
-                        <View className='project'>
-                            <text className='KZXM'>开展项目</text>
-                        </View>
-                    </View>
-                    <ScrollView
-                        className='scrollview'
-                        scrollY
-                        scrollWithAnimation
-                        scrollTop={scrollTop}
-                        style={scrollStyle}
-                        lowerThreshold={Threshold}
-                        upperThreshold={Threshold}
-                        onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
-                        onScroll={this.onScroll}
-                    >
-                        {doctorInfo}
-                    </ScrollView>
+                        <AtSegmentedControl
+                        className='nav'
+                        values={['服务团队', '开展项目']}
+                        onClick={this.handleClick.bind(this)}
+                        current={this.state.current}
+                        selectedColor='rgb(188,54,53)'
+                    />
+                        {
+                            this.state.current === 0
+                                ? <View className=''>
+                                    <ScrollView
+                                    className='serviceTeam'
+                                    scrollY
+                                    scrollWithAnimation
+                                    scrollTop={scrollTop}
+                                    style={scrollStyle}
+                                    lowerThreshold={Threshold}
+                                    upperThreshold={Threshold}
+                                    onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
+                                    onScroll={this.onScroll}
+                                >
+                                    {doctorInfo}
+                                </ScrollView></View>
+                                : null
+                        }
+                        {
+                            this.state.current === 1
+                                ? <View className=''>
+                                    <ScrollView
+                                    className='serviceTeam'
+                                    scrollY
+                                    scrollWithAnimation
+                                    scrollTop={scrollTop}
+                                    style={scrollStyle}
+                                    lowerThreshold={Threshold}
+                                    upperThreshold={Threshold}
+                                    onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
+                                    onScroll={this.onScroll}
+                                >
+                                    {programInfo}
+                                </ScrollView></View>
+                                : null
+                        }
                     <View className='launchProjects'>
                     </View>
                 </View>

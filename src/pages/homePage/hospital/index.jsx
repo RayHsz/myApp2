@@ -43,6 +43,9 @@ class Index extends Component {
             }).then(res => {
             this.props.setHospitalDistance(res);
         })
+        this.getHospitalList();
+
+        // this.getHotHospitalList();
     }
 
     //选择器调用方法
@@ -157,7 +160,7 @@ class Index extends Component {
         }
     }
 
-    getHotHospitalList() {
+    /*getHotHospitalList() {
         let hotHospitalList = [];
         this.props.hospital.hospitalList.map((info, index) => {
             if (info.isHot === 1) {
@@ -166,7 +169,7 @@ class Index extends Component {
         })
         console.log(hotHospitalList);
         this.props.setHotHospitalList(hotHospitalList);
-    }
+    }*/
 
     getHospitalData() {
         return this.props.hospital.hospitalList.map((info, index) => {
@@ -187,10 +190,9 @@ class Index extends Component {
     }
 
     getHotHospital() {
-        let hospitalList = this.props.hospital.hospitalList;
         return this.props.hospital.hotHospitalList.map((info, index) => {
             let num = 0;
-            hospitalList.map((hospital,index) => {
+            this.props.hospital.hospitalList.map((hospital,index) => {
                 if (hospital === info){
                     num = index;
                 }
@@ -214,14 +216,14 @@ class Index extends Component {
     }
 
     render() {
-        if (this.props.hospital.hospitalList.length === 0) {
-            this.getHospitalList();
+
+        /*if (this.props.hospital.hospitalList.length === 0) {
+
         } else if (this.props.hospital.hotHospitalList.length === 0) {
-            this.getHotHospitalList();
-        } else if (this.props.hospital.hotHospitalList.length !== 0) {
-            let hospitalData = this.getHospitalData();
+
+        }else if (this.props.hospital.hotHospitalList.length !== 0){*/
             let hotHospital = this.getHotHospital();
-            // hotHospital = this.getHotHospital();
+            let hospitalData = this.getHospitalData();
             return (
                 <View className='index'>
                     <View className='header'>医院</View>
@@ -249,7 +251,7 @@ class Index extends Component {
                 </View>
             );
         }
-    }
+    // }
 }
 
 export default Index

@@ -3,12 +3,33 @@ import Taro from "@tarojs/taro";
 export const findHospital = () => {
     return (dispatch) => {
         Taro.request({
-            url: 'https://www.fastmock.site/mock/3eba8f22893363427fb080b0c20d7b42/weapp/getHospitalList', //仅为示例，并非真实的接口地址
+            url: 'http://www.localhost:8090/hospital/getHospitalList', //仅为示例，并非真实的接口地址
+            // url: 'https://www.fastmock.site/mock/3eba8f22893363427fb080b0c20d7b42/weapp/getHospitalList', //仅为示例，并非真实的接口地址
             header: {
                 'content-type': 'application/json' // 默认值
             },
             success: function (res) {
-                dispatch({type: 'findHospital', hospitalList: res})
+                let hotHospitalList = [];
+                res.data.data.map((info, index) => {
+                    if (info.isHot === 1) {
+                        hotHospitalList.push(info);
+                    }
+                })
+                dispatch({type: 'findHospital', hospitalList: res.data.data,hotHospitalList:hotHospitalList})
+            }
+        })
+    }
+}
+
+export const getProgramList = () => {
+    return (dispatch) => {
+        Taro.request({
+            url: 'http://www.localhost:8090/program/getProgramList', //仅为示例，并非真实的接口地址
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                dispatch({type: 'getProgram', programList: res})
             }
         })
     }
@@ -29,7 +50,7 @@ export const setSelectIndex = (value) => {
 export const getDoctorList = () => {
     return (dispatch) => {
         Taro.request({
-            url: 'https://www.fastmock.site/mock/3eba8f22893363427fb080b0c20d7b42/weapp/getDoctorList', //仅为示例，并非真实的接口地址
+            url: 'http://www.localhost:8090/doctor/getDoctorMsg', //仅为示例，并非真实的接口地址
             header: {
                 'content-type': 'application/json' // 默认值
             },
@@ -89,10 +110,17 @@ export const searchHospital =(name)=>{
     }
 }
 
+
+
     export const setHotHospitalList = (value) => {
         return (dispatch) => {
             dispatch({type: 'setHotHospitalList', hotHospitalList: value})
 
         }
 }
+    export const theOneProgram = (value) =>{
+        return (dispatch) =>{
+            dispatch({type:'oneProgram',oneProgramList:value})
+        }
+    }
 

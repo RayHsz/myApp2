@@ -120,13 +120,12 @@
 
 //↓↓↓↓↓↓↓↓↓↓服务团队↓↓↓↓↓↓↓↓↓↓↓↓
 .serviceTeam{
-  height: 50px;
-  width: 50%;
+  height: 500px;
+  width: 100%;
   position: relative;
   border-right: solid;
   border-right-color: red;
   border-right-width: 5px;
-  background-color: rgb(188,54,53);
   text-align: center;//左右居中
   //↓↓↓↓↓↓↓上下居中↓↓↓↓↓↓↓↓
   display: flex;
