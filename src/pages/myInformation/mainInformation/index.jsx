@@ -8,10 +8,9 @@ import { AtAvatar } from 'taro-ui'
 import { AtIcon } from 'taro-ui'
 import TabBar from "../../tabBarPage";
 import { AtToast } from "taro-ui"
-import {create, findCode, findNick, findOpenid, findResult, findUser} from "../../../actions/user";
+import {create, findCode, findNick, findOpenid, findResult, findUser,finddata} from "../../../actions/user";
 
-
-@connect(({user}) => ({user}),({findUser,findResult,findNick,findCode,findOpenid,create}))
+@connect(({user}) => ({user}),({findUser,findResult,findNick,findCode,findOpenid,create,finddata}))
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -71,11 +70,28 @@ class Index extends Component {
         })
     }
 
-    addpatientSkip = () => {
-        // ’就诊人添加‘页面跳转
-        Taro.navigateTo({
-            url: '/pages/myInformation/addpatient/index'
+    patientmanagement = () => {
+        Taro.request({
+            url: 'http://localhost:8090/getAllList', //仅为示例，并非真实的接口地址
+            data: {},
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                // 调reducer修改数据
+                console.log(res.data.data);
+            }
+        }).then(res => {
+            this.props.user.List=res.data.data;
         })
+
+        setTimeout(()=>{
+            Taro.navigateTo({
+                url: '/pages/myInformation/preserve/index'
+            })
+        },1000)
+        // 页面跳转
+
     }
 
     quxiao=()=>{
@@ -136,7 +152,7 @@ class Index extends Component {
                     <AtIcon value='tag' size='50' color='red'></AtIcon>
                     我的挂号
                 </View>
-                <View className='patient' onClick={this.addpatientSkip}>
+                <View className='patient' onClick={this.patientmanagement}>
                     <AtIcon value='add-circle' size='50' color='red'></AtIcon>
                     就诊人管理
                 </View>

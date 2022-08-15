@@ -15,6 +15,7 @@ class Index extends Component{
 
     render() {
         return(
+
             <View className='addpatient' onClick={this.patientdata1}>
                 <AtButton className='addbutton' type='primary' circle size='normal' >添加就诊人</AtButton>
             </View>
