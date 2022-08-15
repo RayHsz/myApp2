@@ -24,7 +24,7 @@ class HospitalList extends Component {
             timeSel: '12:01',
             dateSel:this.props.user.hospitalList[0].birthday,
             phone_number:this.props.user.hospitalList[0].phone_number,
-            openid2:"oL7Uf5p-bXzCsxpUr5Efu7-KqEo0"
+            openid2:this.props.user.openid
         }
     }
 

@@ -111,7 +111,10 @@ class Index extends Component {
                         console.log(this.state.code);
                         // 通过code换取openId
                         console.log("转化获得的"+this.state.openid);
-                        this.props.user.openid=Taro.request({
+                        setTimeout(()=>{
+                            console.log("测试是否已经传进去数值："+this.props.user.openid)
+                        },1000)
+                            Taro.request({
                             // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
                             url: 'http://localhost:8090/userwx/getopenid',//仅为示例，并非真实的接口地址
                             data: {
@@ -119,10 +122,11 @@ class Index extends Component {
                             },
                             header: {
                                 'content-type': 'application/json' // 默认值
-                            },
-                            success: function (res) {
+                            }
+                        }).then(res => {
                                 console.log("请求结果=",res.data.openid);
                                 let openid1= res.data.openid
+                                this.props.user.openid=res.data.openid
                                 console.log("传递的",openid1);
                                 Taro.request({
                                     // url: 'https://www.fastmock.site/mock/4ea260afef1e26407be34bf87c61cdf7/login/loginIP', //仅为示例，并非真实的接口地址
@@ -133,14 +137,14 @@ class Index extends Component {
                                     },
                                     header: {
                                         'content-type': 'application/json' // 默认值
-                                    },
-                                    success: function (res) {
-                                        console.log(res)
                                     }
-                                })
-                                return openid1
-                            }
-                        })
+                                }).then(res=>{
+                                        setTimeout(()=>{
+                                            console.log("测试是否已经传进去数值："+this.props.user.openid)
+                                        },1000)
+                                    }
+                                )
+                            })
                     }
                 })
                 this.setState({
