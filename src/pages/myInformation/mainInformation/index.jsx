@@ -64,6 +64,7 @@ class Index extends Component {
 
     identificationRecordsSkip = () => {
         // ’体质辨识记录‘页面跳转
+
         this.props.findResult(this.props.user.openid);
         Taro.navigateTo({
             // url: '/pages/myInformation/identificationRecords/index'

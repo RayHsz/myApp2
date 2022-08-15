@@ -42,12 +42,13 @@ class HospitalList extends Component {
     }
     onChange2= e =>{
         this.setState({
-            text1: e.detail.value
+            idcard_number: e.detail.value
         })
     }
     onChange3= e =>{
         this.setState({
-            text1: e.detail.value
+
+            phone_number: e.detail.value
         })
     }
 
